@@ -1,5 +1,4 @@
 const express = require('express');
-const path = require('path');
 const app = express();
 const { MongoClient } = require('mongodb');
 const PORT = 3000;
@@ -21,9 +20,6 @@ client.connect()
 // Middleware to parse JSON
 app.use(express.json());
 
-// Serve static files from the frontend folder
-app.use(express.static(path.join(__dirname, '../frontend')));
-
 // API endpoint to get resume data
 app.get('/api/resume', async (req, res) => {
   try {
@@ -34,10 +30,6 @@ app.get('/api/resume', async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch resume data' });
   }
-});
-
-app.get('/', (req, res) => {
-  res.send('Hello World!');
 });
 
 app.listen(PORT, () => {
