@@ -1,6 +1,6 @@
 const { MongoClient } = require('mongodb');
 
-const mongoURL = 'mongodb://localhost:27017';
+const mongoURL = process.env.MONGO_URL || 'mongodb://localhost:27017';
 const client = new MongoClient(mongoURL);
 const dbName = 'resumeDB';
 
