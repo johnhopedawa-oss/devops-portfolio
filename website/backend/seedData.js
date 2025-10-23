@@ -7,7 +7,7 @@ const dbName = 'resumeDB';
 const resumeData = {
   name: "John Hope Dawa",
   title: "DevOps Engineer",
-  email: "your-email@example.com", // add your real email
+  email: "johnhope.dawa@gmail.com", // add your real email
   location: "Coquitlam, BC",
   summary: "Building overengineered solutions with Docker, Kubernetes, and way too many monitoring tools.",
   skills: ["Docker", "Kubernetes", "K3s", "Terraform", "GitHub Actions", "Linux", "Python", "Node.js", "MongoDB"],

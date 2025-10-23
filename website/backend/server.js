@@ -8,15 +8,29 @@ const mongoURL = process.env.MONGO_URL || 'mongodb://localhost:27017';
 const client = new MongoClient(mongoURL);
 const dbName = 'resumeDB';
 
+
 // Connect to MongoDB
 client.connect()
-  .then(() => {
+  .then(async () => {
     console.log('Connected to MongoDB!');
+    
+    const db = client.db(dbName);
+    const count = await db.collection('resume').countDocuments();
+    
+    if (count === 0) {
+      console.log('Database empty, seeding data...');
+      const resumeData = {
+        name: "John Hope Dawa",
+        title: "DevOps Engineer",
+        // ... copy your full resumeData from seedData.js
+      };
+      await db.collection('resume').insertOne(resumeData);
+      console.log('Seed complete!');
+    }
   })
   .catch(err => {
     console.error('MongoDB connection error:', err);
   });
-
 // Middleware to parse JSON
 app.use(express.json());
 
