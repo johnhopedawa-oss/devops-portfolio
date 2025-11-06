@@ -5,7 +5,7 @@ services:
    networks:
     - backend
    ports:
-   - "3000:80"
+   - "80:80"
    volumes:
     - ./website/frontend/public:/usr/share/nginx/html:ro
    depends_on:
