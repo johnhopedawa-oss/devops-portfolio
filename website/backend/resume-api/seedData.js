@@ -5,10 +5,10 @@ const client = new MongoClient(mongoURL);
 const dbName = 'resumeDB';
 
 const resumeData = {
-  name: "John Hope Dawa",
+  name: process.env.USER_NAME || "John Hope Dawa",
   title: "DevOps Engineer",
-  email: "johnhope.dawa@gmail.com", // add your real email
-  location: "Coquitlam, BC",
+  email: process.env.USER_EMAIL || "your.email@example.com",
+  location: process.env.USER_LOCATION || "Coquitlam, BC",
   summary: "Building overengineered solutions with Docker, Kubernetes, and way too many monitoring tools.",
   skills: ["Docker", "Kubernetes", "K3s", "Terraform", "GitHub Actions", "Linux", "Python", "Node.js", "MongoDB"],
   experience: [

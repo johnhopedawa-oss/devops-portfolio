@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>John Hope Dawa - DevOps Engineer</title>
+
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/resume.html">Resume</a></li>
+            <li><a href="/contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="hero">
+
+        <h1>Overengineered</h1>
+
+        <p class="subtitle">Because why use one tool when you can use twelve?</p>
+
+        <div class="tech-stack">
+            <p>Infrastructure automated and monitored with:</p>
+            <p>&nbsp;</p>
+            <p><strong>Docker, Kubernetes, Jenkins, Prometheus, Grafana, Terraform, Ansible, GitHub.</strong></p>
+            <p>Staged on a local <strong>Linux K3s</strong> cluster, deployed to <strong>GCP</strong>.</p>
+            <p>&nbsp;</p>
+            <p>Running on a Node.js + MongoDB + Nginx stack.</p>
+        </div>
+
+        <div class="tech-logos">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker" title="Docker">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" alt="Kubernetes" title="Kubernetes">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg" alt="Jenkins" title="Jenkins">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prometheus/prometheus-original.svg" alt="Prometheus" title="Prometheus">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/grafana/grafana-original.svg" alt="Grafana" title="Grafana">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg" alt="Terraform" title="Terraform">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ansible/ansible-original.svg" alt="Ansible" title="Ansible">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" title="GitHub">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux" title="Linux">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg" alt="Google Cloud" title="Google Cloud Platform">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js" title="Node.js">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB" title="MongoDB">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nginx/nginx-original.svg" alt="Nginx" title="Nginx">
+        </div>
+        <p class="author">by John Hope Dawa</p>
+        <p><i> DevOps Engineer</i></p>
+
+        <p></p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+
+        <div class="tech-stack">
+            <p>> Hosted on: Google Cloud Platform (GCP)</p>
+            <p>> Monitored by: Prometheus + Grafana</p>
+            <p>> CI/CD Pipeline: GitHub Actions</p>
+            <p>> Testing: Linux K3s Cluster → Production GCP</p>
+            <p>> Infrastructure: Docker, Kubernetes, Terraform, Ansible</p>
+            <p>> Stack: Node.js + MongoDB + Nginx</p>
+        </div>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - John Hope Dawa</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/resume.html">Resume</a></li>
+            <li><a href="/contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="hero">
+        <h1>Contact</h1>
+        <div class="tech-stack" id="contact-info">
+            <p>Loading contact information...</p>
+        </div>
+    </div>
+
+    <script>
+        // Fetch contact info from API
+        fetch('/api/resume')
+            .then(response => response.json())
+            .then(data => {
+                const contactDiv = document.getElementById('contact-info');
+                contactDiv.innerHTML = `
+                    <p>Email: ${data.email}</p>
+                    <p>Location: ${data.location}</p>
+                    <p>GitHub: github.com/johnhopedawa</p>
+                    <p>LinkedIn: linkedin.com/in/johnhopedawa</p>
+                `;
+            })
+            .catch(error => {
+                console.error('Error loading contact info:', error);
+                document.getElementById('contact-info').innerHTML = '<p>Error loading contact information</p>';
+            });
+    </script>
+</body>
+</html>

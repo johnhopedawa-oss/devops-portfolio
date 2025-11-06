@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>John Hope Dawa - DevOps Engineer</title>
+    
+</head>
+<body>
+    <script>
+        function toggleArchitecture() {
+            const content = document.getElementById('architectureContent');
+            const button = document.querySelector('.architecture-toggle');
+
+            content.classList.toggle('show');
+            button.classList.toggle('active');
+        }
+
+        function openModal(title, content) {
+            const modal = document.getElementById('statModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalContent = document.getElementById('modalContent');
+
+            modalTitle.textContent = title;
+            modalContent.innerHTML = content;
+            modal.classList.add('show');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('statModal');
+            modal.classList.remove('show');
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('statModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    </script>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/resume.html">Resume</a></li>
+            <li><a href="/contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="hero">
+
+        <div class="docker-container-wrapper">
+            <div class="stacked-containers">
+                <div class="mini-container"></div>
+                <div class="mini-container"></div>
+                <div class="mini-container"></div>
+                <div class="mini-container"></div>
+            </div>
+            <div class="docker-container">
+                <img src="whale_tail_transparent_light_outline.png" alt="whale tail" class="whale-tail">
+                <div class="docker-content">
+                    <div class="docker-text">
+                        <h1>Overengineered</h1>
+                        <p class="subtitle">Because why use one tool when you can use twelve?</p>
+                        <p class="intro-text"><span class="highlight-note">This portfolio website</span> is intentionally over-architected to demonstrate enterprise-grade DevOps practices, cloud infrastructure, and automation capabilities.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card" onclick="openModal('13 Technologies', '<div class=tech-grid-modal><div class=tech-item-modal><img src=https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg><span>Docker</span></div><div class=tech-item-modal><img src=https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg><span>Kubernetes</span></div><div class=tech-item-modal><img src=https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg><span>Jenkins</span></div><div class=tech-item-modal><img src=https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prometheus/prometheus-original.svg><span>Prometheus</span></div><div class=tech-item-modal><img src=https://cdn.jsdelivr.net/gh/devicons/devicon/icons/grafana/grafana-original.svg><span>Grafana</span></div><div class=tech-item-modal><img src=https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg><span>Terraform</span></div><div class=tech-item-modal><img src=https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ansible/ansible-original.svg><span>Ansible</span></div><div class=tech-item-modal><img src=https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg><span>GitHub</span></div><div class=tech-item-modal><img src=https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg><span>Linux</span></div><div class=tech-item-modal><img src=https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg><span>GCP</span></div><div class=tech-item-modal><img src=https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg><span>Node.js</span></div><div class=tech-item-modal><img src=https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg><span>MongoDB</span></div><div class=tech-item-modal><img src=https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nginx/nginx-original.svg><span>Nginx</span></div></div>')">
+                <div class="stat-number">13</div>
+                <div class="stat-label">Technologies</div>
+            </div>
+            <div class="stat-card" onclick="openModal('3-Tier Architecture', '<div class=modal-tier><div class=tier-item><strong>Presentation Layer</strong><p>Nginx serving static HTML, CSS, and JavaScript files</p></div><div class=tier-item><strong>Application Layer</strong><p>Node.js + Express REST API server</p></div><div class=tier-item><strong>Data Layer</strong><p>MongoDB NoSQL database for persistent storage</p></div></div>')">
+                <div class="stat-number">3</div>
+                <div class="stat-label">Tier Architecture</div>
+            </div>
+            <div class="stat-card" onclick="openModal('3 Containers', '<div class=modal-tier><div class=tier-item><strong>nginx</strong><p>Frontend web server on port 3000</p></div><div class=tier-item><strong>resume-api</strong><p>Backend API server with Express</p></div><div class=tier-item><strong>mongodb</strong><p>Database instance on port 27017</p></div></div>')">
+                <div class="stat-number">3</div>
+                <div class="stat-label">Containers</div>
+            </div>
+            <div class="stat-card" onclick="openModal('2 Networks', '<div class=modal-tier><div class=tier-item><strong>backend network</strong><p>Connects nginx ↔ resume-api<br>Handles HTTP traffic between frontend and API</p></div><div class=tier-item><strong>resume-api network</strong><p>Connects resume-api ↔ mongodb<br>Isolated database communication layer</p></div></div><p style=margin-top:20px;color:#666;>Network segmentation ensures security and isolation between services</p>')">
+                <div class="stat-number">2</div>
+                <div class="stat-label">Networks</div>
+            </div>
+            <div class="stat-card" onclick="openModal('1 API Endpoint', '<div class=modal-tier><div class=tier-item><strong>GET /api/resume</strong><p>Returns complete resume data from MongoDB</p><p>Proxied through Nginx to Node.js backend</p><p style=margin-top:15px;padding:10px;background:#0c0c0c;border-radius:4px;font-family:monospace;font-size:13px;color:#00ff00;>curl http://localhost:3000/api/resume</p></div></div>')">
+                <div class="stat-number">1</div>
+                <div class="stat-label">API Endpoint</div>
+            </div>
+            <div class="stat-card" onclick="openModal('99.9% Uptime', '<div class=modal-tier><div class=tier-item><strong>Monitoring</strong><p>Real-time metrics collected with Prometheus</p><p>Visualized through Grafana dashboards</p></div><div class=tier-item><strong>Health Checks</strong><p>Automated service health monitoring</p><p>Instant alerts on failures</p></div><div class=tier-item><strong>Recovery</strong><p>Automated failover mechanisms</p><p>Self-healing container orchestration</p></div></div>')">
+                <div class="stat-number">N/A</div>
+                <div class="stat-label">Pods running</div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div id="statModal" class="modal">
+            <div class="modal-content">
+                <span class="modal-close" onclick="closeModal()">&times;</span>
+                <h2 id="modalTitle"></h2>
+                <div id="modalContent"></div>
+            </div>
+        </div>
+
+        <div class="architecture-section">
+            <button class="architecture-toggle" onclick="toggleArchitecture()">
+                <span class="toggle-icon">▼</span>
+                Click to see the architecture
+            </button>
+            <div class="architecture-content" id="architectureContent">
+                <div class="architecture-grid">
+                    <div class="arch-card frontend">
+                        <h4>Frontend Layer</h4>
+                        <div class="arch-detail">
+                            <strong>Nginx</strong>
+                            <p>Port: 3000 → 80</p>
+                            <p>Serves static HTML/CSS/JS</p>
+                            <p>Reverse proxy to backend</p>
+                        </div>
+                    </div>
+                    <div class="arch-card backend">
+                        <h4>Backend Layer</h4>
+                        <div class="arch-detail">
+                            <strong>Node.js + Express</strong>
+                            <p>REST API Server</p>
+                            <p>Endpoint: /api/resume</p>
+                            <p>Connects to MongoDB</p>
+                        </div>
+                    </div>
+                    <div class="arch-card database">
+                        <h4>Database Layer</h4>
+                        <div class="arch-detail">
+                            <strong>MongoDB</strong>
+                            <p>Port: 27017</p>
+                            <p>Stores resume data</p>
+                            <p>NoSQL document store</p>
+                        </div>
+                    </div>
+                    <div class="arch-card network">
+                        <h4>Network: backend</h4>
+                        <div class="arch-detail">
+                            <p>Connects: nginx ↔ resume-api</p>
+                            <p>Handles HTTP traffic</p>
+                        </div>
+                    </div>
+                    <div class="arch-card network">
+                        <h4>Network: resume-api</h4>
+                        <div class="arch-detail">
+                            <p>Connects: resume-api ↔ mongodb</p>
+                            <p>Database communication</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="architecture-note">
+                    <p><strong>Yes, this is overkill for a resume website.</strong></p>
+                    <p>That's the whole point. 🎯</p>
+                </div> -->
+            </div>
+        </div>
+
+
+        <div class="cta-section">
+            <a href="/resume.html" class="cta-button primary">View My Resume</a>
+            <a href="https://github.com" class="cta-button secondary" target="_blank">View on GitHub</a>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>Multi-Container Architecture</h3>
+                <p>Nginx reverse proxy, Node.js API, and MongoDB database orchestrated with Docker Compose</p>
+            </div>
+            <div class="feature-card">
+                <h3>Infrastructure as Code</h3>
+                <p>Terraform for provisioning, Ansible for configuration management, all version controlled</p>
+            </div>
+            <div class="feature-card">
+                <h3>CI/CD Pipeline</h3>
+                <p>Automated testing and deployment with Jenkins and GitHub Actions</p>
+            </div>
+            <div class="feature-card">
+                <h3>Observability</h3>
+                <p>Full monitoring stack with Prometheus metrics and Grafana dashboards</p>
+            </div>
+        </div>
+
+        <div class="author-section">
+            <p class="author">John Hope Dawa</p>
+            <p class="role">DevOps Engineer</p>
+        </div>
+    </div>
+
+</body>
+</html>
