@@ -1,68 +1,545 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>John Hope Dawa - DevOps Engineer</title>
-
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>John Hope Dawa — DevOps Engineer</title>
+  <link rel="icon" type="image/svg+xml" href="assets/images/jd-logo.svg" />
+  <link rel="stylesheet" href="styles.css?v=11.74" />
 </head>
 <body>
-    <nav>
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/resume.html">Resume</a></li>
-            <li><a href="/contact.html">Contact</a></li>
-        </ul>
-    </nav>
+  <!-- Sticky Header -->
+  <header class="site-header" role="banner">
+    <div class="header-inner container">
+      <nav class="header-actions" aria-label="Primary">
+        <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="drawer">Menu</button>
+      </nav>
+    </div>
+  </header>
 
-    <div class="hero">
+  <!-- Full-screen Drawer -->
+  <div id="drawer" class="drawer" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="drawer-overlay" data-close></div>
+    <div class="drawer-panel" role="document">
+      <div class="drawer-header">
+        <h2>Infrastructure Dashboard</h2>
+        <button class="drawer-close" aria-label="Close menu" data-close>✕</button>
+      </div>
 
-        <h1>Overengineered</h1>
-
-        <p class="subtitle">Because why use one tool when you can use twelve?</p>
-
-        <div class="tech-stack">
-            <p>Infrastructure automated and monitored with:</p>
-            <p>&nbsp;</p>
-            <p><strong>Docker, Kubernetes, Jenkins, Prometheus, Grafana, Terraform, Ansible, GitHub.</strong></p>
-            <p>Staged on a local <strong>Linux K3s</strong> cluster, deployed to <strong>GCP</strong>.</p>
-            <p>&nbsp;</p>
-            <p>Running on a Node.js + MongoDB + Nginx stack.</p>
+      <div class="drawer-list" id="drawerList">
+        <div class="drawer-search">
+          <input id="drawerSearch" type="search" placeholder="Search services and infrastructure..." aria-label="Search services" />
         </div>
 
-        <div class="tech-logos">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker" title="Docker">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" alt="Kubernetes" title="Kubernetes">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg" alt="Jenkins" title="Jenkins">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prometheus/prometheus-original.svg" alt="Prometheus" title="Prometheus">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/grafana/grafana-original.svg" alt="Grafana" title="Grafana">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg" alt="Terraform" title="Terraform">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ansible/ansible-original.svg" alt="Ansible" title="Ansible">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" title="GitHub">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux" title="Linux">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg" alt="Google Cloud" title="Google Cloud Platform">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js" title="Node.js">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB" title="MongoDB">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nginx/nginx-original.svg" alt="Nginx" title="Nginx">
+        <div class="drawer-filters" role="toolbar" aria-label="Filters">
+          <button class="chip chip-active" data-filter="all">All</button>
+          <button class="chip" data-filter="services">Services</button>
+          <button class="chip" data-filter="infrastructure">Infrastructure</button>
+          <button class="chip" data-filter="monitoring">Monitoring</button>
+          <button class="chip" data-filter="cicd">CI/CD</button>
         </div>
-        <p class="author">by John Hope Dawa</p>
-        <p><i> DevOps Engineer</i></p>
-
-        <p></p>
-        <p>&nbsp;</p>
-        <p>&nbsp;</p>
-
-        <div class="tech-stack">
-            <p>> Hosted on: Google Cloud Platform (GCP)</p>
-            <p>> Monitored by: Prometheus + Grafana</p>
-            <p>> CI/CD Pipeline: GitHub Actions</p>
-            <p>> Testing: Linux K3s Cluster → Production GCP</p>
-            <p>> Infrastructure: Docker, Kubernetes, Terraform, Ansible</p>
-            <p>> Stack: Node.js + MongoDB + Nginx</p>
+        <div class="group" data-group="infrastructure">
+          <div class="group-title">Infrastructure</div>
+          <a href="#" class="item" data-tags="infrastructure" tabindex="0">
+            <span class="left"><span class="dot healthy"></span> Local Kubernetes Cluster</span><span class="env">running</span>
+          </a>
+          <a href="#" class="item" data-tags="infrastructure" tabindex="0">
+            <span class="left"><span class="dot healthy"></span> Google Cloud Platform</span><span class="env">standby</span>
+          </a>
+          <a href="#" class="item" data-tags="infrastructure" tabindex="0">
+            <span class="left"><span class="dot healthy"></span> NGINX Ingress Controller</span><span class="env">live</span>
+          </a>
         </div>
 
+        <div class="group" data-group="monitoring">
+          <div class="group-title">Monitoring & Observability</div>
+          <a href="#" class="item" data-tags="monitoring" tabindex="0">
+            <span class="left"><span class="dot healthy"></span> Grafana Dashboards</span><span class="env">live</span>
+          </a>
+          <a href="#" class="item" data-tags="monitoring" tabindex="0">
+            <span class="left"><span class="dot healthy"></span> Prometheus Metrics</span><span class="env">live</span>
+          </a>
+        </div>
+
+        <div class="group" data-group="cicd">
+          <div class="group-title">CI/CD Pipeline</div>
+          <a href="#" class="item" data-tags="cicd" tabindex="0">
+            <span class="left"><span class="dot healthy"></span> GitHub Actions</span><span class="env">active</span>
+          </a>
+          <a href="#" class="item" data-tags="cicd" tabindex="0">
+            <span class="left"><span class="dot warn"></span> Jenkins</span><span class="env">dev</span>
+          </a>
+        </div>
+
+        <div class="group" data-group="services">
+          <div class="group-title">Application Services</div>
+          <a href="#" class="item" data-tags="services" tabindex="0">
+            <span class="left"><span class="dot healthy"></span> Portfolio Website</span><span class="env">live</span>
+          </a>
+          <a href="#" class="item" data-tags="services" tabindex="0">
+            <span class="left"><span class="dot healthy"></span> Resume Service</span><span class="env">live</span>
+          </a>
+        </div>
+
+        <div class="drawer-footer">
+          <span class="muted">8 Services Online • Infrastructure Healthy • Last Updated: Just Now</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tech Modal -->
+  <div id="techModal" class="tech-modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="tech-modal-overlay" data-close-modal></div>
+    <div class="tech-modal-content" role="document">
+      <div class="tech-modal-header">
+        <h2 id="techModalTitle">Technology</h2>
+        <button class="tech-modal-close" aria-label="Close" data-close-modal>✕</button>
+      </div>
+      <div id="techModalBody">
+        <!-- Content will be inserted here by JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-main">
+        <div class="hero-left">
+          <h1 class="hero-name">John Hope Dawa</h1>
+          <div class="hero-role">DevOps Engineer</div>
+          <p class="tagline">"Because why use one tool when you can use twelve?"</p>
+          <div class="hero-cta">
+            <a href="resume.html" class="cta-primary">Resume</a>
+            <a href="https://github.com/johnhopedawa" target="_blank" rel="noopener" class="cta-secondary">GitHub</a>
+            <a href="contact.html" class="cta-secondary">Contact</a>
+          </div>
+        </div>
+        <div class="info-box">
+          <h2>This Site is Over-Engineered. <br>On Purpose.</h2>
+          <p>A working DevOps portfolio: orchestrated on Kubernetes, containerized services, automated delivery pipelines, full‑stack monitoring.</p>
+          <p>Over‑engineered by design. Reliable by default ✅</p>
+       </div>
+      </div>
+
+      <div class="tech-divider"></div>
+
+      <div class="tech-stack-label">This website runs on:</div>
+
+      <div class="hero-stack-grid">
+        <div class="hero-stack-item" data-tech="docker">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker">
+          <div class="name">Docker</div>
+        </div>
+        <div class="hero-stack-item" data-tech="kubernetes">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" alt="Kubernetes">
+          <div class="name">Kubernetes</div>
+        </div>
+        <div class="hero-stack-item" data-tech="terraform">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg" alt="Terraform">
+          <div class="name">Terraform</div>
+        </div>
+        <div class="hero-stack-item" data-tech="gcp">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg" alt="GCP">
+          <div class="name">GCP</div>
+        </div>
+        <div class="hero-stack-item" data-tech="jenkins">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg" alt="Jenkins">
+          <div class="name">Jenkins</div>
+        </div>
+        <div class="hero-stack-item" data-tech="prometheus">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prometheus/prometheus-original.svg" alt="Prometheus">
+          <div class="name">Prometheus</div>
+        </div>
+        <div class="hero-stack-item" data-tech="grafana">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/grafana/grafana-original.svg" alt="Grafana">
+          <div class="name">Grafana</div>
+        </div>
+        <div class="hero-stack-item" data-tech="ansible">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ansible/ansible-original.svg" alt="Ansible">
+          <div class="name">Ansible</div>
+        </div>
+        <div class="hero-stack-item" data-tech="githubactions">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/githubactions/githubactions-original.svg" alt="GitHub Actions">
+          <div class="name">GitHub Actions</div>
+        </div>
+        <div class="hero-stack-item" data-tech="linux">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux">
+          <div class="name">Linux</div>
+        </div>
+      </div>
+
+      <div class="tech-hint-wrapper">
+        <span class="stack-hint">Click any icon for details</span>
+      </div>
+    </section>
+
+    <!-- Application Stack -->
+    <div class="stack-section">
+      <div class="stack-header">
+        <span class="stack-title">APPLICATION STACK</span>
+      </div>
+      <div class="tech-grid" id="app-stack-grid">
+      <div class="tech-item" data-tech="nginx">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nginx/nginx-original.svg" alt="NGINX">
+        <div class="name">NGINX</div>
+      </div>
+      <div class="tech-item" data-tech="nodejs">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js">
+        <div class="name">Node.js</div>
+      </div>
+      <div class="tech-item" data-tech="mongodb">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB">
+        <div class="name">MongoDB</div>
+      </div>
+      </div>
     </div>
 
+    <!-- About This Site -->
+    <div class="info-box">
+      <h2>This Site is Over-Engineered. On Purpose.</h2>
+      <p>This portfolio website runs on the <strong>exact tech stack</strong> listed above.</p>
+      <p>🐳 <strong>Containerized</strong> with Docker and orchestrated with Kubernetes (K3s)</p>
+      <p>🚀 <strong>CI/CD Pipeline</strong> using GitHub Actions and Jenkins</p>
+      <p>📊 <strong>Monitored</strong> with Prometheus and visualized in Grafana dashboards</p>
+      <p>☁️ <strong>Infrastructure as Code</strong> using Terraform and Ansible</p>
+      <p>🔧 <strong>Stack:</strong> NGINX reverse proxy → Node.js/Express API → MongoDB database</p>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats">
+      <div class="stat-card">
+        <div class="number">13+</div>
+        <div class="label">Technologies</div>
+      </div>
+      <div class="stat-card">
+        <div class="number">3</div>
+        <div class="label">Containers</div>
+      </div>
+      <div class="stat-card">
+        <div class="number">99.9%</div>
+        <div class="label">Uptime</div>
+      </div>
+      <div class="stat-card">
+        <div class="number">100%</div>
+        <div class="label">Automated</div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>Vancouver, BC • Available for DevOps/SRE roles • Open to remote</p>
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    const header = document.querySelector('.site-header');
+    const menuBtn = document.getElementById('menuBtn');
+    const drawer = document.getElementById('drawer');
+    const overlay = drawer.querySelector('.drawer-overlay');
+    const closeBtns = drawer.querySelectorAll('[data-close]');
+    const search = document.getElementById('drawerSearch');
+    const chips = Array.from(drawer.querySelectorAll('.chip'));
+    const items = Array.from(drawer.querySelectorAll('.item'));
+    const drawerList = document.getElementById('drawerList');
+    const drawerFilters = drawer.querySelector('.drawer-filters');
+
+    // Sticky header auto-hide on scroll
+    let lastY = window.scrollY, ticking = false;
+    function onScroll(){
+      const y = window.scrollY, d = y - lastY;
+      if (Math.abs(d) > 8){
+        if (y > 80 && d > 0) header.classList.add('hidden');
+        else header.classList.remove('hidden');
+        lastY = y;
+      }
+      // Always show header when at top
+      if (y < 10) header.classList.remove('hidden');
+      ticking = false;
+    }
+    window.addEventListener('scroll', ()=>{ if(!ticking){ requestAnimationFrame(onScroll); ticking = true; } }, {passive:true});
+
+    // Drawer open/close
+    function openDrawer(){
+      drawer.classList.add('open'); document.body.classList.add('no-scroll');
+      menuBtn.setAttribute('aria-expanded','true'); drawer.setAttribute('aria-hidden','false');
+    }
+    function closeDrawer(){
+      drawer.classList.remove('open'); document.body.classList.remove('no-scroll');
+      menuBtn.setAttribute('aria-expanded','false'); drawer.setAttribute('aria-hidden','true');
+      menuBtn.focus();
+    }
+    menuBtn.addEventListener('click', openDrawer);
+    overlay.addEventListener('click', closeDrawer);
+    closeBtns.forEach(b=>b.addEventListener('click', closeDrawer));
+    document.addEventListener('keydown', (e)=>{
+      if (e.key === 'Escape' && drawer.classList.contains('open')) closeDrawer();
+      const key = e.key.toLowerCase();
+      if ((key === 'k' && (e.ctrlKey || e.metaKey)) || key === 'm'){
+        e.preventDefault();
+        drawer.classList.contains('open') ? closeDrawer() : openDrawer();
+      }
+    });
+
+    // Simple filter + search
+    chips.forEach(ch => ch.addEventListener('click', ()=>{
+      chips.forEach(c=>c.classList.remove('chip-active'));
+      ch.classList.add('chip-active');
+      applyFilter();
+    }));
+    search.addEventListener('input', applyFilter);
+    function applyFilter(){
+      const active = drawer.querySelector('.chip.chip-active')?.dataset.filter || 'all';
+      const q = (search.value || '').toLowerCase().trim();
+      items.forEach(it=>{
+        const tags = (it.dataset.tags || '');
+        const text = it.textContent.toLowerCase();
+        const matchTag = active === 'all' || tags.includes(active);
+        const matchText = !q || text.includes(q);
+        it.style.display = (matchTag && matchText) ? '' : 'none';
+      });
+    }
+
+    // No scroll animations - keep it simple and stable
+
+    // Tech Modal
+    const techModal = document.getElementById('techModal');
+    const techModalTitle = document.getElementById('techModalTitle');
+    const techModalBody = document.getElementById('techModalBody');
+    const techModalCloseBtns = techModal.querySelectorAll('[data-close-modal]');
+
+    function openTechModal(tech){
+      const content = getTechContent(tech);
+      techModalTitle.textContent = content.title;
+      techModalBody.innerHTML = content.body;
+      techModal.classList.add('open');
+      document.body.classList.add('no-scroll');
+      techModal.setAttribute('aria-hidden','false');
+      // Scroll modal content to top
+      const modalContent = techModal.querySelector('.tech-modal-content');
+      if(modalContent) modalContent.scrollTop = 0;
+    }
+
+    function closeTechModal(){
+      techModal.classList.remove('open');
+      document.body.classList.remove('no-scroll');
+      techModal.setAttribute('aria-hidden','true');
+    }
+
+    techModalCloseBtns.forEach(b=>b.addEventListener('click', closeTechModal));
+    document.addEventListener('keydown', (e)=>{
+      if (e.key === 'Escape' && techModal.classList.contains('open')) closeTechModal();
+    });
+
+    // Add click handlers to all tech items (both hero and full grid)
+    document.querySelectorAll('.tech-item[data-tech], .hero-stack-item[data-tech]').forEach(item=>{
+      item.addEventListener('click', ()=>{
+        const tech = item.dataset.tech;
+        openTechModal(tech);
+      });
+    });
+
+    // Tech content generator
+    function getTechContent(tech){
+      const contents = {
+        docker: {
+          title: 'Docker',
+          body: `
+            <div class="tech-modal-section">
+              <h3>How It's Used On This Site</h3>
+              <p>All services in this portfolio are containerized using Docker and automatically pushed to my public Docker repository. Those exact same images are pulled by my kubernetes cluster and pushed to.. what you see now!</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>Docker Hub Repository</h3>
+              <p>View my public Docker images: <a href="https://hub.docker.com/u/johnhopedawa" target="_blank" rel="noopener">hub.docker.com/u/johnhopedawa</a></p>
+              <p><em>Note: Images for this project are published, and ready for you to view.</em></p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>Docker Compose Configuration</h3>
+              <p>This entire stack is currently orchestrated using docker-compose:</p>
+              <div class="tech-modal-code"><pre>services:
+
+  nginx:
+   build: ./website/frontend
+   networks:
+    - backend
+   ports:
+   - "80:80"
+   volumes:
+    - ./website/frontend/public:/usr/share/nginx/html:ro
+   depends_on:
+    - resume-api
+
+  resume-api:
+   build: ./website/backend/resume-api
+   env_file:
+    - .env
+   environment:
+    - MONGO_URL=\${MONGO_URL}
+    - USER_EMAIL=\${USER_EMAIL}
+    - USER_NAME=\${USER_NAME}
+    - USER_LOCATION=\${USER_LOCATION}
+    - USER_PHONE=\${USER_PHONE}
+   networks:
+    - resume-api
+    - backend
+   volumes:
+    - ./website/backend/resume-api:/app:ro
+    - /app/node_modules
+
+  mongodb:
+   image: mongo:8
+   networks:
+    - resume-api
+
+networks:
+ backend:
+  driver: bridge
+ resume-api:
+  driver: bridge</pre></div>
+            </div>
+          `
+        },
+        kubernetes: {
+          title: 'Kubernetes (K3s)',
+          body: `
+            <div class="tech-modal-section">
+              <h3>How It's Used</h3>
+              <p>Running on a lightweight K3s cluster for container orchestration, providing high availability and scalability.</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>Cluster Details</h3>
+              <p>• <strong>Distribution:</strong> K3s (Lightweight Kubernetes)</p>
+              <p>• <strong>Environment:</strong> Local development cluster</p>
+              <p>• <strong>Services:</strong> 3 containerized services</p>
+              <p>• <strong>Networking:</strong> NGINX Ingress Controller</p>
+            </div>
+          `
+        },
+        prometheus: {
+          title: 'Prometheus',
+          body: `
+            <div class="tech-modal-section">
+              <h3>How It's Used</h3>
+              <p>Collecting metrics from all services for monitoring and alerting. Integrated with Grafana for visualization.</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>Live Metrics</h3>
+              <p><em>Prometheus metrics dashboard integration coming soon</em></p>
+            </div>
+          `
+        },
+        grafana: {
+          title: 'Grafana',
+          body: `
+            <div class="tech-modal-section">
+              <h3>How It's Used</h3>
+              <p>Visualizing Prometheus metrics through custom dashboards. Monitoring system health, response times, and resource usage.</p>
+            </div>
+          `
+        },
+        terraform: {
+          title: 'Terraform',
+          body: `
+            <div class="tech-modal-section">
+              <h3>How It's Used</h3>
+              <p>Infrastructure as Code (IaC) for provisioning and managing cloud resources on GCP.</p>
+            </div>
+          `
+        },
+        ansible: {
+          title: 'Ansible',
+          body: `
+            <div class="tech-modal-section">
+              <h3>How It's Used</h3>
+              <p>Configuration management and automation for server provisioning and deployment tasks.</p>
+            </div>
+          `
+        },
+        jenkins: {
+          title: 'Jenkins',
+          body: `
+            <div class="tech-modal-section">
+              <h3>How It's Used</h3>
+              <p>CI/CD pipeline for automated testing and deployment (currently in development environment).</p>
+            </div>
+          `
+        },
+        gcp: {
+          title: 'Google Cloud Platform',
+          body: `
+            <div class="tech-modal-section">
+              <h3>How It's Used</h3>
+              <p>Cloud infrastructure on standby for hybrid deployment. Currently testing local K3s + GCP integration.</p>
+            </div>
+          `
+        },
+        linux: {
+          title: 'Linux',
+          body: `
+            <div class="tech-modal-section">
+              <h3>How It's Used</h3>
+              <p>All services run on Linux-based containers and infrastructure, leveraging the stability and flexibility of the Linux ecosystem.</p>
+            </div>
+          `
+        },
+        github: {
+          title: 'GitHub Actions',
+          body: `
+            <div class="tech-modal-section">
+              <h3>How It's Used</h3>
+              <p>Automated CI/CD workflows for testing, building, and deploying the application.</p>
+              <p>View the repository: <a href="https://github.com/johnhopedawa" target="_blank" rel="noopener">github.com/johnhopedawa</a></p>
+            </div>
+          `
+        },
+        githubactions: {
+          title: 'GitHub Actions',
+          body: `
+            <div class="tech-modal-section">
+              <h3>How It's Used</h3>
+              <p>Automated CI/CD workflows for testing, building, and deploying the application.</p>
+              <p>View the repository: <a href="https://github.com/johnhopedawa" target="_blank" rel="noopener">github.com/johnhopedawa</a></p>
+            </div>
+          `
+        },
+        nginx: {
+          title: 'NGINX',
+          body: `
+            <div class="tech-modal-section">
+              <h3>How It's Used</h3>
+              <p>Serving as the reverse proxy and web server, handling all incoming HTTP requests and routing them to the appropriate backend services.</p>
+            </div>
+          `
+        },
+        nodejs: {
+          title: 'Node.js',
+          body: `
+            <div class="tech-modal-section">
+              <h3>How It's Used</h3>
+              <p>Powers the backend API services, including the Resume API that dynamically serves portfolio data.</p>
+            </div>
+          `
+        },
+        mongodb: {
+          title: 'MongoDB',
+          body: `
+            <div class="tech-modal-section">
+              <h3>How It's Used</h3>
+              <p>NoSQL database storing portfolio content, resume data, and application metadata.</p>
+            </div>
+          `
+        }
+      };
+
+      return contents[tech] || {
+        title: 'Technology',
+        body: '<div class="tech-modal-section"><p>Details coming soon...</p></div>'
+      };
+    }
+  })();
+  </script>
 </body>
 </html>

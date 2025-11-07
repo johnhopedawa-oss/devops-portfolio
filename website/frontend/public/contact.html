@@ -4,20 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact - John Hope Dawa</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=8">
+    <link rel="icon" type="image/svg+xml" href="assets/images/jd-logo.svg" />
 </head>
 <body>
-    <nav>
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/resume.html">Resume</a></li>
-            <li><a href="/contact.html">Contact</a></li>
-        </ul>
-    </nav>
+    <div style="max-width: 800px; margin: 0 auto; padding: 20px 20px 0;">
+        <a href="index.html" class="back-link">← Back to Home</a>
+    </div>
 
-    <div class="hero">
+    <div class="contact-container">
         <h1>Contact</h1>
-        <div class="tech-stack" id="contact-info">
+        <div id="contact-info">
             <p>Loading contact information...</p>
         </div>
     </div>
@@ -29,10 +26,10 @@
             .then(data => {
                 const contactDiv = document.getElementById('contact-info');
                 contactDiv.innerHTML = `
-                    <p>Email: ${data.email}</p>
-                    <p>Location: ${data.location}</p>
-                    <p>GitHub: github.com/johnhopedawa</p>
-                    <p>LinkedIn: linkedin.com/in/johnhopedawa</p>
+                    <p>📧 Email: ${data.email}</p>
+                    <p>📍 Location: ${data.location}</p>
+                    <p>💻 GitHub: github.com/johnhopedawa</p>
+                    <p>💼 LinkedIn: linkedin.com/in/johnhopedawa</p>
                 `;
             })
             .catch(error => {
