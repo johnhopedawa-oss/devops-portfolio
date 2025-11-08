@@ -7,10 +7,32 @@ const dbName = 'resumeDB';
 const resumeData = {
   name: process.env.USER_NAME || "John Hope Dawa",
   title: "DevOps Engineer",
-  email: process.env.USER_EMAIL || "your.email@example.com",
+  email: process.env.USER_EMAIL || "johnhope.dawa@gmail.com",
+  phone: "778-751-3049",
   location: process.env.USER_LOCATION || "Coquitlam, BC",
-  summary: "Building overengineered solutions with Docker, Kubernetes, and way too many monitoring tools.",
-  skills: ["Docker", "Kubernetes", "K3s", "Terraform", "GitHub Actions", "Linux", "Python", "Node.js", "MongoDB"],
+  summary: "DevOps Engineer with a strong background in operational coordination, process improvement, and systems management. I focus on building production infrastructure, automating deployment workflows, and maintaining reliable environments for microservices-based platforms. I work with Docker, Kubernetes, CI/CD, Terraform, and cloud tooling. Outside of work, I'm building a fully containerized website in my spare time to see how far I can push modern infrastructure patterns.",
+  skills: [
+    "Docker",
+    "Kubernetes",
+    "Terraform",
+    "GitHub Actions",
+    "Jenkins",
+    "Helm",
+    "NGINX",
+    "Python",
+    "Bash",
+    "Node.js",
+    "Linux",
+    "Git",
+    "Prometheus",
+    "Grafana",
+    "MongoDB",
+    "GCP",
+    "Yardi Voyager",
+    "Rent Manager",
+    "RentCafe",
+    "Microsoft Office 365"
+  ],
   experience: [
     {
       company: "Snoogz Software",
@@ -18,26 +40,56 @@ const resumeData = {
       location: "Vancouver, BC",
       duration: "September 2025 – Present",
       responsibilities: [
-        "Built and maintained deployment infrastructure using Docker, Kubernetes(K8s) and Terraform",
-        "Automated CI/CD pipelines with GitHub Actions for container builds and cluster deployments",
-        "Managed application configurations and sensitive data with Kubernetes Secrets and ConfigMaps",
-        "Deployed and updated containerized applications across multiple environments for testing and production"
+        "Build and maintain production infrastructure and deployment systems for a microservices-based platform used across multiple international sites",
+        "Containerize services and manage image distribution using Docker and Docker Hub",
+        "Deploy and operate Kubernetes environments to support scaling, reliability, and repeatable rollouts",
+        "Create and maintain automated CI/CD pipelines using GitHub Actions and Jenkins",
+        "Manage infrastructure with Terraform to ensure consistent, reproducible environments",
+        "Maintain monitoring and alerting using Prometheus, Grafana, and Slack for real-time visibility",
+        "Improve release workflows and day-to-day development operations across the engineering team"
       ]
     },
     {
-      company: "Personal Homelab",
-      role: "Self Hosted Infrastructure",
+      company: "Parkbridge Lifestyle Communities Inc.",
+      role: "Assistant Property Manager",
       location: "Coquitlam, BC",
-      duration: "August 2025 – Present",
+      duration: "February 2025 – Present",
       responsibilities: [
-        "Building and maintaining a 3-node K3s cluster (2 Linux systems, 1 Raspberry Pi) running 24/7 for personal projects",
-        "Running and monitoring two Minecraft servers with liveness probes and health checks to ensure uptime",
-        "Developing and updating a Python Telegram app actively maintained within the cluster",
-        "Managing containerized workloads with Docker and Kubernetes, using Secrets, ConfigMaps, and persistent volumes"
+        "Coordinated large-scale operations across four communities (403 units), overseeing workflows, documentation, and issue resolution",
+        "Managed digital systems for communication, scheduling, record-keeping, and compliance, ensuring accurate, organized data across teams",
+        "Worked closely with technicians, vendors, and internal stakeholders to prioritize tasks, streamline processes, and maintain operational continuity",
+        "Led process improvements that reduced bottlenecks and increased clarity in day-to-day operations",
+        "Supported policy and compliance requirements by maintaining accurate documentation, structured procedures, and timely reporting"
+      ]
+    },
+    {
+      company: "Centurion Properties Associates",
+      role: "Resident Manager",
+      location: "Coquitlam, BC",
+      duration: "March 2023 – February 2025",
+      responsibilities: [
+        "Oversaw day-to-day building operations for 120 units, coordinating maintenance workflows, system checks, and communication between staff and management",
+        "Implemented structured inspection routines and data tracking to improve consistency in reporting and operational standards",
+        "Managed scheduling, task delegation, and performance follow-up for on-site and mobile staff",
+        "Maintained accurate financial and administrative records, ensuring smooth operations and timely issue resolution",
+        "Collaborated with leadership teams to analyze building performance and address operational priorities"
+      ]
+    },
+    {
+      company: "Hollyburn Properties Limited",
+      role: "Resident Manager / Relief Manager / Assistant Manager",
+      location: "Vancouver, BC",
+      duration: "April 2021 – February 2023",
+      responsibilities: [
+        "Managed operations across a large, multi-building portfolio (600+ units), coordinating maintenance teams and contractor workflows under tight timelines",
+        "Oversaw project-scale work such as renovations and turnover scheduling, ensuring deadlines, documentation, and quality standards were met",
+        "Maintained structured reporting, daily logs, and communication records to support operational transparency and compliance",
+        "Supported data tracking, system organization, and workflow refinement across multiple properties",
+        "Adapted communication and coordination strategies for varied teams and stakeholders, maintaining operational alignment across sites"
       ]
     }
   ],
-  interests: ["Rock Climbing", "Watching Stand-Up Comedy", "Running"]
+  interests: ["Rock Climbing", "Outdoor Activities", "Running", "Community Building"]
 };
 
 async function seedDatabase() {
