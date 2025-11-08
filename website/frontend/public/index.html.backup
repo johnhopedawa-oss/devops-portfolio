@@ -74,7 +74,7 @@
         <div class="group" data-group="services">
           <div class="group-title">Application Services</div>
           <a href="#" class="item" data-tags="services" tabindex="0">
-            <span class="left"><span class="dot healthy"></span> Portfolio Website</span><span class="env">live</span>
+            <span class="left"><span class="dot healthy"></span> Main Website</span><span class="env">live</span>
           </a>
           <a href="#" class="item" data-tags="services" tabindex="0">
             <span class="left"><span class="dot healthy"></span> Resume Service</span><span class="env">live</span>
@@ -118,7 +118,7 @@
         </div>
         <div class="info-box">
           <h2>This Site is Over-Engineered. <br>On Purpose.</h2>
-          <p>A working DevOps portfolio: orchestrated on Kubernetes, containerized services, automated delivery pipelines, full‑stack monitoring.</p>
+          <p>A working DevOps website: orchestrated on Kubernetes, containerized services, automated delivery pipelines, full‑stack monitoring.</p>
           <p>Over‑engineered by design. Reliable by default ✅</p>
        </div>
       </div>
@@ -199,7 +199,7 @@
     <!-- About This Site -->
     <div class="info-box">
       <h2>This Site is Over-Engineered. On Purpose.</h2>
-      <p>This portfolio website runs on the <strong>exact tech stack</strong> listed above.</p>
+      <p>This website runs on the <strong>exact tech stack</strong> listed above.</p>
       <p>🐳 <strong>Containerized</strong> with Docker and orchestrated with Kubernetes (K3s)</p>
       <p>🚀 <strong>CI/CD Pipeline</strong> using GitHub Actions and Jenkins</p>
       <p>📊 <strong>Monitored</strong> with Prometheus and visualized in Grafana dashboards</p>
@@ -349,7 +349,7 @@
           body: `
             <div class="tech-modal-section">
               <h3>How It's Used On This Site</h3>
-              <p>All services in this portfolio are containerized using Docker and automatically pushed to my public Docker repository. Those exact same images are pulled by my kubernetes cluster and pushed to.. what you see now!</p>
+              <p>All services for this website are containerized using Docker and automatically pushed to my public Docker repository. Those exact same images are pulled by my kubernetes cluster and pushed to.. what you see now!</p>
             </div>
             <div class="tech-modal-section">
               <h3>Docker Hub Repository</h3>
@@ -519,7 +519,7 @@ networks:
           body: `
             <div class="tech-modal-section">
               <h3>How It's Used</h3>
-              <p>Powers the backend API services, including the Resume API that dynamically serves portfolio data.</p>
+              <p>Powers the backend API services, including the Resume API that dynamically serves resume data.</p>
             </div>
           `
         },
@@ -528,7 +528,7 @@ networks:
           body: `
             <div class="tech-modal-section">
               <h3>How It's Used</h3>
-              <p>NoSQL database storing portfolio content, resume data, and application metadata.</p>
+              <p>NoSQL database storing website content, resume data, and application metadata.</p>
             </div>
           `
         }

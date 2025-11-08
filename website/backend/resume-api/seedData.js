@@ -37,7 +37,7 @@ const resumeData = {
       ]
     }
   ],
-  interests: ["Rock Climbing", "Stand-Up Comedy", "Running"]
+  interests: ["Rock Climbing", "Watching Stand-Up Comedy", "Running"]
 };
 
 async function seedDatabase() {

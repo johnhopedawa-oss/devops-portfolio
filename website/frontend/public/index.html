@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>John Hope Dawa — DevOps Engineer</title>
   <link rel="icon" type="image/svg+xml" href="assets/images/jd-logo.svg" />
-  <link rel="stylesheet" href="styles.css?v=11.74" />
+  <link rel="stylesheet" href="styles.css?v=11.9" />
 </head>
 <body>
   <!-- Sticky Header -->
@@ -74,7 +74,7 @@
         <div class="group" data-group="services">
           <div class="group-title">Application Services</div>
           <a href="#" class="item" data-tags="services" tabindex="0">
-            <span class="left"><span class="dot healthy"></span> Portfolio Website</span><span class="env">live</span>
+            <span class="left"><span class="dot healthy"></span> Main Website</span><span class="env">live</span>
           </a>
           <a href="#" class="item" data-tags="services" tabindex="0">
             <span class="left"><span class="dot healthy"></span> Resume Service</span><span class="env">live</span>
@@ -118,7 +118,7 @@
         </div>
         <div class="info-box">
           <h2>This Site is Over-Engineered. <br>On Purpose.</h2>
-          <p>A working DevOps portfolio: orchestrated on Kubernetes, containerized services, automated delivery pipelines, full‑stack monitoring.</p>
+          <p>A working DevOps website: orchestrated on Kubernetes, containerized services, automated delivery pipelines, full‑stack monitoring.</p>
           <p>Over‑engineered by design. Reliable by default ✅</p>
        </div>
       </div>
@@ -175,6 +175,34 @@
       </div>
     </section>
 
+    <!-- Live Metrics -->
+    <div class="stack-section">
+      <div class="stack-header">
+        <span class="stack-title">LIVE METRICS</span>
+      </div>
+      <div class="stats">
+        <div class="stat-card" data-stat="memory">
+          <div class="number">N/A</div>
+          <div class="label">Memory Usage</div>
+        </div>
+        <div class="stat-card" data-stat="cpu">
+          <div class="number">N/A</div>
+          <div class="label">CPU Usage</div>
+        </div>
+        <div class="stat-card" data-stat="commits">
+          <div class="number">N/A</div>
+          <div class="label">Commits</div>
+        </div>
+        <div class="stat-card" data-stat="deploytime">
+          <div class="number">N/A</div>
+          <div class="label">Deploy Time</div>
+        </div>
+      </div>
+      <div class="tech-hint-wrapper">
+        <span class="stack-hint">Powered by Prometheus (coming soon)</span>
+      </div>
+    </div>
+
     <!-- Application Stack -->
     <div class="stack-section">
       <div class="stack-header">
@@ -196,40 +224,9 @@
       </div>
     </div>
 
-    <!-- About This Site -->
-    <div class="info-box">
-      <h2>This Site is Over-Engineered. On Purpose.</h2>
-      <p>This portfolio website runs on the <strong>exact tech stack</strong> listed above.</p>
-      <p>🐳 <strong>Containerized</strong> with Docker and orchestrated with Kubernetes (K3s)</p>
-      <p>🚀 <strong>CI/CD Pipeline</strong> using GitHub Actions and Jenkins</p>
-      <p>📊 <strong>Monitored</strong> with Prometheus and visualized in Grafana dashboards</p>
-      <p>☁️ <strong>Infrastructure as Code</strong> using Terraform and Ansible</p>
-      <p>🔧 <strong>Stack:</strong> NGINX reverse proxy → Node.js/Express API → MongoDB database</p>
-    </div>
-
-    <!-- Stats -->
-    <div class="stats">
-      <div class="stat-card">
-        <div class="number">13+</div>
-        <div class="label">Technologies</div>
-      </div>
-      <div class="stat-card">
-        <div class="number">3</div>
-        <div class="label">Containers</div>
-      </div>
-      <div class="stat-card">
-        <div class="number">99.9%</div>
-        <div class="label">Uptime</div>
-      </div>
-      <div class="stat-card">
-        <div class="number">100%</div>
-        <div class="label">Automated</div>
-      </div>
-    </div>
-
     <!-- Footer -->
     <div class="footer">
-      <p>Vancouver, BC • Available for DevOps/SRE roles • Open to remote</p>
+      <p>Coquitlam, BC</p>
     </div>
   </div>
 
@@ -341,6 +338,14 @@
       });
     });
 
+    // Add click handlers to stat cards
+    document.querySelectorAll('.stat-card[data-stat]').forEach(card=>{
+      card.addEventListener('click', ()=>{
+        const stat = card.dataset.stat;
+        openTechModal(stat);
+      });
+    });
+
     // Tech content generator
     function getTechContent(tech){
       const contents = {
@@ -348,57 +353,73 @@
           title: 'Docker',
           body: `
             <div class="tech-modal-section">
-              <h3>How It's Used On This Site</h3>
-              <p>All services in this portfolio are containerized using Docker and automatically pushed to my public Docker repository. Those exact same images are pulled by my kubernetes cluster and pushed to.. what you see now!</p>
+              <h3>What is Docker?</h3>
+              <p>Docker packages applications and their dependencies into lightweight containers that run consistently across any environment.</p>
             </div>
             <div class="tech-modal-section">
-              <h3>Docker Hub Repository</h3>
-              <p>View my public Docker images: <a href="https://hub.docker.com/u/johnhopedawa" target="_blank" rel="noopener">hub.docker.com/u/johnhopedawa</a></p>
-              <p><em>Note: Images for this project are published, and ready for you to view.</em></p>
+              <h3>How It's Being Used</h3>
+              <p>Every service on this website runs in a Docker container. Build once, publish to Docker Hub, pull the same tagged images locally and in production.</p>
+              <p>Browse images: <a href="https://hub.docker.com/u/johnhopedawa" target="_blank" rel="noopener">hub.docker.com/u/johnhopedawa</a></p>
             </div>
             <div class="tech-modal-section">
-              <h3>Docker Compose Configuration</h3>
-              <p>This entire stack is currently orchestrated using docker-compose:</p>
-              <div class="tech-modal-code"><pre>services:
+              <h3>Dockerfiles</h3>
+              <p><strong>website/frontend/Dockerfile</strong> — NGINX static frontend:</p>
+              <div class="tech-modal-code"><pre>FROM nginx:1.27-alpine
 
+WORKDIR /usr/share/nginx/html
+
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY ./public .
+
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]</pre></div>
+              <p><strong>website/backend/resume-api/Dockerfile</strong> — Node.js Resume API:</p>
+              <div class="tech-modal-code"><pre>FROM node:20-alpine
+
+WORKDIR /app
+
+COPY package*.json .
+RUN npm ci --only=production
+
+COPY . .
+
+EXPOSE 3000
+CMD ["sh", "-c", "node seedData.js && node server.js"]</pre></div>
+            </div>
+            <div class="tech-modal-section">
+              <h3>Docker Compose</h3>
+              <p>This stack originally lived in docker-compose; it's now moving to a full Kubernetes workflow:</p>
+              <div class="tech-modal-code"><pre>services:
   nginx:
-   build: ./website/frontend
-   networks:
-    - backend
-   ports:
-   - "80:80"
-   volumes:
-    - ./website/frontend/public:/usr/share/nginx/html:ro
-   depends_on:
-    - resume-api
+    build: ./website/frontend
+    networks:
+      - backend
+    ports:
+      - "80:80"
+    depends_on:
+      - resume-api
 
   resume-api:
-   build: ./website/backend/resume-api
-   env_file:
-    - .env
-   environment:
-    - MONGO_URL=\${MONGO_URL}
-    - USER_EMAIL=\${USER_EMAIL}
-    - USER_NAME=\${USER_NAME}
-    - USER_LOCATION=\${USER_LOCATION}
-    - USER_PHONE=\${USER_PHONE}
-   networks:
-    - resume-api
-    - backend
-   volumes:
-    - ./website/backend/resume-api:/app:ro
-    - /app/node_modules
+    build: ./website/backend/resume-api
+    env_file:
+      - .env
+    networks:
+      - resume-api
+      - backend
 
   mongodb:
-   image: mongo:8
-   networks:
-    - resume-api
+    image: mongo:8
+    networks:
+      - resume-api
 
 networks:
- backend:
-  driver: bridge
- resume-api:
-  driver: bridge</pre></div>
+  backend:
+  resume-api:</pre></div>
+            </div>
+            <div class="tech-modal-section">
+              <h3>What's Next</h3>
+              <p>GitHub Actions and Jenkins wired together so every push triggers automatic builds, scans, and deploys across the cluster.</p>
+              <p><strong>Final boss:</strong> a fully hands-free pipeline running the whole thing.</p>
             </div>
           `
         },
@@ -406,15 +427,10 @@ networks:
           title: 'Kubernetes (K3s)',
           body: `
             <div class="tech-modal-section">
-              <h3>How It's Used</h3>
-              <p>Running on a lightweight K3s cluster for container orchestration, providing high availability and scalability.</p>
-            </div>
-            <div class="tech-modal-section">
-              <h3>Cluster Details</h3>
-              <p>• <strong>Distribution:</strong> K3s (Lightweight Kubernetes)</p>
-              <p>• <strong>Environment:</strong> Local development cluster</p>
-              <p>• <strong>Services:</strong> 3 containerized services</p>
-              <p>• <strong>Networking:</strong> NGINX Ingress Controller</p>
+              <h3>🚧 Not Deployed Yet</h3>
+              <p>This technology is planned but not currently deployed on this website.</p>
+              <p>Interested in learning more about the future plans for this project? Check out the roadmap and implementation details on GitHub:</p>
+              <p><a href="https://github.com/johnhopedawa/Devops-Overengineered-Website" target="_blank" rel="noopener">github.com/johnhopedawa/Devops-Overengineered-Website</a></p>
             </div>
           `
         },
@@ -422,12 +438,10 @@ networks:
           title: 'Prometheus',
           body: `
             <div class="tech-modal-section">
-              <h3>How It's Used</h3>
-              <p>Collecting metrics from all services for monitoring and alerting. Integrated with Grafana for visualization.</p>
-            </div>
-            <div class="tech-modal-section">
-              <h3>Live Metrics</h3>
-              <p><em>Prometheus metrics dashboard integration coming soon</em></p>
+              <h3>🚧 Not Deployed Yet</h3>
+              <p>This technology is planned but not currently deployed on this website.</p>
+              <p>Interested in learning more about the future plans for this project? Check out the roadmap and implementation details on GitHub:</p>
+              <p><a href="https://github.com/johnhopedawa/Devops-Overengineered-Website" target="_blank" rel="noopener">github.com/johnhopedawa/Devops-Overengineered-Website</a></p>
             </div>
           `
         },
@@ -435,8 +449,10 @@ networks:
           title: 'Grafana',
           body: `
             <div class="tech-modal-section">
-              <h3>How It's Used</h3>
-              <p>Visualizing Prometheus metrics through custom dashboards. Monitoring system health, response times, and resource usage.</p>
+              <h3>🚧 Not Deployed Yet</h3>
+              <p>This technology is planned but not currently deployed on this website.</p>
+              <p>Interested in learning more about the future plans for this project? Check out the roadmap and implementation details on GitHub:</p>
+              <p><a href="https://github.com/johnhopedawa/Devops-Overengineered-Website" target="_blank" rel="noopener">github.com/johnhopedawa/Devops-Overengineered-Website</a></p>
             </div>
           `
         },
@@ -444,8 +460,10 @@ networks:
           title: 'Terraform',
           body: `
             <div class="tech-modal-section">
-              <h3>How It's Used</h3>
-              <p>Infrastructure as Code (IaC) for provisioning and managing cloud resources on GCP.</p>
+              <h3>🚧 Not Deployed Yet</h3>
+              <p>This technology is planned but not currently deployed on this website.</p>
+              <p>Interested in learning more about the future plans for this project? Check out the roadmap and implementation details on GitHub:</p>
+              <p><a href="https://github.com/johnhopedawa/Devops-Overengineered-Website" target="_blank" rel="noopener">github.com/johnhopedawa/Devops-Overengineered-Website</a></p>
             </div>
           `
         },
@@ -453,8 +471,10 @@ networks:
           title: 'Ansible',
           body: `
             <div class="tech-modal-section">
-              <h3>How It's Used</h3>
-              <p>Configuration management and automation for server provisioning and deployment tasks.</p>
+              <h3>🚧 Not Deployed Yet</h3>
+              <p>This technology is planned but not currently deployed on this website.</p>
+              <p>Interested in learning more about the future plans for this project? Check out the roadmap and implementation details on GitHub:</p>
+              <p><a href="https://github.com/johnhopedawa/Devops-Overengineered-Website" target="_blank" rel="noopener">github.com/johnhopedawa/Devops-Overengineered-Website</a></p>
             </div>
           `
         },
@@ -462,8 +482,10 @@ networks:
           title: 'Jenkins',
           body: `
             <div class="tech-modal-section">
-              <h3>How It's Used</h3>
-              <p>CI/CD pipeline for automated testing and deployment (currently in development environment).</p>
+              <h3>🚧 Not Deployed Yet</h3>
+              <p>This technology is planned but not currently deployed on this website.</p>
+              <p>Interested in learning more about the future plans for this project? Check out the roadmap and implementation details on GitHub:</p>
+              <p><a href="https://github.com/johnhopedawa/Devops-Overengineered-Website" target="_blank" rel="noopener">github.com/johnhopedawa/Devops-Overengineered-Website</a></p>
             </div>
           `
         },
@@ -471,8 +493,10 @@ networks:
           title: 'Google Cloud Platform',
           body: `
             <div class="tech-modal-section">
-              <h3>How It's Used</h3>
-              <p>Cloud infrastructure on standby for hybrid deployment. Currently testing local K3s + GCP integration.</p>
+              <h3>🚧 Not Deployed Yet</h3>
+              <p>This technology is planned but not currently deployed on this website.</p>
+              <p>Interested in learning more about the future plans for this project? Check out the roadmap and implementation details on GitHub:</p>
+              <p><a href="https://github.com/johnhopedawa/Devops-Overengineered-Website" target="_blank" rel="noopener">github.com/johnhopedawa/Devops-Overengineered-Website</a></p>
             </div>
           `
         },
@@ -480,8 +504,10 @@ networks:
           title: 'Linux',
           body: `
             <div class="tech-modal-section">
-              <h3>How It's Used</h3>
-              <p>All services run on Linux-based containers and infrastructure, leveraging the stability and flexibility of the Linux ecosystem.</p>
+              <h3>🚧 Not Deployed Yet</h3>
+              <p>This technology is planned but not currently deployed on this website.</p>
+              <p>Interested in learning more about the future plans for this project? Check out the roadmap and implementation details on GitHub:</p>
+              <p><a href="https://github.com/johnhopedawa/Devops-Overengineered-Website" target="_blank" rel="noopener">github.com/johnhopedawa/Devops-Overengineered-Website</a></p>
             </div>
           `
         },
@@ -489,9 +515,10 @@ networks:
           title: 'GitHub Actions',
           body: `
             <div class="tech-modal-section">
-              <h3>How It's Used</h3>
-              <p>Automated CI/CD workflows for testing, building, and deploying the application.</p>
-              <p>View the repository: <a href="https://github.com/johnhopedawa" target="_blank" rel="noopener">github.com/johnhopedawa</a></p>
+              <h3>🚧 Not Deployed Yet</h3>
+              <p>This technology is planned but not currently deployed on this website.</p>
+              <p>Interested in learning more about the future plans for this project? Check out the roadmap and implementation details on GitHub:</p>
+              <p><a href="https://github.com/johnhopedawa/Devops-Overengineered-Website" target="_blank" rel="noopener">github.com/johnhopedawa/Devops-Overengineered-Website</a></p>
             </div>
           `
         },
@@ -499,9 +526,10 @@ networks:
           title: 'GitHub Actions',
           body: `
             <div class="tech-modal-section">
-              <h3>How It's Used</h3>
-              <p>Automated CI/CD workflows for testing, building, and deploying the application.</p>
-              <p>View the repository: <a href="https://github.com/johnhopedawa" target="_blank" rel="noopener">github.com/johnhopedawa</a></p>
+              <h3>🚧 Not Deployed Yet</h3>
+              <p>This technology is planned but not currently deployed on this website.</p>
+              <p>Interested in learning more about the future plans for this project? Check out the roadmap and implementation details on GitHub:</p>
+              <p><a href="https://github.com/johnhopedawa/Devops-Overengineered-Website" target="_blank" rel="noopener">github.com/johnhopedawa/Devops-Overengineered-Website</a></p>
             </div>
           `
         },
@@ -509,8 +537,10 @@ networks:
           title: 'NGINX',
           body: `
             <div class="tech-modal-section">
-              <h3>How It's Used</h3>
-              <p>Serving as the reverse proxy and web server, handling all incoming HTTP requests and routing them to the appropriate backend services.</p>
+              <h3>🚧 Not Deployed Yet</h3>
+              <p>This technology is planned but not currently deployed on this website.</p>
+              <p>Interested in learning more about the future plans for this project? Check out the roadmap and implementation details on GitHub:</p>
+              <p><a href="https://github.com/johnhopedawa/Devops-Overengineered-Website" target="_blank" rel="noopener">github.com/johnhopedawa/Devops-Overengineered-Website</a></p>
             </div>
           `
         },
@@ -518,8 +548,10 @@ networks:
           title: 'Node.js',
           body: `
             <div class="tech-modal-section">
-              <h3>How It's Used</h3>
-              <p>Powers the backend API services, including the Resume API that dynamically serves portfolio data.</p>
+              <h3>🚧 Not Deployed Yet</h3>
+              <p>This technology is planned but not currently deployed on this website.</p>
+              <p>Interested in learning more about the future plans for this project? Check out the roadmap and implementation details on GitHub:</p>
+              <p><a href="https://github.com/johnhopedawa/Devops-Overengineered-Website" target="_blank" rel="noopener">github.com/johnhopedawa/Devops-Overengineered-Website</a></p>
             </div>
           `
         },
@@ -527,8 +559,54 @@ networks:
           title: 'MongoDB',
           body: `
             <div class="tech-modal-section">
-              <h3>How It's Used</h3>
-              <p>NoSQL database storing portfolio content, resume data, and application metadata.</p>
+              <h3>🚧 Not Deployed Yet</h3>
+              <p>This technology is planned but not currently deployed on this website.</p>
+              <p>Interested in learning more about the future plans for this project? Check out the roadmap and implementation details on GitHub:</p>
+              <p><a href="https://github.com/johnhopedawa/Devops-Overengineered-Website" target="_blank" rel="noopener">github.com/johnhopedawa/Devops-Overengineered-Website</a></p>
+            </div>
+          `
+        },
+        memory: {
+          title: 'Memory Usage',
+          body: `
+            <div class="tech-modal-section">
+              <h3>🚧 Not Available Yet</h3>
+              <p>This metric is not currently available. An API will be set up in the future to expose real-time memory usage from Prometheus.</p>
+              <p>Interested in learning more about the future plans for this project? Check out the roadmap and implementation details on GitHub:</p>
+              <p><a href="https://github.com/johnhopedawa/Devops-Overengineered-Website" target="_blank" rel="noopener">github.com/johnhopedawa/Devops-Overengineered-Website</a></p>
+            </div>
+          `
+        },
+        cpu: {
+          title: 'CPU Usage',
+          body: `
+            <div class="tech-modal-section">
+              <h3>🚧 Not Available Yet</h3>
+              <p>This metric is not currently available. An API will be set up in the future to expose real-time CPU usage from Prometheus.</p>
+              <p>Interested in learning more about the future plans for this project? Check out the roadmap and implementation details on GitHub:</p>
+              <p><a href="https://github.com/johnhopedawa/Devops-Overengineered-Website" target="_blank" rel="noopener">github.com/johnhopedawa/Devops-Overengineered-Website</a></p>
+            </div>
+          `
+        },
+        commits: {
+          title: 'GitHub Commits',
+          body: `
+            <div class="tech-modal-section">
+              <h3>🚧 Not Available Yet</h3>
+              <p>This metric is not currently available. An API will be set up in the future to fetch live commit statistics from GitHub.</p>
+              <p>Interested in learning more about the future plans for this project? Check out the roadmap and implementation details on GitHub:</p>
+              <p><a href="https://github.com/johnhopedawa/Devops-Overengineered-Website" target="_blank" rel="noopener">github.com/johnhopedawa/Devops-Overengineered-Website</a></p>
+            </div>
+          `
+        },
+        deploytime: {
+          title: 'Deploy Time',
+          body: `
+            <div class="tech-modal-section">
+              <h3>🚧 Not Available Yet</h3>
+              <p>This metric is not currently available. An API will be set up in the future to track deployment times from the CI/CD pipeline.</p>
+              <p>Interested in learning more about the future plans for this project? Check out the roadmap and implementation details on GitHub:</p>
+              <p><a href="https://github.com/johnhopedawa/Devops-Overengineered-Website" target="_blank" rel="noopener">github.com/johnhopedawa/Devops-Overengineered-Website</a></p>
             </div>
           `
         }

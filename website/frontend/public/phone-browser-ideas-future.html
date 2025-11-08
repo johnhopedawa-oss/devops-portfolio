@@ -75,8 +75,32 @@
     }
 
     .hero--intro{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:22px;display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:16px}
-    .mantra h3{font-size:16px;margin:0 0 8px;color:var(--accent)}
-    .mantra p{margin:0 0 12px;color:var(--muted);font-size:13px;line-height:1.6}
+
+    /* Info Box - MUST BE VISIBLE */
+    .info-box{
+      background:var(--card);
+      border:2px solid var(--accent);
+      border-radius:16px;
+      padding:16px;
+      margin:16px;
+    }
+    .info-box h3{
+      font-size:16px;
+      margin:0 0 8px;
+      color:var(--accent);
+    }
+    .info-box h2{
+      font-size:16px;
+      margin:0 0 8px;
+      color:var(--accent);
+    }
+    .info-box p{
+      margin:0 0 8px;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.6;
+    }
+    .info-box p:last-child{margin-bottom:0}
     .checklist{display:grid;gap:8px;margin-bottom:12px}
     .check{display:flex;align-items:center;gap:8px;font-size:12px}
     .check .tick{position:static;padding:3px 8px;font-size:10px}
@@ -91,8 +115,15 @@
     </div>
 
     <div class="appbar">
-      <div class="title">Portfolio</div>
+      <div class="title">Website</div>
       <div class="badge">DevOps</div>
+    </div>
+
+    <!-- Info Box -->
+    <div class="info-box">
+      <h3>This Site is Over-Engineered. On Purpose.</h3>
+      <p>A working DevOps website: orchestrated on Kubernetes, containerized services, automated delivery pipelines, full‑stack monitoring.</p>
+      <p>Over‑engineered by design. Reliable by default ✅</p>
     </div>
 
     <div class="content">
@@ -104,19 +135,6 @@
           <div class="h-role">DevOps Engineer</div>
         </div>
         <div class="h-tag">"Because why use one tool when you can use twelve?"</div>
-      </div>
-
-      <!-- Mantra -->
-      <div class="mantra">
-        <h3>This site is intentionally over-engineered.</h3>
-        <p>Kubernetes runs the services, Docker keeps everything consistent, and CI/CD ships updates automatically. Prometheus tracks the data, Grafana shows the story, and GCP keeps backups safe.</p>
-        <div class="checklist">
-          <div class="check"><span class="tick">K8s</span><span>Rollouts, healing, real prod behavior.</span></div>
-          <div class="check"><span class="tick">Grafana</span><span>Dashboards worth showing.</span></div>
-          <div class="check"><span class="tick">CI/CD</span><span>Push code → it deploys.</span></div>
-          <div class="check"><span class="tick">GCP</span><span>Backups, registry, cloud parity.</span></div>
-        </div>
-        <span class="tag-pill">Over‑engineered on purpose</span>
       </div>
 
       <!-- Section header -->
@@ -230,7 +248,7 @@
         sBody.innerHTML = `
           <div class="s-sec">
             <h3>How it's used</h3>
-            <p>Details about ${tech} implementation in this portfolio.</p>
+            <p>Details about ${tech} implementation on this website.</p>
           </div>
           <div class="s-sec">
             <h3>Configuration</h3>
