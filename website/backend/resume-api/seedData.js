@@ -89,7 +89,7 @@ const resumeData = {
       ]
     }
   ],
-  interests: ["Rock Climbing", "Outdoor Activities", "Running", "Community Building"]
+  interests: ["Rock Climbing", "Outdoor Activities", "Running", "Memes"]
 };
 
 async function seedDatabase() {

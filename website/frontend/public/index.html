@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>John Hope Dawa — DevOps Engineer</title>
   <link rel="icon" type="image/svg+xml" href="assets/images/jd-logo.svg" />
-  <link rel="stylesheet" href="styles.css?v=11.9" />
+  <link rel="stylesheet" href="styles.css?v=11.10" />
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.11/dist/purify.min.js"></script>
 </head>
 <body>
   <!-- Sticky Header -->
@@ -22,67 +23,27 @@
     <div class="drawer-overlay" data-close></div>
     <div class="drawer-panel" role="document">
       <div class="drawer-header">
-        <h2>Infrastructure Dashboard</h2>
+        <h2>Services Dashboard</h2>
         <button class="drawer-close" aria-label="Close menu" data-close>✕</button>
       </div>
 
       <div class="drawer-list" id="drawerList">
         <div class="drawer-search">
-          <input id="drawerSearch" type="search" placeholder="Search services and infrastructure..." aria-label="Search services" />
+          <input id="drawerSearch" type="search" placeholder="Search services..." aria-label="Search services" />
         </div>
 
         <div class="drawer-filters" role="toolbar" aria-label="Filters">
-          <button class="chip chip-active" data-filter="all">All</button>
-          <button class="chip" data-filter="services">Services</button>
-          <button class="chip" data-filter="infrastructure">Infrastructure</button>
-          <button class="chip" data-filter="monitoring">Monitoring</button>
-          <button class="chip" data-filter="cicd">CI/CD</button>
+          <button class="chip chip-active" data-filter="all">All APIs</button>
         </div>
-        <div class="group" data-group="infrastructure">
-          <div class="group-title">Infrastructure</div>
-          <a href="#" class="item" data-tags="infrastructure" tabindex="0">
-            <span class="left"><span class="dot healthy"></span> Local Kubernetes Cluster</span><span class="env">running</span>
-          </a>
-          <a href="#" class="item" data-tags="infrastructure" tabindex="0">
-            <span class="left"><span class="dot healthy"></span> Google Cloud Platform</span><span class="env">standby</span>
-          </a>
-          <a href="#" class="item" data-tags="infrastructure" tabindex="0">
-            <span class="left"><span class="dot healthy"></span> NGINX Ingress Controller</span><span class="env">live</span>
-          </a>
-        </div>
-
-        <div class="group" data-group="monitoring">
-          <div class="group-title">Monitoring & Observability</div>
-          <a href="#" class="item" data-tags="monitoring" tabindex="0">
-            <span class="left"><span class="dot healthy"></span> Grafana Dashboards</span><span class="env">live</span>
-          </a>
-          <a href="#" class="item" data-tags="monitoring" tabindex="0">
-            <span class="left"><span class="dot healthy"></span> Prometheus Metrics</span><span class="env">live</span>
-          </a>
-        </div>
-
-        <div class="group" data-group="cicd">
-          <div class="group-title">CI/CD Pipeline</div>
-          <a href="#" class="item" data-tags="cicd" tabindex="0">
-            <span class="left"><span class="dot healthy"></span> GitHub Actions</span><span class="env">active</span>
-          </a>
-          <a href="#" class="item" data-tags="cicd" tabindex="0">
-            <span class="left"><span class="dot warn"></span> Jenkins</span><span class="env">dev</span>
-          </a>
-        </div>
-
-        <div class="group" data-group="services">
-          <div class="group-title">Application Services</div>
-          <a href="#" class="item" data-tags="services" tabindex="0">
-            <span class="left"><span class="dot healthy"></span> Main Website</span><span class="env">live</span>
-          </a>
-          <a href="#" class="item" data-tags="services" tabindex="0">
-            <span class="left"><span class="dot healthy"></span> Resume Service</span><span class="env">live</span>
+        <div class="group" data-group="apis">
+          <div class="group-title">All APIs</div>
+          <a href="#" class="item" data-tags="apis" data-api="resume-seed" tabindex="0">
+            <span class="left"><span class="dot healthy"></span> Resume API</span><span class="env">live</span>
           </a>
         </div>
 
         <div class="drawer-footer">
-          <span class="muted">8 Services Online • Infrastructure Healthy • Last Updated: Just Now</span>
+          <span class="muted">API Progress: 1/57</span>
         </div>
       </div>
     </div>
@@ -118,7 +79,7 @@
         </div>
         <div class="info-box">
           <h2>This Site is Over-Engineered. <br>On Purpose.</h2>
-          <p>A working DevOps website: orchestrated on Kubernetes, containerized services, automated delivery pipelines, full‑stack monitoring.</p>
+          <p>A working(well... partially working) DevOps website: orchestrated on Kubernetes, containerized services, automated delivery pipelines, full‑stack monitoring.</p>
           <p>Over‑engineered by design. Reliable by default ✅</p>
        </div>
       </div>
@@ -310,7 +271,8 @@
     function openTechModal(tech){
       const content = getTechContent(tech);
       techModalTitle.textContent = content.title;
-      techModalBody.innerHTML = content.body;
+      // Sanitize HTML content to prevent XSS attacks (using default safe config)
+      techModalBody.innerHTML = DOMPurify.sanitize(content.body);
       techModal.classList.add('open');
       document.body.classList.add('no-scroll');
       techModal.setAttribute('aria-hidden','false');
@@ -338,6 +300,16 @@
       });
     });
 
+    // Add click handlers to API items in the drawer
+    document.querySelectorAll('.item[data-api]').forEach(item=>{
+      item.addEventListener('click', (e)=>{
+        e.preventDefault();
+        const api = item.dataset.api;
+        openTechModal(api);
+        closeDrawer();
+      });
+    });
+
     // Add click handlers to stat cards
     document.querySelectorAll('.stat-card[data-stat]').forEach(card=>{
       card.addEventListener('click', ()=>{
@@ -357,8 +329,8 @@
               <p>Docker packages applications and their dependencies into lightweight containers that run consistently across any environment.</p>
             </div>
             <div class="tech-modal-section">
-              <h3>How It's Being Used</h3>
-              <p>Every service on this website runs in a Docker container. Build once, publish to Docker Hub, pull the same tagged images locally and in production.</p>
+              <h3>How It's Being Used Here</h3>
+              <p>Every service on this website runs in a Docker container. The plan is to build once, publish to Docker Hub, pull the same tagged images locally and in production.</p>
               <p>Browse images: <a href="https://hub.docker.com/u/johnhopedawa" target="_blank" rel="noopener">hub.docker.com/u/johnhopedawa</a></p>
             </div>
             <div class="tech-modal-section">
@@ -388,7 +360,7 @@ CMD ["sh", "-c", "node seedData.js && node server.js"]</pre></div>
             </div>
             <div class="tech-modal-section">
               <h3>Docker Compose</h3>
-              <p>This stack originally lived in docker-compose; it's now moving to a full Kubernetes workflow:</p>
+              <p>This stack is currently living in docker-compose; although it's now moving to a full Kubernetes workflow:</p>
               <div class="tech-modal-code"><pre>services:
   nginx:
     build: ./website/frontend
@@ -537,10 +509,33 @@ networks:
           title: 'NGINX',
           body: `
             <div class="tech-modal-section">
-              <h3>🚧 Not Deployed Yet</h3>
-              <p>This technology is planned but not currently deployed on this website.</p>
-              <p>Interested in learning more about the future plans for this project? Check out the roadmap and implementation details on GitHub:</p>
-              <p><a href="https://github.com/johnhopedawa/Devops-Overengineered-Website" target="_blank" rel="noopener">github.com/johnhopedawa/Devops-Overengineered-Website</a></p>
+              <h3>What is NGINX?</h3>
+              <p>NGINX is a high-performance web server and reverse proxy that serves static files with minimal resource overhead.</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>How It's Being Used Here</h3>
+              <p>NGINX serves as the frontend web server for this website, delivering all static HTML, CSS, JavaScript, and assets. It runs in a lightweight Alpine Linux container.</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>Docker Configuration</h3>
+              <p><strong>website/frontend/Dockerfile</strong>:</p>
+              <div class="tech-modal-code"><pre>FROM nginx:1.27-alpine
+
+WORKDIR /usr/share/nginx/html
+
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY ./public .
+
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]</pre></div>
+            </div>
+            <div class="tech-modal-section">
+              <h3>DevOps Perspective</h3>
+              <p><strong>Container Image:</strong> Built from official nginx:1.27-alpine base (~25MB compressed)</p>
+              <p><strong>Deployment:</strong> Runs as a single container in Docker Compose, exposed on port 80</p>
+              <p><strong>Configuration:</strong> Custom nginx.conf for routing and reverse proxy settings</p>
+              <p><strong>Network:</strong> Connected to backend network to communicate with Node.js API</p>
+              <p><strong>Future:</strong> Will be deployed as a Kubernetes Service with multiple replicas for high availability</p>
             </div>
           `
         },
@@ -548,10 +543,42 @@ networks:
           title: 'Node.js',
           body: `
             <div class="tech-modal-section">
-              <h3>🚧 Not Deployed Yet</h3>
-              <p>This technology is planned but not currently deployed on this website.</p>
-              <p>Interested in learning more about the future plans for this project? Check out the roadmap and implementation details on GitHub:</p>
-              <p><a href="https://github.com/johnhopedawa/Devops-Overengineered-Website" target="_blank" rel="noopener">github.com/johnhopedawa/Devops-Overengineered-Website</a></p>
+              <h3>What is Node.js?</h3>
+              <p>Node.js is a JavaScript runtime built on Chrome's V8 engine that enables server-side JavaScript execution for building scalable network applications.</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>How It's Being Used Here</h3>
+              <p>Node.js powers the Resume API backend, providing RESTful endpoints to fetch resume data from MongoDB. Built with Express.js for routing and middleware.</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>Docker Configuration</h3>
+              <p><strong>website/backend/resume-api/Dockerfile</strong>:</p>
+              <div class="tech-modal-code"><pre>FROM node:20-alpine
+
+WORKDIR /app
+
+COPY package*.json .
+RUN npm ci --only=production
+
+COPY . .
+
+EXPOSE 3000
+CMD ["sh", "-c", "node seedData.js && node server.js"]</pre></div>
+            </div>
+            <div class="tech-modal-section">
+              <h3>API Structure</h3>
+              <p><strong>Endpoint:</strong> GET /api/resume</p>
+              <p><strong>Purpose:</strong> Returns complete resume data in JSON format</p>
+              <p><strong>Startup Flow:</strong> Runs seedData.js first to populate MongoDB, then starts Express server</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>DevOps Perspective</h3>
+              <p><strong>Container Image:</strong> Built on node:20-alpine (~50MB compressed)</p>
+              <p><strong>Deployment:</strong> Single container in Docker Compose, internal port 3000</p>
+              <p><strong>Dependencies:</strong> express, mongodb native driver</p>
+              <p><strong>Network:</strong> Connected to resume-api network to communicate with MongoDB</p>
+              <p><strong>Environment:</strong> Uses MONGO_URL env var for database connection</p>
+              <p><strong>Health:</strong> Ready for Kubernetes liveness/readiness probes on /api/resume</p>
             </div>
           `
         },
@@ -559,10 +586,39 @@ networks:
           title: 'MongoDB',
           body: `
             <div class="tech-modal-section">
-              <h3>🚧 Not Deployed Yet</h3>
-              <p>This technology is planned but not currently deployed on this website.</p>
-              <p>Interested in learning more about the future plans for this project? Check out the roadmap and implementation details on GitHub:</p>
-              <p><a href="https://github.com/johnhopedawa/Devops-Overengineered-Website" target="_blank" rel="noopener">github.com/johnhopedawa/Devops-Overengineered-Website</a></p>
+              <h3>What is MongoDB?</h3>
+              <p>MongoDB is a NoSQL document database that stores data in flexible, JSON-like documents, making it ideal for modern application development.</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>How It's Being Used Here</h3>
+              <p>MongoDB stores the resume data in a single collection called "resume" within the "resumeDB" database. The data is seeded on startup and served via the Node.js API.</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>Database Structure</h3>
+              <p><strong>Database:</strong> resumeDB</p>
+              <p><strong>Collection:</strong> resume</p>
+              <p><strong>Document Schema:</strong></p>
+              <div class="tech-modal-code"><pre>{
+  name: "John Hope Dawa",
+  title: "DevOps Engineer",
+  email: "johnhope.dawa@gmail.com",
+  phone: "778-751-3049",
+  location: "Coquitlam, BC",
+  summary: "...",
+  skills: [...],
+  experience: [...],
+  interests: [...]
+}</pre></div>
+            </div>
+            <div class="tech-modal-section">
+              <h3>DevOps Perspective</h3>
+              <p><strong>Container Image:</strong> Official mongo:8 from Docker Hub</p>
+              <p><strong>Deployment:</strong> Single container in Docker Compose, internal port 27017</p>
+              <p><strong>Network:</strong> Isolated on resume-api network, not exposed externally</p>
+              <p><strong>Data Seeding:</strong> Automated via seedData.js on Node.js container startup</p>
+              <p><strong>Connection String:</strong> mongodb://mongodb:27017 (container name as hostname)</p>
+              <p><strong>Future:</strong> Will use StatefulSet in Kubernetes with persistent volumes for data durability</p>
+              <p><strong>Security:</strong> No authentication currently (local dev), will implement RBAC for production</p>
             </div>
           `
         },
@@ -607,6 +663,86 @@ networks:
               <p>This metric is not currently available. An API will be set up in the future to track deployment times from the CI/CD pipeline.</p>
               <p>Interested in learning more about the future plans for this project? Check out the roadmap and implementation details on GitHub:</p>
               <p><a href="https://github.com/johnhopedawa/Devops-Overengineered-Website" target="_blank" rel="noopener">github.com/johnhopedawa/Devops-Overengineered-Website</a></p>
+            </div>
+          `
+        },
+        'resume-seed': {
+          title: 'Resume API',
+          body: `
+            <div class="tech-modal-section">
+              <h3>Get Resume Data</h3>
+              <div class="resume-buttons">
+                <a href="resume.html" class="resume-btn-primary">Click Here for Formatted Resume</a>
+                <a href="/api/resume" target="_blank" class="resume-btn-secondary">JSON Format</a>
+              </div>
+            </div>
+            <div class="tech-modal-section">
+              <h3>What is the Resume API?</h3>
+              <p>A Node.js/Express API that automatically seeds resume data into MongoDB and serves it via RESTful endpoints. You can access my complete resume data programmatically in JSON format.</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>API Endpoint</h3>
+              <p><strong>GET /api/resume</strong></p>
+              <p>Returns the complete resume data in JSON format including personal info, skills, experience, and interests.</p>
+              <p><strong>Live endpoint:</strong></p>
+              <div class="tech-modal-code"><pre>curl https://johnhopedawa.com/api/resume</pre></div>
+              <p><strong>Local development:</strong></p>
+              <div class="tech-modal-code"><pre>curl http://localhost:3000/api/resume</pre></div>
+              <p><strong>From within Docker network:</strong></p>
+              <div class="tech-modal-code"><pre>curl http://resume-api:3000/api/resume</pre></div>
+            </div>
+            <div class="tech-modal-section">
+              <h3>How It Works</h3>
+              <p><strong>1. Container Startup:</strong> When the Node.js container starts, it runs seedData.js first</p>
+              <p><strong>2. Database Seeding:</strong> seedData.js connects to MongoDB, clears old data, and inserts fresh resume data</p>
+              <p><strong>3. API Server:</strong> After seeding completes, server.js starts the Express server on port 3000</p>
+              <p><strong>4. Data Serving:</strong> The /api/resume endpoint queries MongoDB and returns the resume as JSON</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>DevOps Architecture</h3>
+              <p><strong>Container Stack:</strong></p>
+              <div class="tech-modal-code"><pre>NGINX (port 80)
+  ↓
+Node.js API (port 3000)
+  ↓
+MongoDB (port 27017)</pre></div>
+              <p><strong>Docker Networks:</strong></p>
+              <p>• <code>backend</code> network: NGINX ↔ Node.js communication</p>
+              <p>• <code>resume-api</code> network: Node.js ↔ MongoDB communication (isolated)</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>Code Structure</h3>
+              <p><strong>seedData.js</strong> - Database initialization script:</p>
+              <div class="tech-modal-code"><pre>// Connects to MongoDB
+// Clears existing resume collection
+// Inserts fresh resume data
+// Closes connection</pre></div>
+              <p><strong>server.js</strong> - Express API server:</p>
+              <div class="tech-modal-code"><pre>// Connects to MongoDB
+// Defines GET /api/resume endpoint
+// Queries resume collection
+// Returns JSON response</pre></div>
+            </div>
+            <div class="tech-modal-section">
+              <h3>Environment Configuration</h3>
+              <p><strong>MONGO_URL:</strong> mongodb://mongodb:27017 (Docker container name resolution)</p>
+              <p><strong>USER_NAME:</strong> Overridable via environment variable</p>
+              <p><strong>USER_EMAIL:</strong> Overridable via environment variable</p>
+              <p><strong>USER_LOCATION:</strong> Overridable via environment variable</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>The Vision: 57 APIs</h3>
+              <p>This is API #1 of 57. The long-term goal is to build a completely over-engineered ecosystem of microservices, each serving a specific purpose (or sometimes no purpose at all).</p>
+              <p><strong>Progress:</strong> 1/57 (1.75% complete)</p>
+              <p><strong>Why 57?</strong> It's a random number that felt right. Commitment over logic.</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>Future Enhancements</h3>
+              <p>• Deploy as Kubernetes Deployment with multiple replicas</p>
+              <p>• Add health check endpoints for liveness/readiness probes</p>
+              <p>• Implement caching layer (Redis) for faster response times</p>
+              <p>• Add Prometheus metrics for monitoring API performance</p>
+              <p>• Secure MongoDB with authentication and encrypted connections</p>
             </div>
           `
         }

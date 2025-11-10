@@ -631,6 +631,47 @@ body{
 .hero-stack-bar .hero-stack-label{font-size:12px;font-weight:700;color:var(--text)}
 .hero-stack-hint{font-size:12px;color:var(--muted);border:1px solid var(--border);padding:3px 10px;border-radius:999px;white-space:nowrap}
 
+/* Resume API Buttons */
+.resume-buttons{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  flex-wrap:wrap;
+  margin-top:16px;
+}
+.tech-modal-section .resume-buttons .resume-btn-primary{
+  padding:12px 28px;
+  background:var(--accent);
+  color:#0a0e27;
+  border:2px solid var(--accent);
+  border-radius:8px;
+  font-weight:700;
+  text-decoration:none;
+  transition:all 0.2s ease;
+  font-size:15px;
+  display:inline-block;
+}
+.tech-modal-section .resume-buttons .resume-btn-primary:hover{
+  background:transparent;
+  color:var(--accent);
+}
+.tech-modal-section .resume-buttons .resume-btn-secondary{
+  padding:12px 28px;
+  background:transparent;
+  color:var(--muted);
+  border:2px solid var(--border);
+  border-radius:8px;
+  font-weight:600;
+  text-decoration:none;
+  transition:all 0.2s ease;
+  font-size:15px;
+  display:inline-block;
+}
+.tech-modal-section .resume-buttons .resume-btn-secondary:hover{
+  color:var(--text);
+  border-color:var(--accent);
+}
+
 /* Resume Page Styles */
 .resume-container{
   max-width:800px;
