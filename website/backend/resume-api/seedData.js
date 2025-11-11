@@ -1,8 +1,8 @@
 const { MongoClient } = require('mongodb');
 
-const mongoURL = process.env.MONGO_URL || 'mongodb://localhost:27017';
+const mongoURL = process.env.MONGO_URL || 'mongodb://mongodb:27017';
 const client = new MongoClient(mongoURL);
-const dbName = 'resumeDB';
+const dbName = process.env.MONGO_DB_NAME || 'resumeDB';
 
 const resumeData = {
   name: process.env.USER_NAME || "John Hope Dawa",
@@ -96,21 +96,24 @@ async function seedDatabase() {
   try {
     await client.connect();
     console.log('Connected to MongoDB');
-    
+
     const db = client.db(dbName);
     const collection = db.collection('resume');
-    
+
     // Clear existing data
     await collection.deleteMany({});
-    
+
     // Insert new data
     await collection.insertOne(resumeData);
     console.log('Resume data inserted successfully!');
-    
+
+    // Close connection and exit so server.js can start
+    await client.close();
+    process.exit(0);
+
   } catch (error) {
     console.error('Error seeding database:', error);
-  } finally {
-    await client.close();
+    process.exit(1);
   }
 }
 

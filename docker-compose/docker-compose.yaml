@@ -1,0 +1,62 @@
+services:
+
+  nginx:
+   build: ../website/frontend
+   networks:
+    - frontend
+   ports:
+   - "80:80"
+   volumes:
+    - ../website/frontend/public:/usr/share/nginx/html:ro
+   depends_on:
+    - api-gateway
+
+  api-gateway:
+   build: ../website/backend/api-gateway
+   networks:
+    - frontend
+    - backend
+   ports:
+    - "3000:3000"
+   depends_on:
+    - resume-api
+   volumes:
+    - ../website/backend/api-gateway:/app:ro
+    - /app/node_modules
+
+  resume-api:
+   build: ../website/backend/resume-api
+   env_file:
+    - ../.env
+   environment:
+    - MONGO_URL=${MONGO_URL}
+    - USER_EMAIL=${USER_EMAIL}
+    - USER_NAME=${USER_NAME}
+    - USER_LOCATION=${USER_LOCATION}
+    - USER_PHONE=${USER_PHONE}
+   networks:
+    - backend
+    - database
+   depends_on:
+    - mongodb
+   volumes:
+    - ../website/backend/resume-api:/app:ro
+    - /app/node_modules
+
+  mongodb:
+   image: mongo:8
+   networks:
+    - database
+   volumes:
+    - mongodb-data:/data/db
+
+networks:
+ frontend:
+  driver: bridge
+ backend:
+  driver: bridge
+ database:
+  driver: bridge
+
+volumes:
+ mongodb-data:
