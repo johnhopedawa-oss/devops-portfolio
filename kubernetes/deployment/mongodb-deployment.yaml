@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: mongodb
-          image: johnhopedawa/mongo:8.0
+          image: mongo:8.0
           imagePullPolicy: Always
           ports:
             - containerPort: 27017
