@@ -13,7 +13,7 @@ app.get('/health', (req, res) => {
 
 // Route: Resume API
 app.use('/api/resume', createProxyMiddleware({
-  target: 'http://resume-api:3001',
+  target: 'http://resume-api-service:3001',
   changeOrigin: true,
   pathRewrite: {
     '^/api/resume': '/resume', // Remove /api prefix when forwarding
