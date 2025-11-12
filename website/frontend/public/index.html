@@ -405,6 +405,7 @@ networks:
             <div class="tech-modal-section">
               <h3>How It's Being Used Here</h3>
               <p>This website runs on a K3s cluster (lightweight Kubernetes) with 3 nodes running on bare-metal hardware. All services are orchestrated with deployments, services, and ingress controllers.</p>
+              <p><em>I don't currently have an API endpoint to showcase live cluster metrics, but if you're curious about the setup, feel free to message me on LinkedIn and I can share screenshots from my cluster! It'll be up in the future once I finish setting up Prometheus and Grafana.</em></p>
             </div>
             <div class="tech-modal-section">
               <h3>Cluster Architecture</h3>
@@ -526,8 +527,8 @@ Ingress:
             <div class="tech-modal-section">
               <h3>Infrastructure Details</h3>
               <p><strong>Cluster Nodes:</strong></p>
-              <p>• 2x MQ910 mini computers running Linux</p>
-              <p>• 1x Raspberry Pi running Linux (currently hosting the website)</p>
+              <p>• 2x MQ910 mini computers running Linux (Ubuntu)</p>
+              <p>• 1x Raspberry Pi (currently hosting the website)</p>
               <p><strong>Container Base Images:</strong></p>
               <div class="tech-modal-code"><pre>Frontend: nginx:1.27-alpine (Alpine Linux)
 API Gateway: node:20-alpine (Alpine Linux)
@@ -569,10 +570,48 @@ MongoDB: mongo:8 (Debian-based)</pre></div>
           title: 'GitHub Actions',
           body: `
             <div class="tech-modal-section">
-              <h3>🚧 Not Deployed Yet</h3>
-              <p>This technology is planned but not currently deployed on this website.</p>
-              <p>Interested in learning more about the future plans for this project? Check out the roadmap and implementation details on GitHub:</p>
-              <p><a href="https://github.com/johnhopedawa/Devops-Overengineered-Website" target="_blank" rel="noopener">github.com/johnhopedawa/Devops-Overengineered-Website</a></p>
+              <h3>What is GitHub Actions?</h3>
+              <p>GitHub Actions is a CI/CD platform that automates build, test, and deployment workflows directly from your GitHub repository.</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>How It's Being Used Here</h3>
+              <p>Every push to the main branch triggers an automated CI pipeline that builds all Docker images for both amd64 and arm64 architectures, then pushes them to Docker Hub.</p>
+              <p><strong>View Live Workflows:</strong> <a href="https://github.com/johnhopedawa/Devops-Overengineered-Website/actions" target="_blank" rel="noopener">github.com/johnhopedawa/Devops-Overengineered-Website/actions</a></p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>CI Workflow</h3>
+              <p><strong>Trigger:</strong> Push to main branch (when website/ files change)</p>
+              <p><strong>Build Process:</strong></p>
+              <div class="tech-modal-code"><pre>1. Checkout code
+2. Set up QEMU (for multi-arch builds)
+3. Set up Docker Buildx
+4. Login to Docker Hub
+5. Build images for linux/amd64 and linux/arm64
+6. Push to Docker Hub with tags:
+   - latest
+   - main-{commit-sha}</pre></div>
+            </div>
+            <div class="tech-modal-section">
+              <h3>Services Built</h3>
+              <p>• <strong>Frontend:</strong> johnhopedawa/overengineered-frontend</p>
+              <p>• <strong>API Gateway:</strong> johnhopedawa/overengineered-api-gateway</p>
+              <p>• <strong>Resume API:</strong> johnhopedawa/overengineered-resume-api</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>Multi-Architecture Support</h3>
+              <p>All images are built as multi-arch manifests supporting both x86_64 (MQ910 mini computers) and ARM64 (Raspberry Pi). Docker automatically pulls the correct architecture when deployed to the K3s cluster.</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>Workflow File</h3>
+              <p>The CI pipeline is defined in <code>.github/workflows/ci.yaml</code> and runs three parallel jobs to build all services simultaneously, reducing total build time.</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>What's Next</h3>
+              <p>• Add automated testing before builds</p>
+              <p>• Implement security scanning (Trivy/Snyk)</p>
+              <p>• Add CD: Automatically deploy to K3s cluster after successful builds</p>
+              <p>• Slack/Discord notifications on build status</p>
+              <p>• Build status badges in README</p>
             </div>
           `
         },
