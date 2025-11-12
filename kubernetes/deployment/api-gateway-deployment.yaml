@@ -3,48 +3,48 @@ kind: Deployment
 metadata:
   name: api-gateway-deployment
   labels:
-   app: api-gateway
-spec:
- replicas: 1
- strategy:
-  type: RollingUpdate
-  rollingUpdate:
-   maxUnavailable: 1
-   maxSurge: 1
- selector:
-  matchLabels:
-   app: api-gateway
- template:
-  metadata:
-   name: api-gateway
-   labels:
     app: api-gateway
-  spec:
-   containers:
-    - name: api-gateway
-      image: johnhopedawa/overengineered-api-gateway:latest
-      imagePullPolicy: Always
-      ports:
-       - containerPort: 3000
-      resources:
-       requests:
-        memory: "64Mi"
-        cpu: "50m"
-       limits:
-        memory: "128Mi"
-        cpu: "100m"
-      livenessProbe:      
-        httpGet:
-          path: /health
-          port: 3000
-        initialDelaySeconds: 10
-        periodSeconds: 10
-      readinessProbe:     
-        httpGet:
-          path: /health
-          port: 3000
-        initialDelaySeconds: 5
-        periodSeconds: 5
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: api-gateway
+  template:
+    metadata:
+      name: api-gateway
+      labels:
+        app: api-gateway
+    spec:
+      containers:
+      - name: api-gateway
+        image: johnhopedawa/overengineered-api-gateway:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "50m"
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 5
 
        
   

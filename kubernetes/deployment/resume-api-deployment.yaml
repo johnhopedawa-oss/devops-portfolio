@@ -27,8 +27,8 @@ spec:
           ports:
             - containerPort: 3001
           envFrom:
-           - configMapRef:
-              name: resume-api-config
+            - configMapRef:
+                name: resume-api-config
           resources:
             requests:
               memory: "64Mi"
