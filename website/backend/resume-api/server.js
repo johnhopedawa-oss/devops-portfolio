@@ -4,7 +4,7 @@ const { MongoClient } = require('mongodb');
 const PORT = 3001;
 
 // MongoDB connection
-const mongoURL = process.env.MONGO_URL || 'mongodb://mongodb:27017';
+const mongoURL = process.env.MONGO_URL || 'mongodb://mongodb-service:27017';
 const client = new MongoClient(mongoURL);
 const dbName = process.env.MONGO_DB_NAME || 'resumeDB';
 
