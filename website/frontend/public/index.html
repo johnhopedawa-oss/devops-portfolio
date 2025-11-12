@@ -399,10 +399,50 @@ networks:
           title: 'Kubernetes (K3s)',
           body: `
             <div class="tech-modal-section">
-              <h3>🚧 Not Deployed Yet</h3>
-              <p>This technology is planned but not currently deployed on this website.</p>
-              <p>Interested in learning more about the future plans for this project? Check out the roadmap and implementation details on GitHub:</p>
-              <p><a href="https://github.com/johnhopedawa/Devops-Overengineered-Website" target="_blank" rel="noopener">github.com/johnhopedawa/Devops-Overengineered-Website</a></p>
+              <h3>What is Kubernetes?</h3>
+              <p>Kubernetes is an open-source container orchestration platform that automates deployment, scaling, and management of containerized applications.</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>How It's Being Used Here</h3>
+              <p>This website runs on a K3s cluster (lightweight Kubernetes) with 3 nodes running on bare-metal hardware. All services are orchestrated with deployments, services, and ingress controllers.</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>Cluster Architecture</h3>
+              <p><strong>K3s Cluster:</strong> 3-node bare-metal cluster</p>
+              <p><strong>Nodes:</strong></p>
+              <p>• 2x MQ910 mini computers</p>
+              <p>• 1x Raspberry Pi</p>
+              <p><strong>Current Deployment:</strong></p>
+              <div class="tech-modal-code"><pre>Services Running:
+├─ frontend-deployment (1 replica)
+├─ api-gateway-deployment (1 replica)
+├─ resume-api-deployment (1 replica)
+└─ mongodb-deployment (1 replica)
+
+ClusterIP Services:
+├─ frontend-service (port 80)
+├─ api-gateway-service (port 3000)
+├─ resume-api-service (port 3001)
+└─ mongodb-service (port 27017)
+
+Ingress:
+└─ frontend-ingress (routes traffic to cluster)</pre></div>
+            </div>
+            <div class="tech-modal-section">
+              <h3>Why K3s?</h3>
+              <p>K3s is perfect for edge computing and home lab setups. It's a fully-compliant Kubernetes distribution that runs in under 512MB of RAM, making it ideal for Raspberry Pi and mini PC deployments.</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>Deployment Files</h3>
+              <p>All services are defined as Kubernetes manifests with deployments, services, and ingress configurations stored in the repository. Every push triggers automated deployments via GitOps workflows.</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>What's Next</h3>
+              <p>• Multi-replica deployments with horizontal pod autoscaling</p>
+              <p>• Persistent volume claims for MongoDB StatefulSet</p>
+              <p>• Helm charts for easier deployments</p>
+              <p>• Service mesh (Istio/Linkerd) for advanced traffic management</p>
+              <p>• Monitoring stack (Prometheus + Grafana) integration</p>
             </div>
           `
         },
@@ -476,10 +516,41 @@ networks:
           title: 'Linux',
           body: `
             <div class="tech-modal-section">
-              <h3>🚧 Not Deployed Yet</h3>
-              <p>This technology is planned but not currently deployed on this website.</p>
-              <p>Interested in learning more about the future plans for this project? Check out the roadmap and implementation details on GitHub:</p>
-              <p><a href="https://github.com/johnhopedawa/Devops-Overengineered-Website" target="_blank" rel="noopener">github.com/johnhopedawa/Devops-Overengineered-Website</a></p>
+              <h3>What is Linux?</h3>
+              <p>Linux is an open-source Unix-like operating system kernel that powers everything from servers to embedded systems. It's the backbone of modern DevOps infrastructure.</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>How It's Being Used Here</h3>
+              <p>This entire infrastructure runs on Linux-based systems. The K3s cluster nodes all run Linux, and every Docker container is built on Alpine Linux or Debian-based images.</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>Infrastructure Details</h3>
+              <p><strong>Cluster Nodes:</strong></p>
+              <p>• 2x MQ910 mini computers running Linux</p>
+              <p>• 1x Raspberry Pi running Linux (currently hosting the website)</p>
+              <p><strong>Container Base Images:</strong></p>
+              <div class="tech-modal-code"><pre>Frontend: nginx:1.27-alpine (Alpine Linux)
+API Gateway: node:20-alpine (Alpine Linux)
+Resume API: node:20-alpine (Alpine Linux)
+MongoDB: mongo:8 (Debian-based)</pre></div>
+            </div>
+            <div class="tech-modal-section">
+              <h3>Why Linux?</h3>
+              <p><strong>Performance:</strong> Minimal resource overhead, perfect for container workloads</p>
+              <p><strong>Stability:</strong> Rock-solid uptime and reliability for production services</p>
+              <p><strong>Flexibility:</strong> Full control over system configuration and networking</p>
+              <p><strong>Ecosystem:</strong> Native support for Docker, Kubernetes, and all DevOps tools</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>DevOps Tools on Linux</h3>
+              <p>• <strong>K3s:</strong> Lightweight Kubernetes distribution optimized for resource-constrained environments</p>
+              <p>• <strong>Docker:</strong> Container runtime for building and running containerized applications</p>
+              <p>• <strong>kubectl:</strong> Kubernetes CLI for managing cluster resources</p>
+              <p>• <strong>systemd:</strong> Service management for the K3s cluster daemon</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>The Linux Philosophy</h3>
+              <p>"Do one thing and do it well." Every service in this stack follows the Unix philosophy: small, focused, composable components that work together seamlessly.</p>
             </div>
           `
         },

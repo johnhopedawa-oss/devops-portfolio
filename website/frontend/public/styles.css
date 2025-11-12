@@ -241,11 +241,13 @@ body{
   margin-bottom:6px;
   filter:brightness(0.9);
 }
-.hero-stack-item[data-tech="docker"]{
+.hero-stack-item[data-tech="docker"],
+.hero-stack-item[data-tech="kubernetes"],
+.hero-stack-item[data-tech="linux"]{
   border-color:#00d084;
   background:rgba(0,208,132,0.05);
 }
-.hero-stack-item:not([data-tech="docker"]){
+.hero-stack-item:not([data-tech="docker"]):not([data-tech="kubernetes"]):not([data-tech="linux"]){
   border-color:#ff4444;
   background:rgba(255,68,68,0.05);
 }
