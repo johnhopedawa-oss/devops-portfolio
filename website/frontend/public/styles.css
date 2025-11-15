@@ -249,8 +249,33 @@ body{
   background:rgba(0,208,132,0.05);
 }
 .hero-stack-item:not([data-tech="docker"]):not([data-tech="kubernetes"]):not([data-tech="linux"]):not([data-tech="githubactions"]){
-  border-color:#ff4444;
-  background:rgba(255,68,68,0.05);
+  border-color:#6d4444;
+  background:rgba(109,68,68,0.15);
+  position:relative;
+  overflow:hidden;
+}
+.hero-stack-item:not([data-tech="docker"]):not([data-tech="kubernetes"]):not([data-tech="linux"]):not([data-tech="githubactions"])::before{
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  background-image:repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 8px,
+    rgba(139,88,88,0.35) 8px,
+    rgba(139,88,88,0.35) 10px
+  );
+  pointer-events:none;
+  z-index:1;
+}
+.hero-stack-item:not([data-tech="docker"]):not([data-tech="kubernetes"]):not([data-tech="linux"]):not([data-tech="githubactions"]) img,
+.hero-stack-item:not([data-tech="docker"]):not([data-tech="kubernetes"]):not([data-tech="linux"]):not([data-tech="githubactions"]) .name{
+  position:relative;
+  z-index:2;
+  opacity:0.5;
 }
 .hero-stack-item[data-tech="githubactions"] img{
   width:48px;
@@ -382,8 +407,33 @@ body{
   background:rgba(0,208,132,0.05);
 }
 .tech-item:not([data-tech="nginx"]):not([data-tech="nodejs"]):not([data-tech="mongodb"]){
-  border-color:#ff4444;
-  background:rgba(255,68,68,0.05);
+  border-color:#6d4444;
+  background:rgba(109,68,68,0.15);
+  position:relative;
+  overflow:hidden;
+}
+.tech-item:not([data-tech="nginx"]):not([data-tech="nodejs"]):not([data-tech="mongodb"])::before{
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  background-image:repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 8px,
+    rgba(139,88,88,0.35) 8px,
+    rgba(139,88,88,0.35) 10px
+  );
+  pointer-events:none;
+  z-index:1;
+}
+.tech-item:not([data-tech="nginx"]):not([data-tech="nodejs"]):not([data-tech="mongodb"]) img,
+.tech-item:not([data-tech="nginx"]):not([data-tech="nodejs"]):not([data-tech="mongodb"]) .name{
+  position:relative;
+  z-index:2;
+  opacity:0.5;
 }
 .tech-item img{
   width:60px;
@@ -475,25 +525,50 @@ body{
   text-align:center;
   cursor:pointer;
   transition:all 0.3s ease;
-  border-color:#ff4444;
-  background:rgba(255,68,68,0.05);
+  border-color:#6d4444;
+  background:rgba(109,68,68,0.15);
+  position:relative;
+  overflow:hidden;
+}
+.stat-card::before{
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  background-image:repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 8px,
+    rgba(139,88,88,0.35) 8px,
+    rgba(139,88,88,0.35) 10px
+  );
+  pointer-events:none;
+  z-index:1;
 }
 .stat-card:hover{
-  border-color:#ff4444;
+  border-color:#6d4444;
   transform:translateY(-3px);
-  box-shadow:0 6px 20px rgba(255,68,68,0.2);
+  box-shadow:0 6px 20px rgba(109,68,68,0.2);
 }
 .stat-card .number{
   font-size:36px;
   font-weight:800;
-  color:#ff4444;
+  color:#8d6666;
   margin-bottom:8px;
+  position:relative;
+  z-index:2;
+  opacity:0.6;
 }
 .stat-card .label{
   font-size:13px;
   color:var(--muted);
   text-transform:uppercase;
   letter-spacing:1px;
+  position:relative;
+  z-index:2;
+  opacity:0.6;
 }
 
 /* Footer */
@@ -838,3 +913,53 @@ body{
     font-size:11px;
   }
 }
+
+/* Shake Animation for Implemented Tech */
+@keyframes shake{
+  0%, 100%{transform:translateX(0)}
+  25%{transform:translateX(-3px)}
+  75%{transform:translateX(3px)}
+}
+
+/* Keyframes for looping shake sequence */
+@keyframes shake-loop-docker{
+  0%{transform:translateX(0)}
+  1.35%{transform:translateX(-3px)}
+  4.05%{transform:translateX(3px)}
+  6.76%{transform:translateX(0)}
+  100%{transform:translateX(0)}
+}
+@keyframes shake-loop-kubernetes{
+  0%{transform:translateX(0)}
+  8.11%{transform:translateX(0)}
+  9.46%{transform:translateX(-3px)}
+  12.16%{transform:translateX(3px)}
+  14.86%{transform:translateX(0)}
+  100%{transform:translateX(0)}
+}
+@keyframes shake-loop-linux{
+  0%{transform:translateX(0)}
+  16.22%{transform:translateX(0)}
+  17.57%{transform:translateX(-3px)}
+  20.27%{transform:translateX(3px)}
+  22.97%{transform:translateX(0)}
+  100%{transform:translateX(0)}
+}
+@keyframes shake-loop-githubactions{
+  0%{transform:translateX(0)}
+  24.32%{transform:translateX(0)}
+  25.68%{transform:translateX(-3px)}
+  28.38%{transform:translateX(3px)}
+  31.08%{transform:translateX(0)}
+  100%{transform:translateX(0)}
+}
+
+/* Apply looping animations */
+.hero-stack-item[data-tech="docker"]{animation:shake-loop-docker 7.4s ease-in-out infinite}
+.hero-stack-item[data-tech="kubernetes"]{animation:shake-loop-kubernetes 7.4s ease-in-out infinite}
+.hero-stack-item[data-tech="linux"]{animation:shake-loop-linux 7.4s ease-in-out infinite}
+.hero-stack-item[data-tech="githubactions"]{animation:shake-loop-githubactions 7.4s ease-in-out infinite}
+
+.tech-item[data-tech="nginx"]{animation:shake-loop-docker 7.4s ease-in-out infinite}
+.tech-item[data-tech="nodejs"]{animation:shake-loop-kubernetes 7.4s ease-in-out infinite}
+.tech-item[data-tech="mongodb"]{animation:shake-loop-linux 7.4s ease-in-out infinite}
