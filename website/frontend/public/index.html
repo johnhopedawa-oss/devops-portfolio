@@ -405,14 +405,16 @@ networks:
             <div class="tech-modal-section">
               <h3>How It's Being Used Here</h3>
               <p>This website runs on a K3s cluster (lightweight Kubernetes) with 3 nodes running on bare-metal hardware. All services are orchestrated with deployments, services, and ingress controllers.</p>
-              <p><em>I don't currently have an API endpoint to showcase live cluster metrics, but if you're curious about the setup, feel free to message me on LinkedIn and I can share screenshots from my cluster! It'll be up in the future once I finish setting up Prometheus and Grafana.</em></p>
             </div>
             <div class="tech-modal-section">
               <h3>Cluster Architecture</h3>
+              <p>Here's a picture of the K3s cluster currently running this website!</p>
+              <img src="assets/images/cluster.jpg" alt="K3s 3-Node Cluster" style="width:100%;border-radius:8px;margin-bottom:16px;border:1px solid var(--border);">
               <p><strong>K3s Cluster:</strong> 3-node bare-metal cluster</p>
               <p><strong>Nodes:</strong></p>
-              <p>• 2x MQ910 mini computers</p>
-              <p>• 1x Raspberry Pi</p>
+              <p>• 1x MQ910 mini computer (Master Node)</p>
+              <p>• 1x MQ910 mini computer (Worker Node)</p>
+              <p>• 1x Raspberry Pi (Worker Node)</p>
               <p><strong>Current Deployment:</strong></p>
               <div class="tech-modal-code"><pre>Services Running:
 ├─ frontend-deployment (1 replica)
@@ -431,19 +433,11 @@ Ingress:
             </div>
             <div class="tech-modal-section">
               <h3>Why K3s?</h3>
-              <p>K3s is perfect for edge computing and home lab setups. It's a fully-compliant Kubernetes distribution that runs in under 512MB of RAM, making it ideal for Raspberry Pi and mini PC deployments.</p>
+              <p>K3s is a lightweight version of Kubernetes (K8s) designed for resource-constrained environments. It uses less memory and runs perfectly on Raspberry Pi and mini PCs.</p>
             </div>
             <div class="tech-modal-section">
               <h3>Deployment Files</h3>
-              <p>All services are defined as Kubernetes manifests with deployments, services, and ingress configurations stored in the repository. Every push triggers automated deployments via GitOps workflows.</p>
-            </div>
-            <div class="tech-modal-section">
-              <h3>What's Next</h3>
-              <p>• Multi-replica deployments with horizontal pod autoscaling</p>
-              <p>• Persistent volume claims for MongoDB StatefulSet</p>
-              <p>• Helm charts for easier deployments</p>
-              <p>• Service mesh (Istio/Linkerd) for advanced traffic management</p>
-              <p>• Monitoring stack (Prometheus + Grafana) integration</p>
+              <p>All services are defined as Kubernetes manifests with deployments, services, and ingress configurations stored in the repository.</p>
             </div>
           `
         },
@@ -541,17 +535,6 @@ MongoDB: mongo:8 (Debian-based)</pre></div>
               <p><strong>Stability:</strong> Rock-solid uptime and reliability for production services</p>
               <p><strong>Flexibility:</strong> Full control over system configuration and networking</p>
               <p><strong>Ecosystem:</strong> Native support for Docker, Kubernetes, and all DevOps tools</p>
-            </div>
-            <div class="tech-modal-section">
-              <h3>DevOps Tools on Linux</h3>
-              <p>• <strong>K3s:</strong> Lightweight Kubernetes distribution optimized for resource-constrained environments</p>
-              <p>• <strong>Docker:</strong> Container runtime for building and running containerized applications</p>
-              <p>• <strong>kubectl:</strong> Kubernetes CLI for managing cluster resources</p>
-              <p>• <strong>systemd:</strong> Service management for the K3s cluster daemon</p>
-            </div>
-            <div class="tech-modal-section">
-              <h3>The Linux Philosophy</h3>
-              <p>"Do one thing and do it well." Every service in this stack follows the Unix philosophy: small, focused, composable components that work together seamlessly.</p>
             </div>
           `
         },
