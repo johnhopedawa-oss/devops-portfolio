@@ -7,5 +7,6 @@ variable "region" {
 }
 
 variable "credentials_file" {
-    description = "/home/john/project/Devops-Overengineered-Website/terraform/gcpkey.json"
+    description = "Credentials File"
+    default = "/home/john/project/Devops-Overengineered-Website/terraform/gcpkey.json"
 }
