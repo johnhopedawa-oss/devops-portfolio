@@ -6,23 +6,23 @@
 - [x] 3-tier architecture
 
 ## 🔄 Kubernetes manifests on local k3s
-- [ ] Deploy to local k3s cluster
-- [ ] Create Kubernetes manifests (Deployments, Services, ConfigMaps)
+- [x] Deploy to local k3s cluster
+- [x] Create Kubernetes manifests (Deployments, Services, ConfigMaps)
 - [ ] Helm charts
 
 ## 🔄 Ingress + routing with NGINX
-- [ ] Set up Ingress controller
-- [ ] Configure routing rules
+- [x] Set up Ingress controller
+- [x] Configure routing rules
 - [ ] SSL/TLS termination
 
 ## 🔄 Terraform infrastructure
-- [ ] GCP infrastructure provisioning
+- [x] GCP infrastructure provisioning
 - [ ] Network configuration
 - [ ] State management
 
 ## 🔄 CI/CD with GitHub Actions
-- [ ] Automated build pipeline
-- [ ] Docker image build and push
+- [x] Automated build pipeline
+- [x] Docker image build and push
 - [ ] Automated deployment
 - [ ] Preview environments
 

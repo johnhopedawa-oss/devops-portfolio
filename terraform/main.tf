@@ -17,4 +17,5 @@ resource "google_container_cluster" "autopilot" {
     name = "john-gke"
     location = var.region
     enable_autopilot = true
+    deletion_protection = false
 }
