@@ -616,8 +616,8 @@ app.get('/status', (_req, res) => {
   res.redirect('/');
 });
 
-// JSON endpoint for programmatic access (rate limited)
-app.get('/api/health', limiter, (_req, res) => {
+// JSON endpoint for programmatic access
+app.get('/api/health', (_req, res) => {
   res.json({
     status: 'ok',
     service: 'gcp-health-api',
