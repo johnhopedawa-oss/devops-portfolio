@@ -6,6 +6,8 @@ const PORT = process.env.PORT || 8080;
 // Trust Cloud Run proxy to get real client IP
 app.set('trust proxy', true);
 
+app.use(express.json());
+
 // Rate limiting: 10 requests per hour per IP
 const limiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour
@@ -27,11 +29,6 @@ const limiter = rateLimit({
     });
   }
 });
-
-// Apply rate limiting to all routes
-app.use(limiter);
-
-app.use(express.json());
 
 const getHTMLTemplate = (title, content) => `
 <!doctype html>
@@ -616,8 +613,8 @@ app.get('/status', (_req, res) => {
   res.redirect('/');
 });
 
-// JSON endpoint for programmatic access
-app.get('/api/health', (_req, res) => {
+// JSON endpoint for programmatic access (rate limited)
+app.get('/api/health', limiter, (_req, res) => {
   res.json({
     status: 'ok',
     service: 'gcp-health-api',
