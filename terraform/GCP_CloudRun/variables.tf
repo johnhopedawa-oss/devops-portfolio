@@ -1,6 +1,7 @@
 variable "project_id" {
   type        = string
-  description = "john-devops"
+  description = "GCP Project ID"
+  default     = "john-devops"
 }
 
 variable "region" {
@@ -11,5 +12,6 @@ variable "region" {
 
 variable "credentials_file" {
   type        = string
-  description = "/terraform/GCP_CloudRun/gcpkey.json"
+  description = "Path to GCP service account key JSON file"
+  default     = "/home/john/project/Devops-Overengineered-Website/terraform/GCP_CloudRun/gcpkey.json"
 }
