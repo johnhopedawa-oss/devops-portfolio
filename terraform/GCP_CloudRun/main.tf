@@ -16,7 +16,7 @@ resource "google_cloud_run_service" "gcp_health_api" {
   template {
     spec {
       containers {
-        image = "ghcr.io/johnhopedawa/overengineered-gcp-health-api:latest"
+        image = "gcr.io/john-devops/gcp-health-api:latest"
 
         ports {
           container_port = 8080

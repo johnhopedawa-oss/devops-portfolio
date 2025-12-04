@@ -18,11 +18,21 @@ YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 echo ""
-echo -e "${BLUE}Step 1: Image will be pulled by Cloud Run from GHCR${NC}"
-echo "Image: ${IMAGE_NAME}"
+echo -e "${BLUE}Step 1: Pulling image from Docker Hub${NC}"
+docker pull johnhopedawa/overengineered-gcp-health-api:latest
 
 echo ""
-echo -e "${BLUE}Step 2: Deploying with Terraform${NC}"
+echo -e "${BLUE}Step 2: Tagging for GCR${NC}"
+docker tag johnhopedawa/overengineered-gcp-health-api:latest \
+  gcr.io/john-devops/gcp-health-api:latest
+
+echo ""
+echo -e "${BLUE}Step 3: Pushing to GCR${NC}"
+gcloud auth configure-docker --quiet
+docker push gcr.io/john-devops/gcp-health-api:latest
+
+echo ""
+echo -e "${BLUE}Step 4: Deploying with Terraform${NC}"
 
 # Initialize Terraform if needed
 if [ ! -d ".terraform" ]; then
