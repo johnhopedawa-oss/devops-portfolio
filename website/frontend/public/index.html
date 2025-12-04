@@ -467,10 +467,75 @@ Ingress:
           title: 'Terraform',
           body: `
             <div class="tech-modal-section">
-              <h3>🚧 Not Deployed Yet</h3>
-              <p>This technology is planned but not currently deployed on this website.</p>
-              <p>Interested in learning more about the future plans for this project? Check out the roadmap and implementation details on GitHub:</p>
-              <p><a href="https://github.com/johnhopedawa/Devops-Overengineered-Website" target="_blank" rel="noopener">github.com/johnhopedawa/Devops-Overengineered-Website</a></p>
+              <h3>What is Terraform?</h3>
+              <p>Terraform is an infrastructure-as-code tool that lets you build, change, and version infrastructure safely and efficiently using declarative configuration files.</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>How It's Being Used Here</h3>
+              <p>Terraform is used to provision and manage the GCP Cloud Run service that hosts the GCP Health API. All infrastructure is defined as code and version-controlled in the repository.</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>Infrastructure Configuration</h3>
+              <p><strong>terraform/GCP_CloudRun/main.tf</strong> - Cloud Run service definition:</p>
+              <div class="tech-modal-code"><pre>resource "google_cloud_run_service" "gcp_health_api" {
+  name     = "gcp-health-api"
+  location = var.region
+
+  template {
+    spec {
+      containers {
+        image = "gcr.io/john-devops/gcp-health-api:latest"
+
+        ports {
+          container_port = 8080
+        }
+
+        resources {
+          limits = {
+            cpu    = "1"
+            memory = "512Mi"
+          }
+        }
+      }
+
+      container_concurrency = 80
+      timeout_seconds       = 300
+    }
+
+    metadata {
+      annotations = {
+        "autoscaling.knative.dev/minScale" = "0"
+        "autoscaling.knative.dev/maxScale" = "3"
+      }
+    }
+  }
+}</pre></div>
+            </div>
+            <div class="tech-modal-section">
+              <h3>Deployment Workflow</h3>
+              <p><strong>1. Build:</strong> GitHub Actions builds the Docker image and pushes to Docker Hub</p>
+              <p><strong>2. Copy:</strong> Crane copies the image from Docker Hub to Google Container Registry</p>
+              <p><strong>3. Deploy:</strong> Terraform applies the configuration to create/update Cloud Run service</p>
+              <p><strong>4. Verify:</strong> Service is accessible at the generated Cloud Run URL</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>Deployment Script</h3>
+              <p><strong>terraform/GCP_CloudRun/deploy.sh</strong>:</p>
+              <div class="tech-modal-code"><pre># Install crane if not present
+# Copy image from Docker Hub to GCR
+crane copy johnhopedawa/overengineered-gcp-health-api:latest \\
+  gcr.io/john-devops/gcp-health-api:latest
+
+# Deploy with Terraform
+terraform init
+terraform apply -auto-approve</pre></div>
+            </div>
+            <div class="tech-modal-section">
+              <h3>Why Terraform?</h3>
+              <p><strong>Infrastructure as Code:</strong> All cloud resources are version-controlled and reproducible</p>
+              <p><strong>Declarative:</strong> Define the desired state, Terraform handles the how</p>
+              <p><strong>State Management:</strong> Tracks current infrastructure state and calculates minimal changes</p>
+              <p><strong>Multi-Cloud:</strong> Can manage infrastructure across GCP, AWS, Azure with same workflow</p>
             </div>
           `
         },
@@ -500,10 +565,97 @@ Ingress:
           title: 'Google Cloud Platform',
           body: `
             <div class="tech-modal-section">
-              <h3>🚧 Not Deployed Yet</h3>
-              <p>This technology is planned but not currently deployed on this website.</p>
-              <p>Interested in learning more about the future plans for this project? Check out the roadmap and implementation details on GitHub:</p>
-              <p><a href="https://github.com/johnhopedawa/Devops-Overengineered-Website" target="_blank" rel="noopener">github.com/johnhopedawa/Devops-Overengineered-Website</a></p>
+              <h3>Live GCP Health API</h3>
+              <div class="resume-buttons">
+                <a href="https://gcp-health-api-jpawjztt4a-uw.a.run.app" target="_blank" rel="noopener" class="resume-btn-primary">Visit GCP Health API</a>
+                <a href="/api/gcp-health" target="_blank" class="resume-btn-secondary">API Gateway Proxy</a>
+              </div>
+            </div>
+            <div class="tech-modal-section">
+              <h3>What is Google Cloud Platform?</h3>
+              <p>Google Cloud Platform (GCP) is Google's suite of cloud computing services that provides infrastructure, platform, and serverless computing solutions.</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>How It's Being Used Here</h3>
+              <p>This website uses GCP Cloud Run to host a serverless containerized health check API. The service automatically scales from zero to handle traffic, and you only pay for what you use.</p>
+              <p><strong>Service:</strong> GCP Cloud Run</p>
+              <p><strong>Region:</strong> us-west1</p>
+              <p><strong>Container Image:</strong> gcr.io/john-devops/gcp-health-api:latest</p>
+              <p><strong>Rate Limit:</strong> 50 requests per hour per IP address</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>Cloud Run Configuration</h3>
+              <p><strong>Auto-scaling:</strong> 0 to 3 instances based on traffic</p>
+              <p><strong>CPU:</strong> 1 vCPU per instance</p>
+              <p><strong>Memory:</strong> 512Mi per instance</p>
+              <p><strong>Concurrency:</strong> 80 requests per instance</p>
+              <p><strong>Timeout:</strong> 300 seconds</p>
+              <p><strong>Minimum Instances:</strong> 0 (scales to zero when idle)</p>
+              <p><strong>Maximum Instances:</strong> 3</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>Deployment Pipeline</h3>
+              <p><strong>1. Build:</strong> GitHub Actions builds multi-arch Docker image (amd64/arm64)</p>
+              <p><strong>2. Push:</strong> Image pushed to Docker Hub (johnhopedawa/overengineered-gcp-health-api:latest)</p>
+              <p><strong>3. Copy:</strong> Crane copies image to Google Container Registry (gcr.io/john-devops/gcp-health-api:latest)</p>
+              <p><strong>4. Deploy:</strong> Terraform provisions Cloud Run service with the new image</p>
+              <p><strong>5. Live:</strong> Service available at Cloud Run URL with public access</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>Infrastructure as Code</h3>
+              <p>All GCP infrastructure is managed with Terraform:</p>
+              <div class="tech-modal-code"><pre>resource "google_cloud_run_service" "gcp_health_api" {
+  name     = "gcp-health-api"
+  location = "us-west1"
+
+  template {
+    spec {
+      containers {
+        image = "gcr.io/john-devops/gcp-health-api:latest"
+
+        resources {
+          limits = {
+            cpu    = "1"
+            memory = "512Mi"
+          }
+        }
+      }
+    }
+  }
+}</pre></div>
+            </div>
+            <div class="tech-modal-section">
+              <h3>Rate Limiting</h3>
+              <p>The API implements per-IP rate limiting to prevent abuse and control costs:</p>
+              <p><strong>Limit:</strong> 50 requests per hour per IP address</p>
+              <p><strong>Implementation:</strong> express-rate-limit middleware with proxy trust</p>
+              <p><strong>Headers:</strong> RateLimit-Limit, RateLimit-Remaining, RateLimit-Reset</p>
+              <p><strong>Response:</strong> 429 Too Many Requests when limit exceeded</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>API Endpoints</h3>
+              <p><strong>GET /</strong> - Visual dashboard with deployment information</p>
+              <p><strong>GET /api/health</strong> - JSON health check endpoint</p>
+              <div class="tech-modal-code"><pre>curl https://gcp-health-api-jpawjztt4a-uw.a.run.app/api/health</pre></div>
+              <p><strong>Example Response:</strong></p>
+              <div class="tech-modal-code"><pre>{
+  "status": "ok",
+  "service": "gcp-health-api",
+  "message": "GCP Cloud Run is operational",
+  "timestamp": "2025-12-04T04:30:15.123Z",
+  "region": "us-west1",
+  "deployment": "cloud-run",
+  "uptime": 12345.67,
+  "nodeVersion": "v20.x.x"
+}</pre></div>
+            </div>
+            <div class="tech-modal-section">
+              <h3>Why GCP Cloud Run?</h3>
+              <p><strong>Serverless:</strong> No server management, automatic scaling to zero</p>
+              <p><strong>Cost-Effective:</strong> Pay only for actual request processing time</p>
+              <p><strong>Container-Native:</strong> Deploy any container image without platform lock-in</p>
+              <p><strong>Auto-Scaling:</strong> Handles traffic spikes automatically, scales down during idle periods</p>
+              <p><strong>Global Network:</strong> Leverage Google's global infrastructure</p>
             </div>
           `
         },

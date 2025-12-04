@@ -244,17 +244,19 @@ body{
 .hero-stack-item[data-tech="docker"],
 .hero-stack-item[data-tech="kubernetes"],
 .hero-stack-item[data-tech="linux"],
-.hero-stack-item[data-tech="githubactions"]{
+.hero-stack-item[data-tech="githubactions"],
+.hero-stack-item[data-tech="gcp"],
+.hero-stack-item[data-tech="terraform"]{
   border-color:#00d084;
   background:rgba(0,208,132,0.05);
 }
-.hero-stack-item:not([data-tech="docker"]):not([data-tech="kubernetes"]):not([data-tech="linux"]):not([data-tech="githubactions"]){
+.hero-stack-item:not([data-tech="docker"]):not([data-tech="kubernetes"]):not([data-tech="linux"]):not([data-tech="githubactions"]):not([data-tech="gcp"]):not([data-tech="terraform"]){
   border-color:#6d4444;
   background:rgba(109,68,68,0.15);
   position:relative;
   overflow:hidden;
 }
-.hero-stack-item:not([data-tech="docker"]):not([data-tech="kubernetes"]):not([data-tech="linux"]):not([data-tech="githubactions"])::before{
+.hero-stack-item:not([data-tech="docker"]):not([data-tech="kubernetes"]):not([data-tech="linux"]):not([data-tech="githubactions"]):not([data-tech="gcp"]):not([data-tech="terraform"])::before{
   content:'';
   position:absolute;
   top:0;
@@ -271,8 +273,8 @@ body{
   pointer-events:none;
   z-index:1;
 }
-.hero-stack-item:not([data-tech="docker"]):not([data-tech="kubernetes"]):not([data-tech="linux"]):not([data-tech="githubactions"]) img,
-.hero-stack-item:not([data-tech="docker"]):not([data-tech="kubernetes"]):not([data-tech="linux"]):not([data-tech="githubactions"]) .name{
+.hero-stack-item:not([data-tech="docker"]):not([data-tech="kubernetes"]):not([data-tech="linux"]):not([data-tech="githubactions"]):not([data-tech="gcp"]):not([data-tech="terraform"]) img,
+.hero-stack-item:not([data-tech="docker"]):not([data-tech="kubernetes"]):not([data-tech="linux"]):not([data-tech="githubactions"]):not([data-tech="gcp"]):not([data-tech="terraform"]) .name{
   position:relative;
   z-index:2;
   opacity:0.5;
