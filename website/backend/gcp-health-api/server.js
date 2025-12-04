@@ -1,6 +1,33 @@
 const express = require('express');
+const rateLimit = require('express-rate-limit');
 const app = express();
 const PORT = process.env.PORT || 8080;
+
+// Rate limiting: 5 requests per hour per IP
+const limiter = rateLimit({
+  windowMs: 60 * 60 * 1000, // 1 hour
+  max: 5, // Limit each IP to 5 requests per windowMs
+  message: {
+    status: 'error',
+    message: 'Too many requests from this IP, please try again later.',
+    retryAfter: '1 hour'
+  },
+  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+  // Trust proxy headers (important for Cloud Run)
+  trustProxy: true,
+  handler: (_req, res) => {
+    res.status(429).json({
+      status: 'error',
+      message: 'Rate limit exceeded. Maximum 5 requests per hour allowed.',
+      retryAfter: '1 hour',
+      timestamp: new Date().toISOString()
+    });
+  }
+});
+
+// Apply rate limiting to all routes
+app.use(limiter);
 
 app.use(express.json());
 

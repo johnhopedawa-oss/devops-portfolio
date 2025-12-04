@@ -156,7 +156,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ env.DOCKER_USERNAME }}/gcp-health-api
+          images: ${{ env.DOCKER_USERNAME }}/overengineered-gcp-health-api
           tags: |
             type=raw,value=latest
             type=sha,prefix={{branch}}-
