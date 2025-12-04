@@ -8,8 +8,8 @@ echo "===================================="
 PROJECT_ID="john-devops"
 REGION="us-west1"
 SERVICE_NAME="overengineered-gcp-health-api"
-DOCKER_USERNAME="johnhopedawa"
-IMAGE_NAME="docker.io/${DOCKER_USERNAME}/${SERVICE_NAME}:latest"
+GITHUB_USERNAME="johnhopedawa"
+IMAGE_NAME="ghcr.io/${GITHUB_USERNAME}/${SERVICE_NAME}:latest"
 
 # Colors for output
 GREEN='\033[0;32m'
@@ -18,12 +18,11 @@ YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 echo ""
-echo -e "${BLUE}Step 1: Pulling latest image from Docker Hub${NC}"
-docker pull ${IMAGE_NAME}
+echo -e "${BLUE}Step 1: Image will be pulled by Cloud Run from GHCR${NC}"
+echo "Image: ${IMAGE_NAME}"
 
 echo ""
 echo -e "${BLUE}Step 2: Deploying with Terraform${NC}"
-cd terraform/GCP_CloudRun
 
 # Initialize Terraform if needed
 if [ ! -d ".terraform" ]; then
