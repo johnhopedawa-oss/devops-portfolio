@@ -18,18 +18,20 @@ YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 echo ""
-echo -e "${BLUE}Step 1: Pulling image from Docker Hub${NC}"
-docker pull johnhopedawa/overengineered-gcp-health-api:latest
+echo -e "${BLUE}Step 1: Installing crane (if not already installed)${NC}"
+if ! command -v crane &> /dev/null; then
+  echo "Installing crane..."
+  curl -sL "https://github.com/google/go-containerregistry/releases/latest/download/go-containerregistry_Linux_x86_64.tar.gz" > /tmp/crane.tar.gz
+  tar -zxvf /tmp/crane.tar.gz -C /tmp/ crane
+  sudo mv /tmp/crane /usr/local/bin/crane
+  rm /tmp/crane.tar.gz
+fi
 
 echo ""
-echo -e "${BLUE}Step 2: Tagging for GCR${NC}"
-docker tag johnhopedawa/overengineered-gcp-health-api:latest \
-  gcr.io/john-devops/gcp-health-api:latest
-
-echo ""
-echo -e "${BLUE}Step 3: Pushing to GCR${NC}"
+echo -e "${BLUE}Step 2: Copying image from Docker Hub to GCR${NC}"
 gcloud auth configure-docker --quiet
-docker push gcr.io/john-devops/gcp-health-api:latest
+crane copy johnhopedawa/overengineered-gcp-health-api:latest \
+  gcr.io/john-devops/gcp-health-api:latest
 
 echo ""
 echo -e "${BLUE}Step 4: Deploying with Terraform${NC}"
