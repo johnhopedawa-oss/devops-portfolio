@@ -8,10 +8,10 @@ app.set('trust proxy', true);
 
 app.use(express.json());
 
-// Rate limiting: 30 requests per hour per IP
+// Rate limiting: 50 requests per hour per IP
 const limiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour
-  max: 30, // Limit each IP to 30 requests per windowMs
+  max: 50, // Limit each IP to 50 requests per windowMs
   message: {
     status: 'error',
     message: 'Too many requests from this IP, please try again later.',
@@ -22,7 +22,7 @@ const limiter = rateLimit({
   handler: (req, res) => {
     res.status(429).json({
       status: 'error',
-      message: 'Rate limit exceeded. Maximum 30 requests per hour allowed.',
+      message: 'Rate limit exceeded. Maximum 50 requests per hour allowed.',
       retryAfter: '1 hour',
       timestamp: new Date().toISOString(),
       clientIP: req.ip // Show the IP being rate limited for debugging
