@@ -24,6 +24,19 @@ app.use('/api/resume', createProxyMiddleware({
   }
 }));
 
+// Route: GCP Health API (Cloud Run)
+app.use('/api/gcp-health', createProxyMiddleware({
+  target: process.env.GCP_HEALTH_API_URL || 'https://gcp-health-api-your-hash-uw.a.run.app',
+  changeOrigin: true,
+  pathRewrite: {
+    '^/api/gcp-health': '', // Remove /api/gcp-health prefix when forwarding
+  },
+  onError: (err, req, res) => {
+    console.error('GCP Health API proxy error:', err);
+    res.status(503).json({ error: 'GCP Health service unavailable' });
+  }
+}));
+
 // Future APIs will be added here
 // app.use('/api/blog', createProxyMiddleware({ target: 'http://blog-api:3002', ... }));
 
@@ -37,4 +50,6 @@ app.listen(PORT, () => {
   console.log('Available routes:');
   console.log('  - GET /health');
   console.log('  - GET /api/resume');
+  console.log('  - GET /api/gcp-health (proxies to Cloud Run)');
+  console.log('  - GET /api/gcp-health/api/health (Cloud Run JSON endpoint)');
 });

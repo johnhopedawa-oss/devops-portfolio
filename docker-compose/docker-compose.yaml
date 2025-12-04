@@ -13,6 +13,10 @@ services:
 
   api-gateway:
    build: ../website/backend/api-gateway
+   env_file:
+    - ../.env
+   environment:
+    - GCP_HEALTH_API_URL=${GCP_HEALTH_API_URL}
    networks:
     - frontend
     - backend

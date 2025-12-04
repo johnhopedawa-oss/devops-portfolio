@@ -1,0 +1,16 @@
+{
+  "name": "gcp-health-api",
+  "version": "1.0.0",
+  "description": "Simple health check API for GCP Cloud Run",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["gcp", "cloud-run", "health-check"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
