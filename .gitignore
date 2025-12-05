@@ -3,3 +3,14 @@ node_modules/
 *.log
 .DS_Store
 kubernetes/configmap/configmap.yaml
+
+# Terraform local state and caches
+terraform/.terraform/
+terraform/GCP_CloudRun/.terraform/
+terraform/*.tfstate
+terraform/*.tfstate.backup
+terraform/GCP_CloudRun/*.tfstate
+terraform/GCP_CloudRun/*.tfstate.backup
+terraform/*.lock.hcl
+terraform/GCP_CloudRun/*.lock.hcl
+terraform/GCP_CloudRun/gcpkey.json
