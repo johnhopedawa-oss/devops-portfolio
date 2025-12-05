@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>John Hope Dawa — DevOps Engineer</title>
   <link rel="icon" type="image/svg+xml" href="assets/images/jd-logo.svg" />
-  <link rel="stylesheet" href="styles.css?v=11.40" />
+  <link rel="stylesheet" href="styles.css?v=11.81" />
   <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.11/dist/purify.min.js"></script>
 </head>
 <body>
@@ -13,6 +13,12 @@
   <header class="site-header" role="banner">
     <div class="header-inner container">
       <nav class="header-actions" aria-label="Primary">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="infrastructure.html" class="nav-link">Infrastructure</a>
+        <a href="microservices.html" class="nav-link">Microservices</a>
+        <a href="resume.html" class="nav-link">Resume</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <a href="about.html" class="nav-link">About</a>
         <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="drawer">Menu</button>
       </nav>
     </div>
@@ -23,11 +29,34 @@
     <div class="drawer-overlay" data-close></div>
     <div class="drawer-panel" role="document">
       <div class="drawer-header">
-        <h2>Services Dashboard</h2>
+        <h2>Menu</h2>
         <button class="drawer-close" aria-label="Close menu" data-close>✕</button>
       </div>
 
       <div class="drawer-list" id="drawerList">
+        <div class="group" data-group="navigation">
+          <a href="index.html" class="item" data-tags="navigation" tabindex="0">
+            <span class="left">Home</span>
+          </a>
+          <a href="infrastructure.html" class="item" data-tags="navigation" tabindex="0">
+            <span class="left">Infrastructure</span>
+          </a>
+          <a href="microservices.html" class="item" data-tags="navigation" tabindex="0">
+            <span class="left">Microservices</span>
+          </a>
+          <a href="resume.html" class="item" data-tags="navigation" tabindex="0">
+            <span class="left">Resume</span>
+          </a>
+          <a href="contact.html" class="item" data-tags="navigation" tabindex="0">
+            <span class="left">Contact</span>
+          </a>
+          <a href="about.html" class="item" data-tags="navigation" tabindex="0">
+            <span class="left">About</span>
+          </a>
+        </div>
+
+        <!-- Future API Dashboard -->
+        <!--
         <div class="drawer-search">
           <input id="drawerSearch" type="search" placeholder="Search services..." aria-label="Search services" />
         </div>
@@ -40,11 +69,15 @@
           <a href="#" class="item" data-tags="apis" data-api="resume-seed" tabindex="0">
             <span class="left"><span class="dot healthy"></span> Resume API</span><span class="env">live</span>
           </a>
+          <a href="#" class="item" data-tags="apis" data-api="gcp-health" tabindex="0">
+            <span class="left"><span class="dot healthy"></span> GCP Health API</span><span class="env">live</span>
+          </a>
         </div>
 
         <div class="drawer-footer">
-          <span class="muted">API Progress: 1/57</span>
+          <span class="muted">API Progress: 2/57</span>
         </div>
+        -->
       </div>
     </div>
   </div>
@@ -88,51 +121,107 @@
 
       <div class="tech-stack-label">This website runs on:</div>
 
-      <div class="hero-stack-grid">
-        <div class="hero-stack-item" data-tech="docker">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker">
-          <div class="name">Docker</div>
+      <div class="infrastructure-two-column">
+        <!-- Tech Stack Grid -->
+        <div class="infra-column">
+          <div class="stack-header">
+            <span class="stack-title">DEVOPS STACK</span>
+          </div>
+          <div class="hero-stack-grid">
+            <div class="hero-stack-item" data-tech="docker">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker">
+              <div class="name">Docker</div>
+            </div>
+            <div class="hero-stack-item" data-tech="kubernetes">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" alt="Kubernetes">
+              <div class="name">Kubernetes</div>
+            </div>
+            <div class="hero-stack-item" data-tech="terraform">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg" alt="Terraform">
+              <div class="name">Terraform</div>
+            </div>
+            <div class="hero-stack-item" data-tech="gcp">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg" alt="GCP">
+              <div class="name">GCP</div>
+            </div>
+            <div class="hero-stack-item" data-tech="jenkins">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg" alt="Jenkins">
+              <div class="name">Jenkins</div>
+            </div>
+            <div class="hero-stack-item" data-tech="prometheus">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prometheus/prometheus-original.svg" alt="Prometheus">
+              <div class="name">Prometheus</div>
+            </div>
+            <div class="hero-stack-item" data-tech="grafana">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/grafana/grafana-original.svg" alt="Grafana">
+              <div class="name">Grafana</div>
+            </div>
+            <div class="hero-stack-item" data-tech="ansible">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ansible/ansible-original.svg" alt="Ansible">
+              <div class="name">Ansible</div>
+            </div>
+            <div class="hero-stack-item" data-tech="githubactions">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/githubactions/githubactions-original.svg" alt="GitHub Actions">
+              <div class="name">GitHub Actions</div>
+            </div>
+            <div class="hero-stack-item" data-tech="linux">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux">
+              <div class="name">Linux</div>
+            </div>
+          </div>
+          <div class="tech-hint-wrapper">
+            <span class="stack-hint">Click any icon for details</span>
+          </div>
         </div>
-        <div class="hero-stack-item" data-tech="kubernetes">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" alt="Kubernetes">
-          <div class="name">Kubernetes</div>
-        </div>
-        <div class="hero-stack-item" data-tech="terraform">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg" alt="Terraform">
-          <div class="name">Terraform</div>
-        </div>
-        <div class="hero-stack-item" data-tech="gcp">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg" alt="GCP">
-          <div class="name">GCP</div>
-        </div>
-        <div class="hero-stack-item" data-tech="jenkins">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg" alt="Jenkins">
-          <div class="name">Jenkins</div>
-        </div>
-        <div class="hero-stack-item" data-tech="prometheus">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prometheus/prometheus-original.svg" alt="Prometheus">
-          <div class="name">Prometheus</div>
-        </div>
-        <div class="hero-stack-item" data-tech="grafana">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/grafana/grafana-original.svg" alt="Grafana">
-          <div class="name">Grafana</div>
-        </div>
-        <div class="hero-stack-item" data-tech="ansible">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ansible/ansible-original.svg" alt="Ansible">
-          <div class="name">Ansible</div>
-        </div>
-        <div class="hero-stack-item" data-tech="githubactions">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/githubactions/githubactions-original.svg" alt="GitHub Actions">
-          <div class="name">GitHub Actions</div>
-        </div>
-        <div class="hero-stack-item" data-tech="linux">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux">
-          <div class="name">Linux</div>
-        </div>
-      </div>
 
-      <div class="tech-hint-wrapper">
-        <span class="stack-hint">Click any icon for details</span>
+        <!-- Hybrid Infrastructure -->
+        <div class="infra-column" id="infrastructure">
+          <div class="stack-header">
+            <span class="stack-title">HYBRID INFRASTRUCTURE</span>
+          </div>
+          <div class="cluster-diagram">
+            <!-- Master Node -->
+            <div class="diagram-master">
+              <div class="infra-node master-node">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux">
+                <div class="node-label">MQ910 Mini PC</div>
+                <div class="node-role master">Master Node</div>
+              </div>
+              <div class="master-line"></div>
+            </div>
+
+            <!-- Worker Nodes -->
+            <div class="diagram-workers">
+              <div class="worker-wrapper">
+                <div class="worker-line"></div>
+                <div class="infra-node worker-node">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux">
+                  <div class="node-label">MQ910 Mini PC</div>
+                  <div class="node-role worker">Worker Node</div>
+                </div>
+              </div>
+              <div class="worker-wrapper">
+                <div class="worker-line"></div>
+                <div class="infra-node worker-node">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/raspberrypi/raspberrypi-original.svg" alt="Raspberry Pi">
+                  <div class="node-label">Raspberry Pi</div>
+                  <div class="node-role worker">Worker Node</div>
+                </div>
+              </div>
+              <div class="worker-wrapper">
+                <div class="worker-line"></div>
+                <div class="infra-node worker-node">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg" alt="GCP">
+                  <div class="node-label">GCP</div>
+                  <div class="node-role worker">Worker Node</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tech-hint-wrapper">
+            <span class="stack-hint">Bare-metal K3s + Serverless GCP = Hybrid Cloud</span>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -164,24 +253,24 @@
       </div>
     </div>
 
-    <!-- Application Stack -->
+    <!-- Application Stack Section -->
     <div class="stack-section">
       <div class="stack-header">
         <span class="stack-title">APPLICATION STACK</span>
       </div>
       <div class="tech-grid" id="app-stack-grid">
-      <div class="tech-item" data-tech="nginx">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nginx/nginx-original.svg" alt="NGINX">
-        <div class="name">NGINX</div>
-      </div>
-      <div class="tech-item" data-tech="nodejs">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js">
-        <div class="name">Node.js</div>
-      </div>
-      <div class="tech-item" data-tech="mongodb">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB">
-        <div class="name">MongoDB</div>
-      </div>
+        <div class="tech-item" data-tech="nginx">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nginx/nginx-original.svg" alt="NGINX">
+          <div class="name">NGINX</div>
+        </div>
+        <div class="tech-item" data-tech="nodejs">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js">
+          <div class="name">Node.js</div>
+        </div>
+        <div class="tech-item" data-tech="mongodb">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB">
+          <div class="name">MongoDB</div>
+        </div>
       </div>
     </div>
 
@@ -232,6 +321,14 @@
     menuBtn.addEventListener('click', openDrawer);
     overlay.addEventListener('click', closeDrawer);
     closeBtns.forEach(b=>b.addEventListener('click', closeDrawer));
+
+    // Close drawer when clicking navigation links
+    document.querySelectorAll('.drawer .item[data-tags="navigation"]').forEach(link => {
+      link.addEventListener('click', () => {
+        closeDrawer();
+      });
+    });
+
     document.addEventListener('keydown', (e)=>{
       if (e.key === 'Escape' && drawer.classList.contains('open')) closeDrawer();
       const key = e.key.toLowerCase();
@@ -259,6 +356,20 @@
         it.style.display = (matchTag && matchText) ? '' : 'none';
       });
     }
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
 
     // No scroll animations - keep it simple and stable
 
@@ -908,6 +1019,107 @@ CMD ["sh", "-c", "node seedData.js && node server.js"]</pre></div>
               <p>This metric is not currently available. An API will be set up in the future to track deployment times from the CI/CD pipeline.</p>
               <p>Interested in learning more about the future plans for this project? Check out the roadmap and implementation details on GitHub:</p>
               <p><a href="https://github.com/johnhopedawa/Devops-Overengineered-Website" target="_blank" rel="noopener">github.com/johnhopedawa/Devops-Overengineered-Website</a></p>
+            </div>
+          `
+        },
+        'gcp-health': {
+          title: 'GCP Health API',
+          body: `
+            <div class="tech-modal-section">
+              <h3>Live API Endpoints</h3>
+              <div class="resume-buttons">
+                <a href="https://gcp-health-api-jpawjztt4a-uw.a.run.app" target="_blank" rel="noopener" class="resume-btn-primary">Visit GCP Health API</a>
+                <a href="/api/gcp-health" target="_blank" class="resume-btn-secondary">API Gateway Proxy</a>
+              </div>
+            </div>
+            <div class="tech-modal-section">
+              <h3>What is the GCP Health API?</h3>
+              <p>A serverless Node.js/Express API deployed on Google Cloud Run that demonstrates hybrid cloud architecture. This API is rate-limited (50 req/hr per IP) and auto-scales from 0 to 3 instances based on traffic.</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>Hybrid Cloud Integration</h3>
+              <p>This API extends your K3s cluster into the cloud, creating a hybrid infrastructure where bare-metal and serverless work together.</p>
+              <p><strong>Request Flow:</strong></p>
+              <div class="tech-modal-code"><pre>User Request
+  ↓
+K3s Ingress (Bare-metal)
+  ↓
+API Gateway (K3s Pod)
+  ↓
+GCP Cloud Run (Serverless)
+  ↓
+Response</pre></div>
+            </div>
+            <div class="tech-modal-section">
+              <h3>API Endpoints</h3>
+              <p><strong>GET /</strong> - Visual dashboard with Terraform configuration details</p>
+              <p><strong>GET /api/health</strong> - JSON health check endpoint</p>
+              <div class="tech-modal-code"><pre>curl https://gcp-health-api-jpawjztt4a-uw.a.run.app/api/health</pre></div>
+              <p><strong>Example Response:</strong></p>
+              <div class="tech-modal-code"><pre>{
+  "status": "ok",
+  "service": "gcp-health-api",
+  "message": "GCP Cloud Run is operational",
+  "timestamp": "2025-12-04T04:30:15.123Z",
+  "region": "us-west1",
+  "deployment": "cloud-run",
+  "uptime": 12345.67,
+  "nodeVersion": "v20.x.x"
+}</pre></div>
+            </div>
+            <div class="tech-modal-section">
+              <h3>Infrastructure as Code</h3>
+              <p>Deployed with Terraform (terraform/GCP_CloudRun/main.tf):</p>
+              <div class="tech-modal-code"><pre>resource "google_cloud_run_service" "gcp_health_api" {
+  name     = "gcp-health-api"
+  location = "us-west1"
+
+  template {
+    spec {
+      containers {
+        image = "gcr.io/john-devops/gcp-health-api:latest"
+
+        resources {
+          limits = {
+            cpu    = "1"
+            memory = "512Mi"
+          }
+        }
+      }
+
+      container_concurrency = 80
+    }
+
+    metadata {
+      annotations = {
+        "autoscaling.knative.dev/minScale" = "0"
+        "autoscaling.knative.dev/maxScale" = "3"
+      }
+    }
+  }
+}</pre></div>
+            </div>
+            <div class="tech-modal-section">
+              <h3>Deployment Pipeline</h3>
+              <p><strong>1. Build:</strong> GitHub Actions builds multi-arch Docker image</p>
+              <p><strong>2. Push:</strong> Image pushed to Docker Hub</p>
+              <p><strong>3. Copy:</strong> Crane copies image from Docker Hub → GCR</p>
+              <p><strong>4. Deploy:</strong> Terraform provisions Cloud Run service</p>
+              <p><strong>5. Integration:</strong> API Gateway proxies requests to Cloud Run URL</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>Rate Limiting & Cost Control</h3>
+              <p><strong>Rate Limit:</strong> 50 requests per hour per IP address</p>
+              <p><strong>Implementation:</strong> express-rate-limit with proxy trust enabled</p>
+              <p><strong>Auto-Scaling:</strong> Scales to zero when idle (no cost)</p>
+              <p><strong>Cost Optimization:</strong> Pay only for actual request processing time</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>Why This Matters</h3>
+              <p><strong>Multi-Cloud Strategy:</strong> Demonstrates ability to work across on-prem and cloud platforms</p>
+              <p><strong>Hybrid Architecture:</strong> Combines strengths of both bare-metal (control) and serverless (scalability)</p>
+              <p><strong>Infrastructure as Code:</strong> All cloud resources version-controlled with Terraform</p>
+              <p><strong>CI/CD Integration:</strong> Automated build and deployment pipeline</p>
             </div>
           `
         },

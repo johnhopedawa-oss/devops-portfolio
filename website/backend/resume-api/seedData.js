@@ -53,7 +53,7 @@ const resumeData = {
       company: "Parkbridge Lifestyle Communities Inc.",
       role: "Assistant Property Manager",
       location: "Coquitlam, BC",
-      duration: "February 2025 – Present",
+      duration: "February 2025 – September 2025",
       responsibilities: [
         "Coordinated large-scale operations across four communities (403 units), overseeing workflows, documentation, and issue resolution",
         "Managed digital systems for communication, scheduling, record-keeping, and compliance, ensuring accurate, organized data across teams",

@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>About — John Hope Dawa</title>
+  <link rel="icon" type="image/svg+xml" href="assets/images/jd-logo.svg" />
+  <link rel="stylesheet" href="styles.css?v=11.81" />
+</head>
+<body class="page-about">
+  <!-- Sticky Header -->
+  <header class="site-header" role="banner">
+    <div class="header-inner container">
+      <nav class="header-actions" aria-label="Primary">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="infrastructure.html" class="nav-link">Infrastructure</a>
+        <a href="microservices.html" class="nav-link">Microservices</a>
+        <a href="resume.html" class="nav-link">Resume</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <a href="about.html" class="nav-link">About</a>
+        <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="drawer">Menu</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Full-screen Drawer -->
+  <div id="drawer" class="drawer" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="drawer-overlay" data-close></div>
+    <div class="drawer-panel" role="document">
+      <div class="drawer-header">
+        <h2>Menu</h2>
+        <button class="drawer-close" aria-label="Close menu" data-close>✕</button>
+      </div>
+
+      <div class="drawer-list" id="drawerList">
+        <div class="group" data-group="navigation">
+          <a href="index.html" class="item" data-tags="navigation" tabindex="0">
+            <span class="left">Home</span>
+          </a>
+          <a href="infrastructure.html" class="item" data-tags="navigation" tabindex="0">
+            <span class="left">Infrastructure</span>
+          </a>
+          <a href="microservices.html" class="item" data-tags="navigation" tabindex="0">
+            <span class="left">Microservices</span>
+          </a>
+          <a href="resume.html" class="item" data-tags="navigation" tabindex="0">
+            <span class="left">Resume</span>
+          </a>
+          <a href="contact.html" class="item" data-tags="navigation" tabindex="0">
+            <span class="left">Contact</span>
+          </a>
+          <a href="about.html" class="item" data-tags="navigation" tabindex="0">
+            <span class="left">About</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Page Header -->
+    <section class="hero">
+      <div class="hero-main">
+        <div style="width: 100%;">
+          <p class="stack-title" style="margin-bottom:6px;">About</p>
+          <h1 class="hero-name">Why deliberately over-engineer a personal website?</h1>
+          <p class="tagline">This website started as a simple portfolio but evolved into a full-scale DevOps playground where I can experiment with infrastructure patterns, automation workflows, and architectural decisions.</p>
+          <div style="margin-top:10px;">
+            <span class="stack-hint">57 microservices · Hybrid cloud · Production-grade infrastructure</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Who I Am -->
+    <div class="stack-section">
+      <div class="stack-header">
+        <span class="stack-title">WHO I AM</span>
+      </div>
+      <div class="info-box">
+        <p>I'm John Hope Dawa, a DevOps engineer who believes the best way to learn is by doing—and sometimes overdoing. This website started as a simple portfolio but evolved into a full-scale DevOps playground where I can experiment with infrastructure patterns, automation workflows, and architectural decisions I encounter in production environments.</p>
+        <p>I got into DevOps through a mix of curiosity and necessity: breaking things, fixing them, then automating the fixes. What fascinates me most is the intersection of development and operations—how infrastructure-as-code, containerization, and orchestration transform how we build and deploy software.</p>
+      </div>
+    </div>
+
+    <!-- What 'Overengineered' Means -->
+    <div class="stack-section">
+      <div class="stack-header">
+        <span class="stack-title">WHAT 'OVERENGINEERED' MEANS</span>
+      </div>
+      <div class="info-box">
+        <h3>The Concept</h3>
+        <p>This site is deliberately over-architected. A simple static site would work fine for a portfolio, but where's the learning in that? Instead, I've built a complex, production-grade infrastructure to showcase real DevOps skills and experiment with technologies I use professionally.</p>
+
+        <h3>The Constraints</h3>
+        <p><strong>57 Microservices:</strong> An arbitrary number that represents commitment over practicality. Currently at 2/57 (Resume API, GCP Health API), with 55 more planned.</p>
+        <p><strong>Hybrid Cloud:</strong> Bare-metal K3s cluster (2 mini PCs + Raspberry Pi) combined with GCP Cloud Run for serverless workloads.</p>
+        <p><strong>Infrastructure as Code:</strong> Everything defined in code—Terraform for cloud resources, Kubernetes manifests for deployments, Docker for containers.</p>
+        <p><strong>Full Observability:</strong> Prometheus, Grafana, and monitoring built-in from day one (well, planned for day one).</p>
+      </div>
+    </div>
+
+    <!-- How It's Built -->
+    <div class="stack-section">
+      <div class="stack-header">
+        <span class="stack-title">HOW IT'S BUILT</span>
+      </div>
+      <div class="info-box">
+        <p><strong>Frontend:</strong> Static HTML/CSS/JavaScript served by NGINX in a Docker container, deployed to Kubernetes.</p>
+        <p><strong>APIs:</strong> Node.js/Express microservices with MongoDB, each containerized and independently deployable.</p>
+        <p><strong>Infrastructure:</strong> K3s cluster for on-prem workloads, GCP Cloud Run for serverless, Terraform for cloud provisioning, GitHub Actions for CI/CD.</p>
+
+        <div class="btn-group">
+          <a href="infrastructure.html" class="btn btn-primary">View Infrastructure Details</a>
+          <a href="microservices.html" class="btn btn-secondary">Browse Microservices</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Philosophy & Principles -->
+    <div class="stack-section">
+      <div class="stack-header">
+        <span class="stack-title">PHILOSOPHY & PRINCIPLES</span>
+      </div>
+      <div class="stats">
+        <div class="stat-card">
+          <div class="label">Automate Everything</div>
+          <p>If you do it twice, script it. If you script it twice, pipeline it.</p>
+        </div>
+        <div class="stat-card">
+          <div class="label">Observable by Default</div>
+          <p>Metrics, logs, and traces from day one. You can't fix what you can't see.</p>
+        </div>
+        <div class="stat-card">
+          <div class="label">Small, Composable Services</div>
+          <p>Each service does one thing well. Microservices taken to the extreme.</p>
+        </div>
+        <div class="stat-card">
+          <div class="label">Infrastructure as Code</div>
+          <p>Version-controlled, reproducible, declarative infrastructure. No manual console clicks.</p>
+        </div>
+        <div class="stat-card">
+          <div class="label">Production-Like Environments</div>
+          <p>Dev, staging, and prod should be as similar as possible. Containers make this easy.</p>
+        </div>
+        <div class="stat-card">
+          <div class="label">Learn by Breaking Things</div>
+          <p>The best learning comes from failures. This is a safe space to experiment.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Timeline / Changelog -->
+    <div class="stack-section">
+      <div class="stack-header">
+        <span class="stack-title">PROJECT TIMELINE</span>
+      </div>
+      <div class="info-box">
+        <h3>v0.1 — Static Site</h3>
+        <p>Basic HTML/CSS portfolio. Hosted on GitHub Pages. No backend, no complexity.</p>
+
+        <h3>v0.2 — Docker Compose</h3>
+        <p>Containerized with Docker. NGINX frontend + Node.js Resume API + MongoDB. Everything running in docker-compose locally.</p>
+
+        <h3>v0.3 — Kubernetes (K3s)</h3>
+        <p>Built bare-metal K3s cluster with 3 nodes. Migrated from docker-compose to Kubernetes deployments and services.</p>
+
+        <h3>v0.4 — Hybrid Cloud (GCP)</h3>
+        <p>Added GCP Cloud Run for serverless health check API. Terraform-managed infrastructure. First hybrid cloud workload.</p>
+
+        <h3>v0.5 — CI/CD Pipeline</h3>
+        <p>GitHub Actions for automated builds. Multi-arch Docker images (amd64 + arm64). Automated pushes to Docker Hub.</p>
+
+        <h3>v1.0 — Current (2/57 Services)</h3>
+        <p>Fully functional hybrid infrastructure. Resume API and GCP Health API live. Monitoring and observability in progress.</p>
+
+        <h3>Coming Soon</h3>
+        <p>Prometheus/Grafana dashboards, Jenkins CI/CD, Ansible automation, remaining 55 microservices, full GitOps workflow.</p>
+      </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="stack-section">
+      <div class="stack-header">
+        <span class="stack-title">GET INVOLVED</span>
+      </div>
+      <div class="info-box" style="text-align: center;">
+        <h3>Want to see more?</h3>
+        <p>Check out the code on GitHub, view my resume, or reach out if you want to chat about DevOps, infrastructure, or why anyone would build 57 microservices for a personal website.</p>
+
+        <div class="btn-group">
+          <a href="https://github.com/johnhopedawa" target="_blank" rel="noopener" class="btn btn-primary">View GitHub</a>
+          <a href="resume.html" class="btn btn-secondary">My Resume</a>
+          <a href="/api/resume" target="_blank" class="btn btn-secondary">Resume API (JSON)</a>
+          <a href="contact.html" class="btn btn-secondary">Contact Me</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>Coquitlam, BC</p>
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    const header = document.querySelector('.site-header');
+    const menuBtn = document.getElementById('menuBtn');
+    const drawer = document.getElementById('drawer');
+    const overlay = drawer.querySelector('.drawer-overlay');
+    const closeBtns = drawer.querySelectorAll('[data-close]');
+
+    // Sticky header auto-hide on scroll
+    let lastY = window.scrollY, ticking = false;
+    function onScroll(){
+      const y = window.scrollY, d = y - lastY;
+      if (Math.abs(d) > 8){
+        if (y > 80 && d > 0) header.classList.add('hidden');
+        else header.classList.remove('hidden');
+        lastY = y;
+      }
+      if (y < 10) header.classList.remove('hidden');
+      ticking = false;
+    }
+    window.addEventListener('scroll', ()=>{ if(!ticking){ requestAnimationFrame(onScroll); ticking = true; } }, {passive:true});
+
+    // Drawer open/close
+    function openDrawer(){
+      drawer.classList.add('open'); document.body.classList.add('no-scroll');
+      menuBtn.setAttribute('aria-expanded','true'); drawer.setAttribute('aria-hidden','false');
+    }
+    function closeDrawer(){
+      drawer.classList.remove('open'); document.body.classList.remove('no-scroll');
+      menuBtn.setAttribute('aria-expanded','false'); drawer.setAttribute('aria-hidden','true');
+      menuBtn.focus();
+    }
+    menuBtn.addEventListener('click', openDrawer);
+    overlay.addEventListener('click', closeDrawer);
+    closeBtns.forEach(b=>b.addEventListener('click', closeDrawer));
+
+    // Close drawer when clicking navigation links
+    document.querySelectorAll('.drawer .item[data-tags="navigation"]').forEach(link => {
+      link.addEventListener('click', () => {
+        closeDrawer();
+      });
+    });
+
+    document.addEventListener('keydown', (e)=>{
+      if (e.key === 'Escape' && drawer.classList.contains('open')) closeDrawer();
+      const key = e.key.toLowerCase();
+      if ((key === 'k' && (e.ctrlKey || e.metaKey)) || key === 'm'){
+        e.preventDefault();
+        drawer.classList.contains('open') ? closeDrawer() : openDrawer();
+      }
+    });
+  })();
+  </script>
+</body>
+</html>

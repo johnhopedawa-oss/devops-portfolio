@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Infrastructure — John Hope Dawa</title>
+  <link rel="icon" type="image/svg+xml" href="assets/images/jd-logo.svg" />
+  <link rel="stylesheet" href="styles.css?v=11.81" />
+</head>
+<body class="page-infrastructure">
+  <!-- Sticky Header -->
+  <header class="site-header" role="banner">
+    <div class="header-inner container">
+      <nav class="header-actions" aria-label="Primary">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="infrastructure.html" class="nav-link">Infrastructure</a>
+        <a href="microservices.html" class="nav-link">Microservices</a>
+        <a href="resume.html" class="nav-link">Resume</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <a href="about.html" class="nav-link">About</a>
+        <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="drawer">Menu</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Full-screen Drawer -->
+  <div id="drawer" class="drawer" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="drawer-overlay" data-close></div>
+    <div class="drawer-panel" role="document">
+      <div class="drawer-header">
+        <h2>Menu</h2>
+        <button class="drawer-close" aria-label="Close menu" data-close>✕</button>
+      </div>
+
+      <div class="drawer-list" id="drawerList">
+        <div class="group" data-group="navigation">
+          <a href="index.html" class="item" data-tags="navigation" tabindex="0">
+            <span class="left">Home</span>
+          </a>
+          <a href="infrastructure.html" class="item" data-tags="navigation" tabindex="0">
+            <span class="left">Infrastructure</span>
+          </a>
+          <a href="microservices.html" class="item" data-tags="navigation" tabindex="0">
+            <span class="left">Microservices</span>
+          </a>
+          <a href="resume.html" class="item" data-tags="navigation" tabindex="0">
+            <span class="left">Resume</span>
+          </a>
+          <a href="contact.html" class="item" data-tags="navigation" tabindex="0">
+            <span class="left">Contact</span>
+          </a>
+          <a href="about.html" class="item" data-tags="navigation" tabindex="0">
+            <span class="left">About</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Page Header -->
+    <section class="hero">
+      <div class="hero-main">
+        <div style="width: 100%;">
+          <p class="stack-title" style="margin-bottom:6px;">Infrastructure</p>
+          <h1 class="hero-name">How this overengineered thing actually runs</h1>
+          <p class="tagline">Hybrid cloud architecture built on bare-metal K3s + GCP Cloud Run, wired together with Docker, Terraform, and GitHub Actions.</p>
+          <div style="margin-top:10px;">
+            <span class="stack-hint">Bare-metal K3s cluster · GCP Cloud Run · Terraform-managed</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Environments -->
+    <div class="stack-section">
+      <div class="stack-header">
+        <span class="stack-title">ENVIRONMENTS</span>
+      </div>
+      <div class="stats">
+        <div class="stat-card">
+          <div class="label"><strong>Local / Dev</strong></div>
+          <p><strong>Stack:</strong> Docker Compose</p>
+          <p><strong>Command:</strong> <code>docker-compose up</code></p>
+          <p><strong>URL:</strong> http://localhost</p>
+          <p><strong>Purpose:</strong> Rapid development and testing</p>
+        </div>
+        <div class="stat-card">
+          <div class="label"><strong>Staging / K3s</strong></div>
+          <p><strong>Stack:</strong> K3s Cluster (3 nodes)</p>
+          <p><strong>Command:</strong> <code>kubectl apply -f kubernetes/</code></p>
+          <p><strong>URL:</strong> http://192.168.x.x</p>
+          <p><strong>Purpose:</strong> Production-like environment</p>
+        </div>
+        <div class="stat-card">
+          <div class="label"><strong>Production / Hybrid</strong></div>
+          <p><strong>Stack:</strong> K3s + GCP Cloud Run</p>
+          <p><strong>Deploy:</strong> GitHub Actions → K3s + Terraform</p>
+          <p><strong>URL:</strong> https://johnhopedawa.com</p>
+          <p><strong>Purpose:</strong> Live website</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Infrastructure Stack -->
+    <div class="stack-section">
+      <div class="stack-header">
+        <span class="stack-title">INFRASTRUCTURE STACK</span>
+      </div>
+      <div class="stats">
+        <div class="stat-card">
+          <div class="label"><strong>NGINX</strong></div>
+          <p>High-performance web server serving static frontend assets from Alpine Linux container.</p>
+        </div>
+        <div class="stat-card">
+          <div class="label"><strong>Kubernetes (K3s)</strong></div>
+          <p>Lightweight K8s for container orchestration across 3-node bare-metal cluster.</p>
+        </div>
+        <div class="stat-card">
+          <div class="label"><strong>Docker</strong></div>
+          <p>Multi-arch images (amd64/arm64) built via GitHub Actions, pushed to Docker Hub.</p>
+        </div>
+        <div class="stat-card">
+          <div class="label"><strong>GCP Cloud Run</strong></div>
+          <p>Serverless container platform for auto-scaling health check API with pay-per-use pricing.</p>
+        </div>
+        <div class="stat-card">
+          <div class="label"><strong>Terraform</strong></div>
+          <p>Infrastructure-as-code for GCP resources. Version-controlled, declarative cloud provisioning.</p>
+        </div>
+        <div class="stat-card">
+          <div class="label"><strong>GitHub Actions</strong></div>
+          <p>CI pipeline for automated builds, tests, and Docker image publishing on every commit.</p>
+        </div>
+        <div class="stat-card">
+          <div class="label"><strong>Prometheus (Planned)</strong></div>
+          <p>Metrics collection and time-series database for monitoring cluster and service health.</p>
+        </div>
+        <div class="stat-card">
+          <div class="label"><strong>Grafana (Planned)</strong></div>
+          <p>Visualization dashboards for Prometheus metrics, alerts, and operational insights.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Architecture at a Glance -->
+    <div class="stack-section">
+      <div class="stack-header">
+        <span class="stack-title">ARCHITECTURE AT A GLANCE</span>
+      </div>
+      <div class="info-box">
+        <h3>Request Flow</h3>
+        <div class="tech-modal-code"><pre>Browser
+  ↓
+K3s Ingress (Bare-metal)
+  ↓
+NGINX Frontend (K3s Pod)
+  ↓
+API Gateway (K3s Pod)
+  ├─→ Resume API (K3s Pod) → MongoDB (K3s Pod)
+  └─→ GCP Health API (Cloud Run)</pre></div>
+
+        <h3>Core Components</h3>
+        <p><strong>Frontend:</strong> NGINX serving static HTML/CSS/JS</p>
+        <p><strong>API Gateway:</strong> Node.js routing requests to microservices</p>
+        <p><strong>Resume API:</strong> Node.js + MongoDB for resume data</p>
+        <p><strong>GCP Health API:</strong> Serverless health check on Cloud Run</p>
+        <p><strong>MongoDB:</strong> Database for resume data</p>
+
+        <h3>Repository Structure</h3>
+        <p><strong>terraform/:</strong> Cloud infrastructure definitions (GCP Cloud Run)</p>
+        <p><strong>docker-compose.yml:</strong> Local development environment</p>
+        <p><strong>kubernetes/:</strong> K3s deployment manifests</p>
+        <p><strong>.github/workflows/:</strong> CI/CD pipelines</p>
+      </div>
+    </div>
+
+    <!-- CI/CD Pipeline -->
+    <div class="stack-section">
+      <div class="stack-header">
+        <span class="stack-title">CI/CD PIPELINE</span>
+      </div>
+      <div class="info-box">
+        <h3>Current Pipeline (GitHub Actions)</h3>
+        <div class="tech-modal-code"><pre>git push to main
+  ↓
+GitHub Actions (.github/workflows/ci.yaml)
+  ↓
+Set up QEMU (multi-arch builds)
+  ↓
+Set up Docker Buildx
+  ↓
+Build Images (linux/amd64 + linux/arm64)
+  ├─→ Frontend: johnhopedawa/overengineered-frontend
+  ├─→ API Gateway: johnhopedawa/overengineered-api-gateway
+  └─→ Resume API: johnhopedawa/overengineered-resume-api
+  ↓
+Push to Docker Hub (latest + commit-sha tags)
+  ↓
+[Manual] Pull images on K3s cluster
+  ↓
+[Manual] kubectl apply -f kubernetes/
+  ↓
+Live on johnhopedawa.com</pre></div>
+
+        <h3>GCP Deployment (Terraform)</h3>
+        <div class="tech-modal-code"><pre>GitHub Actions builds GCP Health API image
+  ↓
+Push to Docker Hub
+  ↓
+Crane copies image to GCR (gcr.io/john-devops/gcp-health-api)
+  ↓
+Terraform apply (terraform/GCP_CloudRun/)
+  ↓
+Cloud Run service updated
+  ↓
+Live at gcp-health-api-jpawjztt4a-uw.a.run.app</pre></div>
+
+        <h3>Workflow Files</h3>
+        <p><strong>.github/workflows/ci.yaml</strong> — Build and push Docker images</p>
+        <p><strong>terraform/GCP_CloudRun/deploy.sh</strong> — Deploy to GCP Cloud Run</p>
+      </div>
+    </div>
+
+    <!-- Ops Concerns -->
+    <div class="stack-section">
+      <div class="stack-header">
+        <span class="stack-title">OPERATIONAL CONCERNS</span>
+      </div>
+
+      <div class="info-box">
+        <h3>Observability</h3>
+        <p><strong>Current:</strong> Basic health check endpoints on all services</p>
+        <p><strong>Planned:</strong> Prometheus scraping metrics from K3s pods, Grafana dashboards for CPU/memory/request rates, alerting for service failures</p>
+
+        <h3>Security</h3>
+        <p><strong>Secrets Management:</strong> Environment variables for local dev, planned migration to Kubernetes Secrets or Vault</p>
+        <p><strong>HTTPS:</strong> Production uses HTTPS (planned), currently HTTP for local/staging</p>
+        <p><strong>Least Privilege:</strong> GCP service accounts with minimal permissions, K3s RBAC for pod security</p>
+        <p><strong>Rate Limiting:</strong> GCP Health API has 50 req/hr per IP limit to control costs</p>
+
+        <h3>Reliability</h3>
+        <p><strong>Health Checks:</strong> All services expose /health endpoints for liveness/readiness probes</p>
+        <p><strong>Rollouts:</strong> Manual kubectl rollout for now, planned automated rollouts with health checks</p>
+        <p><strong>Replication:</strong> Currently 1 replica per service, planned horizontal scaling based on load</p>
+
+        <h3>Cost</h3>
+        <p>Keeping over-engineering affordable:</p>
+        <p><strong>Bare-metal K3s:</strong> One-time hardware cost (3 mini PCs), zero ongoing compute fees</p>
+        <p><strong>GCP Cloud Run:</strong> Scales to zero when idle, pay only for request time (~$0.50/month)</p>
+        <p><strong>MongoDB:</strong> Self-hosted on K3s, no managed database fees</p>
+        <p><strong>Total monthly cost:</strong> ~$2 (domain + GCP)</p>
+      </div>
+    </div>
+
+    <!-- Roadmap -->
+    <div class="stack-section">
+      <div class="stack-header">
+        <span class="stack-title">INFRASTRUCTURE ROADMAP</span>
+      </div>
+      <div class="info-box">
+        <h3>In Progress</h3>
+        <p>• Prometheus + Grafana deployment on K3s cluster</p>
+        <p>• Automated kubectl apply from GitHub Actions (GitOps workflow)</p>
+        <p>• HTTPS with Let's Encrypt certificates</p>
+
+        <h3>Upcoming</h3>
+        <p>• Jenkins CI/CD pipeline as alternative to GitHub Actions</p>
+        <p>• Canary deployments with gradual traffic shifting</p>
+        <p>• Ansible playbooks for K3s cluster provisioning and management</p>
+        <p>• Service mesh evaluation (Linkerd or Istio)</p>
+        <p>• Database backups automated to S3/GCS</p>
+        <p>• Secrets management with Vault or Sealed Secrets</p>
+        <p>• SLOs and error budgets for critical services</p>
+        <p>• Multi-region failover testing</p>
+        <p>• ArgoCD for GitOps-driven deployments</p>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>Coquitlam, BC</p>
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    const header = document.querySelector('.site-header');
+    const menuBtn = document.getElementById('menuBtn');
+    const drawer = document.getElementById('drawer');
+    const overlay = drawer.querySelector('.drawer-overlay');
+    const closeBtns = drawer.querySelectorAll('[data-close]');
+
+    // Sticky header auto-hide on scroll
+    let lastY = window.scrollY, ticking = false;
+    function onScroll(){
+      const y = window.scrollY, d = y - lastY;
+      if (Math.abs(d) > 8){
+        if (y > 80 && d > 0) header.classList.add('hidden');
+        else header.classList.remove('hidden');
+        lastY = y;
+      }
+      if (y < 10) header.classList.remove('hidden');
+      ticking = false;
+    }
+    window.addEventListener('scroll', ()=>{ if(!ticking){ requestAnimationFrame(onScroll); ticking = true; } }, {passive:true});
+
+    // Drawer open/close
+    function openDrawer(){
+      drawer.classList.add('open'); document.body.classList.add('no-scroll');
+      menuBtn.setAttribute('aria-expanded','true'); drawer.setAttribute('aria-hidden','false');
+    }
+    function closeDrawer(){
+      drawer.classList.remove('open'); document.body.classList.remove('no-scroll');
+      menuBtn.setAttribute('aria-expanded','false'); drawer.setAttribute('aria-hidden','true');
+      menuBtn.focus();
+    }
+    menuBtn.addEventListener('click', openDrawer);
+    overlay.addEventListener('click', closeDrawer);
+    closeBtns.forEach(b=>b.addEventListener('click', closeDrawer));
+
+    // Close drawer when clicking navigation links
+    document.querySelectorAll('.drawer .item[data-tags="navigation"]').forEach(link => {
+      link.addEventListener('click', () => {
+        closeDrawer();
+      });
+    });
+
+    document.addEventListener('keydown', (e)=>{
+      if (e.key === 'Escape' && drawer.classList.contains('open')) closeDrawer();
+      const key = e.key.toLowerCase();
+      if ((key === 'k' && (e.ctrlKey || e.metaKey)) || key === 'm'){
+        e.preventDefault();
+        drawer.classList.contains('open') ? closeDrawer() : openDrawer();
+      }
+    });
+  })();
+  </script>
+</body>
+</html>

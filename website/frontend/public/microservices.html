@@ -1,0 +1,687 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Microservices — John Hope Dawa</title>
+  <link rel="icon" type="image/svg+xml" href="assets/images/jd-logo.svg" />
+  <link rel="stylesheet" href="styles.css?v=11.81" />
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.11/dist/purify.min.js"></script>
+  <style>
+    .progress-circle {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      margin: 0 auto 20px;
+    }
+    .progress-circle svg {
+      transform: rotate(-90deg);
+    }
+    .progress-circle circle {
+      fill: none;
+      stroke-width: 10;
+    }
+    .progress-circle .bg {
+      stroke: var(--border);
+    }
+    .progress-circle .progress {
+      stroke: var(--accent);
+      stroke-dasharray: 565.48;
+      stroke-dashoffset: 545.72;
+      transition: stroke-dashoffset 0.5s ease;
+    }
+    .progress-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+    .progress-number {
+      font-size: 48px;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .progress-label {
+      font-size: 14px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .service-card {
+      background: var(--card-bg);
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-bottom: 16px;
+    }
+    .service-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .service-card.live {
+      border-color: #00d084;
+      background: rgba(0,208,132,0.05);
+    }
+    .service-card.building {
+      border-color: #ffaf00;
+      background: rgba(255,175,0,0.05);
+    }
+    .service-card.idea {
+      border-color: var(--border);
+      background: var(--card-bg);
+    }
+    .service-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+    .service-name {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .service-status {
+      font-size: 11px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .service-status.live {
+      background: #00d084;
+      color: var(--bg);
+    }
+    .service-status.building {
+      background: #ffaf00;
+      color: var(--bg);
+    }
+    .service-status.idea {
+      background: var(--border);
+      color: var(--text);
+    }
+    .service-meta {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .service-meta-item {
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .service-meta-item strong {
+      color: var(--text);
+    }
+    .service-description {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .filter-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+      justify-content: center;
+    }
+    .filter-tag {
+      padding: 8px 16px;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 13px;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .filter-tag:hover, .filter-tag.active {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(0,255,136,0.05);
+    }
+    .search-box {
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto 30px;
+      padding: 14px 20px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 15px;
+    }
+    .search-box:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+  </style>
+</head>
+<body class="page-microservices">
+  <!-- Sticky Header -->
+  <header class="site-header" role="banner">
+    <div class="header-inner container">
+      <nav class="header-actions" aria-label="Primary">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="infrastructure.html" class="nav-link">Infrastructure</a>
+        <a href="microservices.html" class="nav-link">Microservices</a>
+        <a href="resume.html" class="nav-link">Resume</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <a href="about.html" class="nav-link">About</a>
+        <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="drawer">Menu</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Full-screen Drawer -->
+  <div id="drawer" class="drawer" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="drawer-overlay" data-close></div>
+    <div class="drawer-panel" role="document">
+      <div class="drawer-header">
+        <h2>Menu</h2>
+        <button class="drawer-close" aria-label="Close menu" data-close>✕</button>
+      </div>
+
+      <div class="drawer-list" id="drawerList">
+        <div class="group" data-group="navigation">
+          <a href="index.html" class="item" data-tags="navigation" tabindex="0">
+            <span class="left">Home</span>
+          </a>
+          <a href="infrastructure.html" class="item" data-tags="navigation" tabindex="0">
+            <span class="left">Infrastructure</span>
+          </a>
+          <a href="microservices.html" class="item" data-tags="navigation" tabindex="0">
+            <span class="left">Microservices</span>
+          </a>
+          <a href="resume.html" class="item" data-tags="navigation" tabindex="0">
+            <span class="left">Resume</span>
+          </a>
+          <a href="contact.html" class="item" data-tags="navigation" tabindex="0">
+            <span class="left">Contact</span>
+          </a>
+          <a href="about.html" class="item" data-tags="navigation" tabindex="0">
+            <span class="left">About</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tech Modal -->
+  <div id="techModal" class="tech-modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="tech-modal-overlay" data-close-modal></div>
+    <div class="tech-modal-content" role="document">
+      <div class="tech-modal-header">
+        <h2 id="techModalTitle">Service</h2>
+        <button class="tech-modal-close" aria-label="Close" data-close-modal>✕</button>
+      </div>
+      <div id="techModalBody">
+        <!-- Content will be inserted here by JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Page Header -->
+    <section class="hero">
+      <div class="hero-main">
+        <div style="width: 100%;">
+          <p class="stack-title" style="margin-bottom:6px;">Microservices</p>
+          <h1 class="hero-name">The journey to 57 deliberately over-engineered services</h1>
+          <p class="tagline">2 down, 55 to go. Each service is independently deployable, containerized, and has its own purpose—even if that purpose is questionable.</p>
+          <div style="margin-top:10px;">
+            <span class="stack-hint">2 live services · 10 planned · 45 more ideas · All containerized</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Progress Overview -->
+    <div class="stack-section">
+      <div class="stack-header">
+        <span class="stack-title">PROGRESS OVERVIEW</span>
+      </div>
+      <div class="info-box" style="text-align: center;">
+        <div class="progress-circle">
+          <svg width="200" height="200">
+            <circle class="bg" cx="100" cy="100" r="90"></circle>
+            <circle class="progress" cx="100" cy="100" r="90"></circle>
+          </svg>
+          <div class="progress-text">
+            <div class="progress-number">2/57</div>
+            <div class="progress-label">Services</div>
+          </div>
+        </div>
+        <h3>The 57-Service Philosophy</h3>
+        <p style="max-width: 700px; margin: 0 auto; color: var(--muted); line-height: 1.8;">
+          Why 57 microservices? It's an arbitrary number that represents commitment over logic. This project isn't about building the minimum viable product—it's about exploring how far microservice architecture can go, learning DevOps patterns at scale, and having fun with deliberate over-engineering.
+        </p>
+        <p style="max-width: 700px; margin: 12px auto 0; color: var(--muted); line-height: 1.8;">
+          Each service is independently deployable, containerized, and has its own purpose (even if that purpose is questionable). Some are core infrastructure, others are experimental, and a few exist purely for the challenge.
+        </p>
+      </div>
+    </div>
+
+    <!-- Filters & Search -->
+    <div class="stack-section">
+      <div class="stack-header">
+        <span class="stack-title">SERVICE CATALOG</span>
+      </div>
+
+      <input type="search" id="serviceSearch" class="search-box" placeholder="Search services by name, stack, or purpose...">
+
+      <div class="filter-tags">
+        <button class="filter-tag active" data-filter="all">All Services</button>
+        <button class="filter-tag" data-filter="live">Live</button>
+        <button class="filter-tag" data-filter="building">Building</button>
+        <button class="filter-tag" data-filter="idea">Ideas</button>
+        <button class="filter-tag" data-filter="core">Core</button>
+        <button class="filter-tag" data-filter="utility">Utility</button>
+        <button class="filter-tag" data-filter="fun">Fun</button>
+      </div>
+    </div>
+
+    <!-- Live Services -->
+    <div class="stack-section" id="liveServices">
+      <div class="stack-header">
+        <span class="stack-title">LIVE SERVICES (2)</span>
+      </div>
+
+      <div class="service-card live" data-status="live" data-tags="core resume" data-search="resume api node mongodb json" data-api="resume-seed">
+        <div class="service-header">
+          <div class="service-name">Resume API</div>
+          <div class="service-status live">Live</div>
+        </div>
+        <div class="service-meta">
+          <div class="service-meta-item"><strong>Stack:</strong> Node.js + MongoDB</div>
+          <div class="service-meta-item"><strong>Endpoint:</strong> /api/resume</div>
+          <div class="service-meta-item"><strong>Repo:</strong> website/backend/resume-api/</div>
+        </div>
+        <div class="service-description">
+          RESTful API serving resume data from MongoDB. Automatically seeds database on startup and provides JSON-formatted resume information.
+        </div>
+      </div>
+
+      <div class="service-card live" data-status="live" data-tags="core utility infra-helper" data-search="gcp health api cloud run serverless terraform" data-api="gcp-health">
+        <div class="service-header">
+          <div class="service-name">GCP Health API</div>
+          <div class="service-status live">Live</div>
+        </div>
+        <div class="service-meta">
+          <div class="service-meta-item"><strong>Stack:</strong> Node.js on GCP Cloud Run</div>
+          <div class="service-meta-item"><strong>Endpoint:</strong> /api/health</div>
+          <div class="service-meta-item"><strong>Repo:</strong> website/backend/gcp-health-api/</div>
+        </div>
+        <div class="service-description">
+          Serverless health check API deployed on GCP Cloud Run. Demonstrates hybrid cloud architecture with rate limiting (50 req/hr per IP). Auto-scales from 0 to 3 instances.
+        </div>
+      </div>
+    </div>
+
+    <!-- Upcoming Services -->
+    <div class="stack-section" id="upcomingServices">
+      <div class="stack-header">
+        <span class="stack-title">UPCOMING SERVICES (55)</span>
+      </div>
+
+      <div class="service-card idea" data-status="idea" data-tags="utility metrics" data-search="metrics api prometheus monitoring observability">
+        <div class="service-header">
+          <div class="service-name">Metrics Aggregator API</div>
+          <div class="service-status idea">Idea</div>
+        </div>
+        <div class="service-meta">
+          <div class="service-meta-item"><strong>Stack:</strong> Go + Prometheus</div>
+          <div class="service-meta-item"><strong>Endpoint:</strong> /api/metrics</div>
+        </div>
+        <div class="service-description">
+          Collects and aggregates Prometheus metrics from all services. Provides unified endpoint for dashboard consumption and alerts.
+        </div>
+      </div>
+
+      <div class="service-card idea" data-status="idea" data-tags="utility auth" data-search="authentication auth jwt tokens security oauth">
+        <div class="service-header">
+          <div class="service-name">Auth Service</div>
+          <div class="service-status idea">Idea</div>
+        </div>
+        <div class="service-meta">
+          <div class="service-meta-item"><strong>Stack:</strong> Node.js + JWT</div>
+          <div class="service-meta-item"><strong>Endpoint:</strong> /api/auth</div>
+        </div>
+        <div class="service-description">
+          Centralized authentication and authorization. Issues JWT tokens, validates requests, manages sessions.
+        </div>
+      </div>
+
+      <div class="service-card idea" data-status="idea" data-tags="fun utility" data-search="screenshot capture puppeteer images pdf browser automation">
+        <div class="service-header">
+          <div class="service-name">Screenshot-as-a-Service</div>
+          <div class="service-status idea">Idea</div>
+        </div>
+        <div class="service-meta">
+          <div class="service-meta-item"><strong>Stack:</strong> Node.js + Puppeteer</div>
+          <div class="service-meta-item"><strong>Endpoint:</strong> /api/screenshot</div>
+        </div>
+        <div class="service-description">
+          Takes screenshots of URLs on demand. Supports full-page capture, PDF generation, and various viewport sizes. Because why not?
+        </div>
+      </div>
+
+      <div class="service-card idea" data-status="idea" data-tags="utility infra-helper" data-search="kubernetes k8s events monitoring cluster logs">
+        <div class="service-header">
+          <div class="service-name">K8s Events Mirror</div>
+          <div class="service-status idea">Idea</div>
+        </div>
+        <div class="service-meta">
+          <div class="service-meta-item"><strong>Stack:</strong> Python + Kubernetes Client</div>
+          <div class="service-meta-item"><strong>Endpoint:</strong> /api/k8s-events</div>
+        </div>
+        <div class="service-description">
+          Mirrors Kubernetes cluster events to an API endpoint. Provides real-time stream of pod restarts, deployments, scaling events, and failures.
+        </div>
+      </div>
+
+      <div class="service-card idea" data-status="idea" data-tags="utility" data-search="feature flags toggles configuration abtest experiments">
+        <div class="service-header">
+          <div class="service-name">Feature Flags API</div>
+          <div class="service-status idea">Idea</div>
+        </div>
+        <div class="service-meta">
+          <div class="service-meta-item"><strong>Stack:</strong> Node.js + Redis</div>
+          <div class="service-meta-item"><strong>Endpoint:</strong> /api/flags</div>
+        </div>
+        <div class="service-description">
+          Centralized feature flag management. Enables/disables features across services without deployments. Supports percentage rollouts and A/B testing.
+        </div>
+      </div>
+
+      <div class="service-card idea" data-status="idea" data-tags="fun" data-search="random quote quotes api inspiration motivational">
+        <div class="service-header">
+          <div class="service-name">Random DevOps Quote API</div>
+          <div class="service-status idea">Idea</div>
+        </div>
+        <div class="service-meta">
+          <div class="service-meta-item"><strong>Stack:</strong> Rust</div>
+          <div class="service-meta-item"><strong>Endpoint:</strong> /api/quote</div>
+        </div>
+        <div class="service-description">
+          Returns random DevOps-themed quotes and one-liners. An excuse to learn Rust and build the fastest quote API on the planet.
+        </div>
+      </div>
+
+      <div class="service-card idea" data-status="idea" data-tags="utility" data-search="git github commits repository activity webhook ci cd">
+        <div class="service-header">
+          <div class="service-name">Git Activity Tracker</div>
+          <div class="service-status idea">Idea</div>
+        </div>
+        <div class="service-meta">
+          <div class="service-meta-item"><strong>Stack:</strong> Node.js + GitHub API</div>
+          <div class="service-meta-item"><strong>Endpoint:</strong> /api/git-activity</div>
+        </div>
+        <div class="service-description">
+          Tracks and aggregates Git commits, PRs, and repository activity. Powers the live commit counter on the homepage.
+        </div>
+      </div>
+
+      <div class="service-card idea" data-status="idea" data-tags="utility infra-helper" data-search="deployment deploy history rollback releases versions">
+        <div class="service-header">
+          <div class="service-name">Deployment History API</div>
+          <div class="service-status idea">Idea</div>
+        </div>
+        <div class="service-meta">
+          <div class="service-meta-item"><strong>Stack:</strong> Go + PostgreSQL</div>
+          <div class="service-meta-item"><strong>Endpoint:</strong> /api/deployments</div>
+        </div>
+        <div class="service-description">
+          Records every deployment event across all services. Provides deployment timeline, rollback capabilities, and version history.
+        </div>
+      </div>
+
+      <div class="service-card idea" data-status="idea" data-tags="fun utility" data-search="url shortener redirect links tiny short qr code">
+        <div class="service-header">
+          <div class="service-name">URL Shortener</div>
+          <div class="service-status idea">Idea</div>
+        </div>
+        <div class="service-meta">
+          <div class="service-meta-item"><strong>Stack:</strong> Node.js + Redis</div>
+          <div class="service-meta-item"><strong>Endpoint:</strong> /s/{code}</div>
+        </div>
+        <div class="service-description">
+          Classic URL shortener with custom aliases, click tracking, and QR code generation. Every over-engineered site needs one.
+        </div>
+      </div>
+
+      <div class="service-card idea" data-status="idea" data-tags="utility metrics" data-search="cost money billing budget cloud gcp aws tracking">
+        <div class="service-header">
+          <div class="service-name">Cost Tracker API</div>
+          <div class="service-status idea">Idea</div>
+        </div>
+        <div class="service-meta">
+          <div class="service-meta-item"><strong>Stack:</strong> Python + GCP/AWS SDKs</div>
+          <div class="service-meta-item"><strong>Endpoint:</strong> /api/costs</div>
+        </div>
+        <div class="service-description">
+          Monitors cloud spending across GCP and AWS. Provides cost breakdown by service, alerts on budget thresholds, and spending trends.
+        </div>
+      </div>
+
+      <div class="info-box" style="text-align: center; margin-top: 30px;">
+        <h3>...and 45 more to come</h3>
+        <p style="color: var(--muted);">
+          Ideas include: Image Optimizer, PDF Generator, Email Service, Notification Hub, Cache Service, Rate Limiter, API Gateway v2, Webhook Proxy, Configuration Manager, Secret Rotator, and many more questionable but educational services.
+        </p>
+        <p style="color: var(--muted); margin-top: 12px;">
+          Follow the journey on <a href="https://github.com/johnhopedawa" target="_blank" rel="noopener" style="color: var(--accent);">GitHub</a> as services get built, deployed, and inevitably refactored.
+        </p>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>Coquitlam, BC</p>
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    const header = document.querySelector('.site-header');
+    const menuBtn = document.getElementById('menuBtn');
+    const drawer = document.getElementById('drawer');
+    const overlay = drawer.querySelector('.drawer-overlay');
+    const closeBtns = drawer.querySelectorAll('[data-close]');
+    const filterTags = document.querySelectorAll('.filter-tag');
+    const serviceCards = document.querySelectorAll('.service-card');
+    const searchBox = document.getElementById('serviceSearch');
+
+    // Sticky header auto-hide on scroll
+    let lastY = window.scrollY, ticking = false;
+    function onScroll(){
+      const y = window.scrollY, d = y - lastY;
+      if (Math.abs(d) > 8){
+        if (y > 80 && d > 0) header.classList.add('hidden');
+        else header.classList.remove('hidden');
+        lastY = y;
+      }
+      if (y < 10) header.classList.remove('hidden');
+      ticking = false;
+    }
+    window.addEventListener('scroll', ()=>{ if(!ticking){ requestAnimationFrame(onScroll); ticking = true; } }, {passive:true});
+
+    // Drawer open/close
+    function openDrawer(){
+      drawer.classList.add('open'); document.body.classList.add('no-scroll');
+      menuBtn.setAttribute('aria-expanded','true'); drawer.setAttribute('aria-hidden','false');
+    }
+    function closeDrawer(){
+      drawer.classList.remove('open'); document.body.classList.remove('no-scroll');
+      menuBtn.setAttribute('aria-expanded','false'); drawer.setAttribute('aria-hidden','true');
+      menuBtn.focus();
+    }
+    menuBtn.addEventListener('click', openDrawer);
+    overlay.addEventListener('click', closeDrawer);
+    closeBtns.forEach(b=>b.addEventListener('click', closeDrawer));
+
+    // Close drawer when clicking navigation links
+    document.querySelectorAll('.drawer .item[data-tags="navigation"]').forEach(link => {
+      link.addEventListener('click', () => {
+        closeDrawer();
+      });
+    });
+
+    document.addEventListener('keydown', (e)=>{
+      if (e.key === 'Escape' && drawer.classList.contains('open')) closeDrawer();
+      const key = e.key.toLowerCase();
+      if ((key === 'k' && (e.ctrlKey || e.metaKey)) || key === 'm'){
+        e.preventDefault();
+        drawer.classList.contains('open') ? closeDrawer() : openDrawer();
+      }
+    });
+
+    // Filter services
+    let currentFilter = 'all';
+    let currentSearch = '';
+
+    function filterServices() {
+      serviceCards.forEach(card => {
+        const status = card.dataset.status;
+        const tags = (card.dataset.tags || '').toLowerCase();
+        const search = (card.dataset.search || '').toLowerCase();
+
+        const matchesFilter = currentFilter === 'all' ||
+                            status === currentFilter ||
+                            tags.includes(currentFilter);
+        const matchesSearch = !currentSearch ||
+                             search.includes(currentSearch) ||
+                             card.textContent.toLowerCase().includes(currentSearch);
+
+        card.style.display = (matchesFilter && matchesSearch) ? '' : 'none';
+      });
+    }
+
+    filterTags.forEach(tag => {
+      tag.addEventListener('click', () => {
+        filterTags.forEach(t => t.classList.remove('active'));
+        tag.classList.add('active');
+        currentFilter = tag.dataset.filter;
+        filterServices();
+      });
+    });
+
+    searchBox.addEventListener('input', (e) => {
+      currentSearch = e.target.value.toLowerCase().trim();
+      filterServices();
+    });
+
+    // Tech Modal functionality
+    const techModal = document.getElementById('techModal');
+    const techModalTitle = document.getElementById('techModalTitle');
+    const techModalBody = document.getElementById('techModalBody');
+    const techModalCloseBtns = techModal.querySelectorAll('[data-close-modal]');
+
+    function openTechModal(apiKey){
+      const content = getTechContent(apiKey);
+      techModalTitle.textContent = content.title;
+      techModalBody.innerHTML = DOMPurify.sanitize(content.body);
+      techModal.classList.add('open');
+      document.body.classList.add('no-scroll');
+      techModal.setAttribute('aria-hidden','false');
+      const modalContent = techModal.querySelector('.tech-modal-content');
+      if(modalContent) modalContent.scrollTop = 0;
+    }
+
+    function closeTechModal(){
+      techModal.classList.remove('open');
+      document.body.classList.remove('no-scroll');
+      techModal.setAttribute('aria-hidden','true');
+    }
+
+    techModalCloseBtns.forEach(b=>b.addEventListener('click', closeTechModal));
+    document.addEventListener('keydown', (e)=>{
+      if (e.key === 'Escape' && techModal.classList.contains('open')) closeTechModal();
+    });
+
+    // Add click handlers to service cards with data-api attribute
+    document.querySelectorAll('.service-card[data-api]').forEach(card=>{
+      card.addEventListener('click', ()=>{
+        const api = card.dataset.api;
+        openTechModal(api);
+      });
+    });
+
+    // Tech content generator (reusing from index.html)
+    function getTechContent(tech){
+      const contents = {
+        'resume-seed': {
+          title: 'Resume API',
+          body: `
+            <div class="tech-modal-section">
+              <h3>Get Resume Data</h3>
+              <div class="resume-buttons">
+                <a href="resume.html" class="resume-btn-primary">Click Here for Formatted Resume</a>
+                <a href="/api/resume" target="_blank" class="resume-btn-secondary">JSON Format</a>
+              </div>
+            </div>
+            <div class="tech-modal-section">
+              <h3>What is the Resume API?</h3>
+              <p>A Node.js/Express API that automatically seeds resume data into MongoDB and serves it via RESTful endpoints. You can access my complete resume data programmatically in JSON format.</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>API Endpoint</h3>
+              <p><strong>GET /api/resume</strong></p>
+              <p>Returns the complete resume data in JSON format including personal info, skills, experience, and interests.</p>
+              <p><strong>Live endpoint:</strong></p>
+              <div class="tech-modal-code"><pre>curl https://johnhopedawa.com/api/resume</pre></div>
+            </div>
+            <div class="tech-modal-section">
+              <h3>How It Works</h3>
+              <p><strong>1. Container Startup:</strong> When the Node.js container starts, it runs seedData.js first</p>
+              <p><strong>2. Database Seeding:</strong> seedData.js connects to MongoDB, clears old data, and inserts fresh resume data</p>
+              <p><strong>3. API Server:</strong> After seeding completes, server.js starts the Express server on port 3000</p>
+              <p><strong>4. Data Serving:</strong> The /api/resume endpoint queries MongoDB and returns the resume as JSON</p>
+            </div>
+          `
+        },
+        'gcp-health': {
+          title: 'GCP Health API',
+          body: `
+            <div class="tech-modal-section">
+              <h3>Live API Endpoints</h3>
+              <div class="resume-buttons">
+                <a href="https://gcp-health-api-jpawjztt4a-uw.a.run.app" target="_blank" rel="noopener" class="resume-btn-primary">Visit GCP Health API</a>
+                <a href="/api/gcp-health" target="_blank" class="resume-btn-secondary">API Gateway Proxy</a>
+              </div>
+            </div>
+            <div class="tech-modal-section">
+              <h3>What is the GCP Health API?</h3>
+              <p>A serverless Node.js/Express API deployed on Google Cloud Run that demonstrates hybrid cloud architecture. This API is rate-limited (50 req/hr per IP) and auto-scales from 0 to 3 instances based on traffic.</p>
+            </div>
+            <div class="tech-modal-section">
+              <h3>API Endpoints</h3>
+              <p><strong>GET /</strong> - Visual dashboard with Terraform configuration details</p>
+              <p><strong>GET /api/health</strong> - JSON health check endpoint</p>
+              <div class="tech-modal-code"><pre>curl https://gcp-health-api-jpawjztt4a-uw.a.run.app/api/health</pre></div>
+            </div>
+            <div class="tech-modal-section">
+              <h3>Rate Limiting & Cost Control</h3>
+              <p><strong>Rate Limit:</strong> 50 requests per hour per IP address</p>
+              <p><strong>Implementation:</strong> express-rate-limit with proxy trust enabled</p>
+              <p><strong>Auto-Scaling:</strong> Scales to zero when idle (no cost)</p>
+              <p><strong>Cost Optimization:</strong> Pay only for actual request processing time</p>
+            </div>
+          `
+        }
+      };
+
+      return contents[tech] || {
+        title: 'Service',
+        body: '<div class="tech-modal-section"><p>Details coming soon...</p></div>'
+      };
+    }
+  })();
+  </script>
+</body>
+</html>

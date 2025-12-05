@@ -26,10 +26,13 @@ app.use('/api/resume', createProxyMiddleware({
 
 // Route: GCP Health API (Cloud Run)
 app.use('/api/gcp-health', createProxyMiddleware({
-  target: process.env.GCP_HEALTH_API_URL || 'https://gcp-health-api-your-hash-uw.a.run.app',
+  target: process.env.GCP_HEALTH_API_URL || 'https://gcp-health-api-jpawjztt4a-uw.a.run.app',
   changeOrigin: true,
   pathRewrite: {
     '^/api/gcp-health': '', // Remove /api/gcp-health prefix when forwarding
+  },
+  onProxyReq: (proxyReq, req, res) => {
+    console.log(`[GCP Health Proxy] ${req.method} ${req.url} → ${process.env.GCP_HEALTH_API_URL || 'https://gcp-health-api-jpawjztt4a-uw.a.run.app'}${req.url.replace('/api/gcp-health', '')}`);
   },
   onError: (err, req, res) => {
     console.error('GCP Health API proxy error:', err);
