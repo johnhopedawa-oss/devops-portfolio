@@ -344,7 +344,7 @@
       ch.classList.add('chip-active');
       applyFilter();
     }));
-    search.addEventListener('input', applyFilter);
+    if(search) search.addEventListener('input', applyFilter);
     function applyFilter(){
       const active = drawer.querySelector('.chip.chip-active')?.dataset.filter || 'all';
       const q = (search.value || '').toLowerCase().trim();
