@@ -530,19 +530,24 @@ body{
 }
 @media (max-width:600px){
   .cluster-diagram{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
+    max-width:100%;
   }
-  .diagram-workers{
-    display:flex;
-    flex-direction:column;
-    gap:12px;
+  .infra-node{
+    padding:10px 6px;
+    max-width:100px;
   }
-  .diagram-workers::before,
-  .master-line,
-  .worker-line{
-    display:none;
+  .infra-node img{
+    width:32px;
+    height:32px;
+    object-fit:contain;
+  }
+  .node-label{
+    font-size:9px;
+    line-height:1.2;
+  }
+  .node-role{
+    font-size:8px;
+    padding:2px 6px;
   }
 }
 
@@ -560,6 +565,9 @@ body{
   align-items:center;
   justify-content:center;
   gap:8px;
+  width:100%;
+  max-width:140px;
+  margin:0 auto;
 }
 .infra-node:hover{
   transform:translateY(-3px);
@@ -597,6 +605,7 @@ body{
   padding:3px 10px;
   border-radius:999px;
   color:var(--bg);
+  white-space:nowrap;
 }
 .node-role.master{
   background:#00d084;

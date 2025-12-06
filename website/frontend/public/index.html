@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>John Hope Dawa — DevOps Engineer</title>
   <link rel="icon" type="image/svg+xml" href="assets/images/jd-logo.svg" />
-  <link rel="stylesheet" href="styles.css?v=11.81" />
+  <link rel="stylesheet" href="styles.css?v=11.86" />
   <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.11/dist/purify.min.js"></script>
 </head>
 <body>
@@ -395,6 +395,10 @@
     function closeTechModal(){
       techModal.classList.remove('open');
       document.body.classList.remove('no-scroll');
+      // Blur any focused element inside the modal before hiding
+      if(document.activeElement && techModal.contains(document.activeElement)){
+        document.activeElement.blur();
+      }
       techModal.setAttribute('aria-hidden','true');
     }
 
